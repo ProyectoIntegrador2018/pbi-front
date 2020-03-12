@@ -1,12 +1,12 @@
 # Nombre del proyecto
 
-Application to be awesome
+Sistema de Inscripciones PBI (Sitio Web)
 
 ## Table of contents
 
 * [Client Details](#client-details)
 * [Environment URLS](#environment-urls)
-* [Da Team](#team)
+* [Team members](#team-members)
 * [Technology Stack](#technology-stack)
 * [Management resources](#management-resources)
 * [Setup the project](#setup-the-project)
@@ -20,192 +20,120 @@ Application to be awesome
 
 ### Client Details
 
-| Name               | Email             | Role |
-| ------------------ | ----------------- | ---- |
-| Nombre del cliente | prueba@prueba.com | CEO  |
+| Name                         | Email             | Role                                                                               |
+| ---------------------------- | ----------------- | ---------------------------------------------------------------------------------- |
+| Patricia Magdalena González  | patygzz@tec.mx    | Directora en Dirección de Bienestar y Consejería ITESM Campus Mty.                 |
+| Sandra Nohemí Ramos Hernández| snrh@tec.mx       | Especialista de bienestar en Dirección de Bienestar y Consejería ITESM Campus Mty. | 
 
 
 ### Environment URLS
 
-* **Production** - [TBD](TBD)
+* **Production** - [TBD](inscripcionespbitec.firebaseapp.com)
 * **Development** - [TBD](TBD)
 
-### Da team
+### Team members
 
-| Name           | Email             | Role        |
-| -------------- | ----------------- | ----------- |
-| Nombre miembro | prueba@prueba.com | Development |
-| Nombre miembro | prueba@prueba.com | Development |
-| Nombre miembro | prueba@prueba.com | Development |
+Version 1.0
+| Name                              | Email                   | Role                              |
+| --------------------------------- | ----------------------- | --------------------------------- |
+|Lizzie Marielle Guajardo Mozo      | lizziemgm97@gmail.com   | Desarrollador                     |
+|Alejandro González Valles          | alex.glz.v@hotmail.com  | Desarrollador                     |
+|David Rojas Ortíz                  | dav_rojas@hotmail.com   | Desarrollador                     |
+|Jonathan Melesio Cárdenas García   | jonathancrd@outlook.com | Desarrollador                     |
+|Lizzie Montserrat Cañamar Carrillo | lizziecanamar@gmail.com | Desarrollador                     |
+
+Version 2.0
+| Name                              | Email                   | Role                              |
+| --------------------------------- | ----------------------- | --------------------------------- |
+|Lizzie Marielle Guajardo Mozo      | lizziemgm97@gmail.com   | Producto Owner Proxy              |
+|Alejandro González Valles          | alex.glz.v@hotmail.com  | Administrador de Configuración    |
+|David Rojas Ortíz                  | dav_rojas@hotmail.com   | SCRUM Master                      |
+|Lizzie Montserrat Cañamar Carrillo | lizziecanamar@gmail.com | Administrador de Proyecto         |
 
 ### Technology Stack
-| Technology    | Version      |
-| ------------- | -------------|
-| Technology 1  | ##.##.##     |
-| Technology 2  | ##.##.##     |
-| Technology 3  | ##.##.##     |
+| Technology      | Version      |
+| --------------- | ------------ |
+| Vue             | 2.6.11       |
+| Vue/CLI         | 4.2.3        |
+| Vuetify         | 2.0.5        |
+| Axios           | 0.19.2       |
+| Exceljs         | 3.4.0        |
+| sweetalert2     | 9.3.13       |
+| moment-timezone | 0.5.27       |
 
 ### Management tools
 
-You should ask for access to this tools if you don't have it already:
+You should ask for access to this to        ols if you don't have it already:
 
-* [Github repo](https://github.com/)
+* [Github repo](https://github.com/ProyectoIntegrador2018/pbi-front)
 * [Backlog]()
-* [Heroku](https://crowdfront-staging.herokuapp.com/)
-* [Documentation](https://drive.com)
+* [Heroku](https://inscripcionespbi-backend.herokuapp.com) (API)
+* [Documentation](https://drive.google.com/drive/u/2/folders/1HxzSv_UqLsO1F6e_aaYM3d7Hoos28w91)
 
 ## Development
 
 ### Setup the project
 
-You'll definitely want to install [`plis`](https://github.com/IcaliaLabs/plis), as in this case will
-let you bring up the containers needed for development. This is done by running the command
-`plis start`, which will start up the services in the `development` group (i.e. rails
-and sidekiq), along with their dependencies (posgres, redis, etc).
+In order to correctly set up [`pbi-front`](https://github.com/ProyectoIntegrador2018/pbi-front) you will need to follow
+some steps, after running this proyect we recommend installing the `vue-cli` usign:
+
+```bash
+$ npm install -g @vue/cli
+```
 
 After installing please you can follow this simple steps:
 
 1. Clone this repository into your local machine
 
 ```bash
-$ git clone git@github.com:IcaliaLabs/crowdfront.git
+$ git clone git@github.com:ProyectoIntegrador2018/pbi-front.git
 ```
-
-2. Fire up a terminal and run:
-
-```bash
-$ plis run web bash
-```
-
-3. Inside the container you need to migrate the database:
-
-```
-% rails db:migrate
-```
+2. To completely setup this proyect is needed to setup the back-end ([pbi-api](https://github.com/ProyectoIntegrador2018/pbi-api)).
 
 ### Running the stack for Development
 
 1. Fire up a terminal and run: 
 
 ```
-plis start
+npm run serve
 ```
 
-That command will lift every service crowdfront needs, such as the `rails server`, `postgres`, and `redis`.
+That command will creat a local instance of the site at `localhost:8080` 
 
 
-It may take a while before you see anything, you can follow the logs of the containers with:
-
-```
-$ docker-compose logs
-```
+It may take a while before you see anything. 
 
 Once you see an output like this:
 
 ```
-web_1   | => Booting Puma
-web_1   | => Rails 5.1.3 application starting in development on http://0.0.0.0:3000
-web_1   | => Run `rails server -h` for more startup options
-web_1   | => Ctrl-C to shutdown server
-web_1   | Listening on 0.0.0.0:3000, CTRL+C to stop
+ DONE  Compiled successfully in 29925ms                                                                         20:45:57
+
+
+  App running at:
+  - Local:   http://localhost:8080/
+  - Network: http://10.22.172.22:8080/
+
+  Note that the development build is not optimized.
+  To create a production build, run npm run build.
 ```
 
 This means the project is up and running.
 
-### Stop the project
 
-In order to stop crowdfront as a whole you can run:
+2. To completely setup this proyect is needed to setup the back-end ([pbi-api](https://github.com/ProyectoIntegrador2018/pbi-api)).
 
-```
-% plis stop
-```
+### Building the proyect for production
 
-This will stop every container, but if you need to stop one in particular, you can specify it like:
+1. Fire up a tarminal, go to the proyect directory and run:
 
-```
-% plis stop web
+```bash
+$ npm run build
 ```
 
-`web` is the service name located on the `docker-compose.yml` file, there you can see the services name and stop each of them if you need to.
+This command will generate a folder named `dist` inside the proyect folder. This folder contains a bundle of a Single-Page application.
 
-### Restoring the database
+Check out deployment instructions at https://cli.vuejs.org/guide/deployment.html
 
-You probably won't be working with a blank database, so once you are able to run crowdfront you can restore the database, to do it, first stop all services:
+<!-- ### Firebase deployment -->
 
-```
-% plis stop
-```
-
-Then just lift up the `db` service:
-
-```
-% plis start db
-```
-
-The next step is to login to the database container:
-
-```
-% docker exec -ti crowdfront_db_1 bash
-```
-
-This will open up a bash session in to the database container.
-
-Up to this point we just need to download a database dump and copy under `crowdfront/backups/`, this directory is mounted on the container, so you will be able to restore it with:
-
-```
-root@a3f695b39869:/# bin/restoredb crowdfront_dev db/backups/<databaseDump>
-```
-
-If you want to see how this script works, you can find it under `bin/restoredb`
-
-Once the script finishes its execution you can just exit the session from the container and lift the other services:
-
-```
-% plis start
-```
-
-### Debugging
-
-We know you love to use `debugger`, and who doesn't, and with Docker is a bit tricky, but don't worry, we have you covered.
-
-Just run this line at the terminal and you can start debugging like a pro:
-
-```
-% plis attach web
-```
-
-This will display the logs from the rails app, as well as give you access to stop the execution on the debugging point as you would expect.
-
-**Take note that if you kill this process you will kill the web service, and you will probably need to lift it up again.**
-
-### Running specs
-
-To run specs, you can do:
-
-```
-$ plis run test rspec
-```
-
-Or for a specific file:
-
-```
-$ plis run test rspec spec/models/user_spec.rb
-```
-
-### Checking code for potential issues
-
-To run specs, you can do:
-
-```
-$ plis run web reek
-```
-
-```
-$ plis run web rubocop
-```
-
-```
-$ plis run web scss_lint
-```
-
-Or any other linter you have.
+<!-- This proyect Front-end is hosted using Google Firebase Hosting -->

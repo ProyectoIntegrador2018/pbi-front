@@ -17,7 +17,7 @@
             </v-btn>
           </v-col>
         </div>
-
+          <MyLocker></MyLocker>
         <template v-if="show">
           <WomenMaleLocker></WomenMaleLocker>
         </template>
@@ -46,10 +46,12 @@
 const helper = require("../helper.js");
 import axios from "axios";
 import WomenMaleLocker from "../components/WomenMaleLocker.vue";
+import MyLocker from "../components/MyLocker.vue"
 
 export default {
   components: {
-    WomenMaleLocker
+    WomenMaleLocker,
+    MyLocker
   },
   data: () => ({
     Periodo: "",

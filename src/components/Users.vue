@@ -133,10 +133,10 @@
       </template>
     </v-data-table>
     <v-container fluid my-2>
-      <h2 align="center" class="display-1">Descargar Lista Alumnos</h2>
+      <h2 align="center" class="display-1">Lista de Alumnos en Periodo Actual</h2>
         <v-col align="center" cols="12">
           <v-btn color="secondary">
-            <download-excel :data="users" :fields="users_fields" name="Usuarios.xls">Lista Usuarios</download-excel>
+            <download-excel :data="usersInPeriod" :fields="users_fields" name="UsuariosPeriodo.xls">Descargar Lista</download-excel>
           </v-btn>
         </v-col>
     </v-container>
@@ -180,6 +180,7 @@ export default {
       Clases: "nameClasesInscritas"
     },
     users: [],
+    usersInPeriod: [],
     clasesPeriodo: [],
     dictClasesPeriodo: {},
     editedIndex: -1,
@@ -390,6 +391,9 @@ export default {
           }
         });
         user.inscritas = classCounter + " clase(s)";
+        if(classCounter>0){
+          this.usersInPeriod.push(user)
+        }
       });
     },
     historialMedico(item) {

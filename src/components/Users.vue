@@ -5,9 +5,7 @@
       :headers="headers"
       :items="users"
       :search="search"
-      :footer-props="{
-    'items-per-page-options': [15, 50, 100, 500]
-  }"
+      :footer-props="{'items-per-page-options': [15, 50, 100, 500]}"
       :items-per-page="15"
       sort-by="name"
       class="elevation-1"
@@ -17,6 +15,23 @@
         <v-toolbar flat color="white">
           <v-toolbar-title>Usuarios Registrados</v-toolbar-title>
           <v-spacer></v-spacer>
+
+        <v-container fluid my-5 px-md-12>
+        <h2 align="center" class="display-1">Descargar Lista Inscritos</h2>
+        <v-row>
+        <v-col align="center" cols="12">
+        <v-btn color="secondary">
+          <download-excel
+            :data="users"
+            :fields="users_fields"
+            name="Usuarios.xls"
+          >Lista Usuarios</download-excel>
+        </v-btn>
+        </v-col>
+        </v-row>
+      </v-container>
+
+
           <v-text-field
             v-model="search"
             append-icon="search"
@@ -162,7 +177,19 @@ export default {
       { text: "Inscritas en el periodo", value: "inscritas" },
       { text: "", value: "action", sortable: false }
     ],
+    users_fields: {
+      "Nombre": "name",
+      "Apellido": "surename",
+      "Nomina": "nomina",
+      "Correo": "email",
+      "Rectoría": "rectoria",
+      "Departamento": "departamento",
+      "Num de clases inscritas en el periodo": "inscritas",
+      "Clases": "nameClasesInscritas"
+    },
     users: [],
+    clasesPeriodo: [],
+    dictClasesPeriodo: {},
     editedIndex: -1,
     editedItem: {
       id: "",
@@ -224,7 +251,7 @@ export default {
     }
   },
   created() {
-    this.getUsers();
+    this.getClasesPeriodo();
   },
   mounted() {},
   methods: {
@@ -327,7 +354,8 @@ export default {
           
           response.data.forEach(user => {
             user.inscritas = "-"
-            //No se desplegará en la lista de usuario a sí mismo (Tu propia cuenta no aparecerá para que no puedas borrarla por erorr)
+            user.nameClasesInscritas = []
+            //No se desplegará en la lista de usuario a sí mismo (Tu propia cuenta no aparecerá para que no puedas borrarla por error)
             if(user.email != 'pbi.mty.servicios@gmail.com')
               this.users.push(user);
           });
@@ -339,23 +367,45 @@ export default {
           this.$swal("Error", Error.response.data.error, "error");
         });
     },
-    cargarInscritasEnPeriodo(){
+    getClasesPeriodo(){
       const URL = helper.baseURL + "/terms/current";
       axios
         .get(URL)
         .then(response => {
-            var clasesDePeriodo = response.data.classes
-            this.users.forEach(user=>{
-              var classCounter = 0;
-              user.classes.forEach(clase=>{
-                if(clasesDePeriodo.includes(clase)){
-                  classCounter+=1
-                }
-              })
-              user.inscritas = classCounter + " clase(s)"
+            var coursesIDs = response.data.classes
+            coursesIDs.forEach(clase=>{
+              this.nombresClasesPeriodo(clase)
             })
+            this.clasesPeriodo = coursesIDs
+            this.getUsers();
+            
         })
-
+        .catch((Error) => {
+          this.$swal("Error", Error.response.data.error, "error");
+        });
+    },
+    nombresClasesPeriodo(courseID){
+      const URL = helper.baseURL + "/classes/" + courseID
+      axios
+        .get(URL)
+        .then(response => {
+          this.dictClasesPeriodo[courseID] = response.data.name
+        })
+        .catch((Error) => {
+          this.$swal("Error", Error.response.data.error, "error");
+        });
+    },
+    cargarInscritasEnPeriodo(){
+      this.users.forEach(user=>{
+        var classCounter = 0;
+        user.classes.forEach(clase=>{
+          if(this.clasesPeriodo.includes(clase)){
+            classCounter+=1
+            user.nameClasesInscritas.push(this.dictClasesPeriodo[clase])
+          }
+        })
+        user.inscritas = classCounter + " clase(s)"
+      })
     },
     historialMedico(item) {
       var route = '/admin/medicalrecord/';

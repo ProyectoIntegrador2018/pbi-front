@@ -16,22 +16,6 @@
           <v-toolbar-title>Usuarios Registrados</v-toolbar-title>
           <v-spacer></v-spacer>
 
-        <v-container fluid my-5 px-md-12>
-        <h2 align="center" class="display-1">Descargar Lista Inscritos</h2>
-        <v-row>
-        <v-col align="center" cols="12">
-        <v-btn color="secondary">
-          <download-excel
-            :data="users"
-            :fields="users_fields"
-            name="Usuarios.xls"
-          >Lista Usuarios</download-excel>
-        </v-btn>
-        </v-col>
-        </v-row>
-      </v-container>
-
-
           <v-text-field
             v-model="search"
             append-icon="search"
@@ -91,7 +75,7 @@
                           label="-Selecciona Rectoría-"
                           v-model="editedItem.rectoria"
                           required
-                      :rules="[v => !!v || 'Rectoría obligatoria']"
+                          :rules="[v => !!v || 'Rectoría obligatoria']"
                         ></v-select>
                       </v-col>
                       <template v-if="editedItem.rectoria === 'Otro'">
@@ -148,6 +132,14 @@
         <v-btn color="primary" :disabled="true">No hay</v-btn>
       </template>
     </v-data-table>
+    <v-container fluid my-2>
+      <h2 align="center" class="display-1">Descargar Lista Alumnos</h2>
+        <v-col align="center" cols="12">
+          <v-btn color="secondary">
+            <download-excel :data="users" :fields="users_fields" name="Usuarios.xls">Lista Usuarios</download-excel>
+          </v-btn>
+        </v-col>
+    </v-container>
   </div>
 </template>
 
@@ -178,14 +170,14 @@ export default {
       { text: "", value: "action", sortable: false }
     ],
     users_fields: {
-      "Nombre": "name",
-      "Apellido": "surename",
-      "Nomina": "nomina",
-      "Correo": "email",
-      "Rectoría": "rectoria",
-      "Departamento": "departamento",
+      Nombre: "name",
+      Apellido: "surename",
+      Nomina: "nomina",
+      Correo: "email",
+      Rectoría: "rectoria",
+      Departamento: "departamento",
       "Num de clases inscritas en el periodo": "inscritas",
-      "Clases": "nameClasesInscritas"
+      Clases: "nameClasesInscritas"
     },
     users: [],
     clasesPeriodo: [],
@@ -230,7 +222,7 @@ export default {
       "Otro"
     ],
     userAccount: {
-      id:"",
+      id: "",
       email: "",
       name: "",
       surname: "",
@@ -267,17 +259,14 @@ export default {
     editItem(item) {
       this.editedIndex = this.users.indexOf(item);
 
-      var rectoriaToShow
-      var otraRectoriaToShow = ""
-      
-      if(this.rectoriasLista.includes(item.rectoria))
-      {
-        rectoriaToShow = item.rectoria
-      }
-      else if(item.rectoria)
-      {
-        rectoriaToShow = "Otro"
-        otraRectoriaToShow = item.rectoria
+      var rectoriaToShow;
+      var otraRectoriaToShow = "";
+
+      if (this.rectoriasLista.includes(item.rectoria)) {
+        rectoriaToShow = item.rectoria;
+      } else if (item.rectoria) {
+        rectoriaToShow = "Otro";
+        otraRectoriaToShow = item.rectoria;
       }
 
       const json_item = {
@@ -306,16 +295,12 @@ export default {
       if (this.$refs.form.validate()) {
         //const token = this.$route.query.token;
 
-        var rectoriaToUpload
-        
-        if(this.editedItem.rectoria === "Otro")
-        {
-            rectoriaToUpload = this.editedItem.otraRectoria
-            
-        }
-        else
-        {
-            rectoriaToUpload = this.editedItem.rectoria
+        var rectoriaToUpload;
+
+        if (this.editedItem.rectoria === "Otro") {
+          rectoriaToUpload = this.editedItem.otraRectoria;
+        } else {
+          rectoriaToUpload = this.editedItem.rectoria;
         }
 
         const json_user = {
@@ -326,7 +311,8 @@ export default {
         };
 
         const URL = helper.baseURL + "/admin/users/" + this.editedItem.id;
-        axios.defaults.headers.common['Authorization'] = "Bearer "+ localStorage.getItem("token");
+        axios.defaults.headers.common["Authorization"] =
+          "Bearer " + localStorage.getItem("token");
         axios
           .put(URL, json_user)
           .then(response => {
@@ -347,78 +333,76 @@ export default {
     getUsers() {
       this.users = [];
       const URL = helper.baseURL + "/users/";
-      axios.defaults.headers.common['Authorization'] = "Bearer "+ localStorage.getItem("token");
+      axios.defaults.headers.common["Authorization"] =
+        "Bearer " + localStorage.getItem("token");
       axios
         .get(URL)
         .then(response => {
-          
           response.data.forEach(user => {
-            user.inscritas = "-"
-            user.nameClasesInscritas = []
+            user.inscritas = "-";
+            user.nameClasesInscritas = [];
             //No se desplegará en la lista de usuario a sí mismo (Tu propia cuenta no aparecerá para que no puedas borrarla por error)
-            if(user.email != 'pbi.mty.servicios@gmail.com')
+            if (user.email != "pbi.mty.servicios@gmail.com")
               this.users.push(user);
           });
 
           this.cargarInscritasEnPeriodo();
         })
-        .catch((Error) => {
-          window.console.log(Error)
+        .catch(Error => {
+          window.console.log(Error);
           this.$swal("Error", Error.response.data.error, "error");
         });
     },
-    getClasesPeriodo(){
+    getClasesPeriodo() {
       const URL = helper.baseURL + "/terms/current";
       axios
         .get(URL)
         .then(response => {
-            var coursesIDs = response.data.classes
-            coursesIDs.forEach(clase=>{
-              this.nombresClasesPeriodo(clase)
-            })
-            this.clasesPeriodo = coursesIDs
-            this.getUsers();
-            
+          var coursesIDs = response.data.classes;
+          coursesIDs.forEach(clase => {
+            this.nombresClasesPeriodo(clase);
+          });
+          this.clasesPeriodo = coursesIDs;
+          this.getUsers();
         })
-        .catch((Error) => {
+        .catch(Error => {
           this.$swal("Error", Error.response.data.error, "error");
         });
     },
-    nombresClasesPeriodo(courseID){
-      const URL = helper.baseURL + "/classes/" + courseID
+    nombresClasesPeriodo(courseID) {
+      const URL = helper.baseURL + "/classes/" + courseID;
       axios
         .get(URL)
         .then(response => {
-          this.dictClasesPeriodo[courseID] = response.data.name
+          this.dictClasesPeriodo[courseID] = response.data.name;
         })
-        .catch((Error) => {
+        .catch(Error => {
           this.$swal("Error", Error.response.data.error, "error");
         });
     },
-    cargarInscritasEnPeriodo(){
-      this.users.forEach(user=>{
+    cargarInscritasEnPeriodo() {
+      this.users.forEach(user => {
         var classCounter = 0;
-        user.classes.forEach(clase=>{
-          if(this.clasesPeriodo.includes(clase)){
-            classCounter+=1
-            user.nameClasesInscritas.push(this.dictClasesPeriodo[clase])
+        user.classes.forEach(clase => {
+          if (this.clasesPeriodo.includes(clase)) {
+            classCounter += 1;
+            user.nameClasesInscritas.push(this.dictClasesPeriodo[clase]);
           }
-        })
-        user.inscritas = classCounter + " clase(s)"
-      })
+        });
+        user.inscritas = classCounter + " clase(s)";
+      });
     },
     historialMedico(item) {
-      var route = '/admin/medicalrecord/';
-      route = route.concat(item._id)
-      window.open(route,"_self");
-
+      var route = "/admin/medicalrecord/";
+      route = route.concat(item._id);
+      window.open(route, "_self");
     },
     clasesInscritas(item) {
-      var route = '/userdetails/';
-      route = route.concat(item._id)
-      window.open(route,"_self");
+      var route = "/userdetails/";
+      route = route.concat(item._id);
+      window.open(route, "_self");
     },
-    deleteUser(item){
+    deleteUser(item) {
       this.$swal({
         title: "¿Estas seguro?",
         text: "No se puede recuperar una vez eliminado",
@@ -431,7 +415,8 @@ export default {
       }).then(result => {
         if (result.value) {
           const URL = helper.baseURL + "/users/" + item._id;
-          axios.defaults.headers.common['Authorization'] = "Bearer "+ localStorage.getItem("token");
+          axios.defaults.headers.common["Authorization"] =
+            "Bearer " + localStorage.getItem("token");
           axios
             .delete(URL)
             .then(() => {

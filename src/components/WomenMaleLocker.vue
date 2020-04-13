@@ -13,12 +13,15 @@
                                         color="#FFAE5C"                                   
                                         @click="maleLockerReservation"
                                         >
-                                        <v-row>
+                                        <v-row>                                            
                                             <v-col cols="12" justify="center" align="center" class="py-0">
-                                            <v-icon align="center" size="200" color="white">mdi-human-male</v-icon>
+                                              <v-icon align="center" size="200" color="white">mdi-human-male</v-icon>
                                             </v-col>
                                             <v-col cols="12" class="px-0 py-0">
-                                            <h2 class="btn" color= "white" align="center">Vestidores Hombres</h2>
+                                              <h2 class="btn" color= "white" align="center">Vestidores Hombres</h2>
+                                            </v-col>
+                                            <v-col cols="12" class="px-0 py-0">
+                                              <h2 class="btn" color= "white" align="center">Costo: ${{femaleLockerCost}}}</h2>
                                             </v-col>
                                         </v-row>
                                         </v-card>
@@ -31,11 +34,15 @@
                                         @click="femaleLockerReservation"
                                         >
                                         <v-row>
+                                            
                                             <v-col cols="12" justify="center" align="center" class="py-0">
-                                            <v-icon align="center" size="200" color="white">mdi-human-female</v-icon>
+                                              <v-icon align="center" size="200" color="white">mdi-human-female</v-icon>
                                             </v-col>
                                             <v-col cols="12" class="px-0 py-0">
-                                            <h2 class="btn" color= "white" align="center">Vestidores Mujeres</h2>
+                                              <h2 class="btn" color= "white" align="center">Vestidores Mujeres</h2>
+                                            </v-col>
+                                            <v-col cols="12" class="px-0 py-0">
+                                              <h2 class="btn" color= "white" align="center">Costo: ${{femaleLockerCost}}}</h2>
                                             </v-col>
                                         </v-row>
                                         </v-card>
@@ -50,23 +57,52 @@
   </div>
 </template>
 <script>
-//import axios from "axios";
+import axios from "axios";
+const helper = require("../helper.js");
 
 export default {
   data: () => ({
-    
+    femaleDresserId: "" ,
+    maleDresserId: "",
+    maleLockerCost: "",
+    femaleLockerCost: ""
   }),
   created() {
-    
+    axios.defaults.headers.common["Authorization"] =
+    "Bearer " + localStorage.getItem("token");
+    const URLH = helper.baseURL + "/lockers/search" + `?campus=Monterrey&dresser=Hombres`;
+
+    axios
+      .get(URLH)
+      .then(response => {
+        this.maleDresserId = response.data._id
+        this.maleLockerCost = response.data.cost 
+      })
+      .catch(error => {
+      this.$swal("Error", error.response.data.error, "error");
+      });
+
+    const URLM = helper.baseURL + "/lockers/search" + `?campus=Monterrey&dresser=Mujeres`;
+
+    axios
+      .get(URLM)
+      .then(response => {
+        this.femaleDresserId = response.data._id
+        this.femaleLockerCost = response.data.cost
+      })
+      .catch(error => {
+      this.$swal("Error", error.response.data.error, "error");
+      });
+
   },
   mounted() {},
   methods: {  
-    maleLockerReservation() 
+    lockerReservation(lockersId,vestidor) 
     {
         this.$swal({
           title:"Confirmar Reservación",
           type:"info",
-          html:"¿Desea Reservar un casillero en el Vestidor de HOMBRES?",
+          html:`¿Desea Reservar un casillero en el Vestidor de ${vestidor}?`,
           showCancelButton:true,
           cancelButtonText:"Cancelar",
           confirmButtonText:"Confirmar"}).
@@ -74,33 +110,34 @@ export default {
           {
             if(result.value)
             {
-              this.$swal({
-              title:"Casillero Reservado",
-              type:"success",
-              html:"Ha reservado un casillero en el Vestidor de HOMBRES con éxito, su número de casillero es: ##"
-              })
-            }            
+              axios.defaults.headers.common["Authorization"] =
+              "Bearer " + localStorage.getItem("token");
+              const URL = helper.baseURL + "/lockers/assign/" + lockersId;
+
+              axios
+                .put(URL)
+                .then(response => {
+                  this.$swal({
+                  title:"Casillero Reservado",
+                  type:"success",
+                  html:`Ha reservado un casillero en el Vestidor de ${vestidor} con éxito, su número de casillero es: ` + response.data.number
+                  }).then(()=>{
+                    location.reload()
+                  })
+                })
+                .catch(error => {
+                this.$swal("Error", error.response.data.error, "error");
+                //AQUI SE PREGUNTA SI QUIERE ENTRAR A LA LISTA DE ESPERA 
+                });      
+            }   
+            
           })
     },
-    
+    maleLockerReservation() {
+      this.lockerReservation(this.maleDresserId,'HOMBRES')
+    },
     femaleLockerReservation() {
-        this.$swal({
-          title:"Confirmar Reservación",
-          type:"info",
-          html:"¿Desea Reservar un casillero en el Vestidor de MUJERES?",
-          showCancelButton:true,
-          cancelButtonText:"Cancelar",
-          confirmButtonText:"Confirmar"}).
-          then((result)=>
-          {
-            if(result.value){
-              this.$swal({
-              title:"Casillero Reservado",
-              type:"success",
-              html:"Ha reservado un casillero en el Vestidor de MUJERES con éxito, su número de casillero es: ##"
-              })
-            }            
-          })
+      this.lockerReservation(this.femaleDresserId,'MUJERES')
     }
    
   }

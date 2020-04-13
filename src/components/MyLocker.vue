@@ -11,14 +11,17 @@
                         </v-col>
 
                         <v-col cols="10" md="6">
-                            <v-card class="d-flex align-center" color="#FFAE5C">
+                            <v-card class="d-flex align-center" :color="this.lockerColor">
                                 <v-row>
                                     <v-col cols="12" justify="center" align="center" class="py-0">
-                                        <h1 class="btn" color= "white" align="center"># 15</h1>
-                                        <v-icon align="center" size="200" color="white">mdi-human-male</v-icon>
+                                        <h1 class="btn" color= "white" align="center">#{{this.lockerNumber}}</h1>
+                                        <v-icon align="center" size="200" color="white">{{this.lockerIcon}}</v-icon>
                                     </v-col>
                                     <v-col cols="12" class="px-0 py-0">
-                                        <h2 class="btn" color= "white" align="center">Vestidores Hombres</h2>
+                                        <h2 class="btn" color= "white" align="center">Vestidores {{this.lockerDresser}}</h2>
+                                    </v-col>
+                                    <v-col cols="12" class="px-0 py-0">
+                                        <h2 class="btn" color= "white" align="center">Costo ${{this.lockerCost}}</h2>
                                     </v-col>
                                 </v-row>
                             </v-card>
@@ -42,14 +45,20 @@
   </div>
 </template>
 <script>
-//import axios from "axios";
+import axios from "axios";
+const helper = require("../helper.js");
 
 export default {
   data: () => ({
+      lockerNumber: "",
+      lockerDresser: "",
+      lockerCost: "",
+      lockerColor: "#000000",
+      lockerIcon: "mdi-cancel"
     
   }),
   created() {
-    
+    this.getUserInfo();
   },
   mounted() {},
   methods: {  
@@ -62,18 +71,64 @@ export default {
         showCancelButton:true,
         cancelButtonText:"No",
         confirmButtonText:"Cancelar Reservación",
-        confirmButtonColor: "red"}).
+        confirmButtonColor: "#EF5350"}).
           then((result)=>
           {
             if(result.value)
             {
-              this.$swal({
-              title:"Reservación Cancelada",
-              type:"success"
-              })
+              //ESTE ENDPOINT NO SE HA HECHO
+              const URL = helper.baseURL + "/lockers/user";
+              axios
+              .delete(URL)
+              .then((response)=>{
+                this.$swal({
+                    title:"Reservación Cancelada",
+                    type:"success"
+                }).then(()=>{
+                    window.location.reload()
+                })
+              }) .catch(error => {
+                this.$swal("Error", error.response.data.error, "error");                 
+              });     
             }            
           })
-    }
+    },
+    getUserInfo() {
+      axios.defaults.headers.common["Authorization"] =
+        "Bearer " + localStorage.getItem("token");
+      const URL = helper.baseURL + "/user/";
+      axios
+        .get(URL)
+        .then(response => {
+          if (response.data.locker){
+              this.getLockerInfo(response.data.locker);
+          }
+        })
+        .catch(error => {
+          this.$swal("Error", error.response.data.error, "error");
+        });
+    },
+    getLockerInfo(idLocker){
+        const URL = helper.baseURL + "/lockers/locker/"+idLocker
+        axios
+        .get(URL)
+        .then((response)=>{
+            this.lockerNumber = response.data.number
+            this.lockerDresser = response.data.dresser
+            this.lockerCost = response.data.cost
+            if(this.lockerDresser == "Mujeres")
+            {
+                this.lockerColor = "#5DC178" //Color Verde
+                this.lockerIcon = "mdi-human-female"
+            }else{
+                this.lockerColor = "#FFAE5C" //Color Naranja
+                this.lockerIcon = "mdi-human-male"
+            }
+        })
+        .catch(error => {
+          this.$swal("Error", error.response.data.error, "error");
+        });
+    } 
    
   }
 };

@@ -17,19 +17,23 @@
             </v-btn>
           </v-col>
         </div>
+
+        <template v-if="hasLocker">
           <MyLocker></MyLocker>
-        <template v-if="show">
-          <WomenMaleLocker></WomenMaleLocker>
         </template>
-        <template v-else>        
-          <v-alert
-            outlined
-            type="warning"
-            prominent
-            border="left"
-          >Inscripciones a casilleros permitidas del {{momentDatetime(this.start, 'LL')}} a las 12:00 AM al {{momentDatetime(this.close, 'LL')}} hasta las 11:59 PM.</v-alert>
-          <!-- Luego borrar esto cuando ya este implementado el periodo de casilleros -->
-          <WomenMaleLocker></WomenMaleLocker>
+        
+        <template v-else>
+            <template v-if="showInscription">
+              <WomenMaleLocker></WomenMaleLocker>
+            </template>
+            <template v-else>        
+              <v-alert
+                outlined
+                type="warning"
+                prominent
+                border="left"
+              >Inscripciones a casilleros permitidas del {{momentDatetime(this.start, 'LL')}} a las 12:00 AM al {{momentDatetime(this.close, 'LL')}} hasta las 11:59 PM.</v-alert>
+            </template>
         </template>
 
         <p class="py-5 px-5 my-0 caption">
@@ -57,7 +61,8 @@ export default {
     Periodo: "",
     medRecord: "",
     periodID:"",
-    show: false,
+    showInscription: false, //Es true si la fecha actual se encuentra dentro del periodo de inscripción de casilleros
+    hasLocker: false, //Verifica si el usuario ya tiene un locker asignado
     start: "",
     close: ""
   }),
@@ -103,6 +108,10 @@ export default {
             var route = "/mymedicalrecord/";
             window.open(route, "_self");
           }
+
+          if (response.data.locker){
+            this.hasLocker = true;
+          }
         })
         .catch(error => {
           this.$swal("Error", error.response.data.error, "error");
@@ -116,7 +125,7 @@ export default {
       axios
         .get(URL)
         .then(response => {
-          this.show = response.data.status
+          this.showInscription = response.data.status
         })
         .catch(() => {
           this.$swal("Error", "No se pudo cargar periodo", "error");

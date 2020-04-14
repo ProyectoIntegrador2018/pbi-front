@@ -18,22 +18,40 @@
           </v-col>
         </div>
 
-        <template v-if="hasLocker">
-          <MyLocker></MyLocker>
+        <template v-if="hasntLoaded">    
+          <v-row justify="center">    
+            <v-col cols="5" md="6">
+              <v-card class="d-flex align-center" color="#BDBDBD">
+                  <v-row>
+                      <v-col cols="12" class="px-0 py-0">
+                          <h3 class="btn" color= "white" align="center">Cargando</h3>
+                      </v-col>
+                      <v-col cols="12" justify="center" align="center" class="py-0">
+                            <v-icon align="center" c size="70" color="white" class="mdi-spin">mdi-loading</v-icon>                                        
+                      </v-col>                                    
+                  </v-row>
+              </v-card>
+            </v-col>
+          </v-row>
         </template>
         
-        <template v-else>
-            <template v-if="showInscription">
-              <WomenMaleLocker></WomenMaleLocker>
-            </template>
-            <template v-else>        
-              <v-alert
-                outlined
-                type="warning"
-                prominent
-                border="left"
-              >Inscripciones a casilleros permitidas del {{momentDatetime(this.start, 'LL')}} a las 12:00 AM al {{momentDatetime(this.close, 'LL')}} hasta las 11:59 PM.</v-alert>
-            </template>
+        <template v-else>        
+          <template v-if="hasLocker">
+            <MyLocker></MyLocker>
+          </template>          
+          <template v-else>
+              <template v-if="showInscription">
+                <WomenMaleLocker></WomenMaleLocker>
+              </template>
+              <template v-else>        
+                <v-alert
+                  outlined
+                  type="warning"
+                  prominent
+                  border="left"
+                >Inscripciones a casilleros permitidas del {{momentDatetime(this.start, 'LL')}} a las 12:00 AM al {{momentDatetime(this.close, 'LL')}} hasta las 11:59 PM.</v-alert>
+              </template>
+          </template>
         </template>
 
         <p class="py-5 px-5 my-0 caption">
@@ -63,6 +81,7 @@ export default {
     periodID:"",
     showInscription: false, //Es true si la fecha actual se encuentra dentro del periodo de inscripción de casilleros
     hasLocker: false, //Verifica si el usuario ya tiene un locker asignado
+    hasntLoaded: true, //Verifica si el sistema ya comprobó si el usuario tiene un locker o no
     start: "",
     close: ""
   }),
@@ -112,6 +131,7 @@ export default {
           if (response.data.locker){
             this.hasLocker = true;
           }
+         
         })
         .catch(error => {
           this.$swal("Error", error.response.data.error, "error");
@@ -126,6 +146,7 @@ export default {
         .get(URL)
         .then(response => {
           this.showInscription = response.data.status
+           this.hasntLoaded = false;
         })
         .catch(() => {
           this.$swal("Error", "No se pudo cargar periodo", "error");

@@ -15,7 +15,12 @@
                                 <v-row>
                                     <v-col cols="12" justify="center" align="center" class="py-0">
                                         <h1 class="btn" color= "white" align="center">#{{this.lockerNumber}}</h1>
-                                        <v-icon align="center" size="200" color="white">{{this.lockerIcon}}</v-icon>
+                                        <template v-if="lockerIcon == 'mdi-loading'">
+                                          <v-icon align="center" c size="200" color="white" class="mdi-spin">{{this.lockerIcon}}</v-icon>
+                                        </template>                                        
+                                        <template v-else>
+                                          <v-icon align="center" c size="200" color="white">{{this.lockerIcon}}</v-icon>
+                                        </template>
                                     </v-col>
                                     <v-col cols="12" class="px-0 py-0">
                                         <h2 class="btn" color= "white" align="center">Vestidores {{this.lockerDresser}}</h2>
@@ -50,12 +55,12 @@ const helper = require("../helper.js");
 
 export default {
   data: () => ({
-      lockerNumber: "",
-      lockerDresser: "",
-      lockerCost: "",
-      lockerColor: "#000000",
-      lockerIcon: "mdi-cancel"
-    
+      lockerNumber: "Cargano",
+      lockerDresser: "Cargando",
+      lockerCost: "Cargando",
+      lockerColor: "#BDBDBD",
+      lockerIcon: "mdi-loading",
+      idLocker: ""
   }),
   created() {
     this.getUserInfo();
@@ -76,10 +81,9 @@ export default {
           {
             if(result.value)
             {
-              //ESTE ENDPOINT NO SE HA HECHO
-              const URL = helper.baseURL + "/lockers/user";
+              const URL = helper.baseURL + "/lockers/unassign/"+this.idLocker;
               axios
-              .delete(URL)
+              .put(URL)
               .then((response)=>{
                 this.$swal({
                     title:"Reservación Cancelada",
@@ -109,6 +113,7 @@ export default {
         });
     },
     getLockerInfo(idLocker){
+        this.idLocker = idLocker
         const URL = helper.baseURL + "/lockers/locker/"+idLocker
         axios
         .get(URL)

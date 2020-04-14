@@ -21,7 +21,7 @@
                                               <h2 class="btn" color= "white" align="center">Vestidores Hombres</h2>
                                             </v-col>
                                             <v-col cols="12" class="px-0 py-0">
-                                              <h2 class="btn" color= "white" align="center">Costo: ${{femaleLockerCost}}}</h2>
+                                              <h2 class="btn" color= "white" align="center">Costo: ${{maleLockerCost}}</h2>
                                             </v-col>
                                         </v-row>
                                         </v-card>
@@ -42,7 +42,7 @@
                                               <h2 class="btn" color= "white" align="center">Vestidores Mujeres</h2>
                                             </v-col>
                                             <v-col cols="12" class="px-0 py-0">
-                                              <h2 class="btn" color= "white" align="center">Costo: ${{femaleLockerCost}}}</h2>
+                                              <h2 class="btn" color= "white" align="center">Costo: ${{femaleLockerCost}}</h2>
                                             </v-col>
                                         </v-row>
                                         </v-card>
@@ -64,8 +64,8 @@ export default {
   data: () => ({
     femaleDresserId: "" ,
     maleDresserId: "",
-    maleLockerCost: "",
-    femaleLockerCost: ""
+    maleLockerCost: "Cargando",
+    femaleLockerCost: "Cargando"
   }),
   created() {
     axios.defaults.headers.common["Authorization"] =

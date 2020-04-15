@@ -36,6 +36,8 @@
                           required
                         ></v-text-field>
                       </v-col>
+                    </v-row>
+                    <v-row>
                       <v-col cols="6">
                         <v-menu
                           ref="menu"
@@ -71,13 +73,13 @@
                               color="primary"
                               @click="$refs.menu.save(editedItem.startInscriptions),dateRange(
                                 editedItem.startInscriptions,
-                                editedItem.closeInscriptions)"
+                                editedItem.closeInscriptions,'term')"
                             >OK</v-btn>
                           </v-date-picker>
                         </v-menu>
                         <p class="pl-8">Desde las 12:00 AM</p>
                       </v-col>
-                      
+
                       <v-col cols="6">
                         <v-menu
                           ref="menu2"
@@ -113,20 +115,118 @@
                               color="primary"
                               @click="$refs.menu2.save(editedItem.closeInscriptions),dateRange(
                                 editedItem.startInscriptions,
-                                editedItem.closeInscriptions)"
+                                editedItem.closeInscriptions,'term')"
                             >OK</v-btn>
                           </v-date-picker>
                         </v-menu>
                         <p class="pl-8">Hasta las 11:59 PM</p>
                       </v-col>
                       <v-col>
-                      <span
-                        class="red--text"
-                        v-if="errored"
-                        align="center"
-                      >La fecha de cierre debe ser después que la de inicio</span>
+                        <span
+                          class="red--text"
+                          v-if="errored"
+                          align="center"
+                        >La fecha de cierre debe ser después que la de inicio</span>
+                      </v-col>
+                      <!-- <v-col cols="12"> 
+                        <input type="checkbox" id="checkbox" v-model="checked">
+                        <label for="checkbox"> Se requieren casilleros para el período</label>
+                      </v-col v-if="checked"> -->
+                    </v-row>
+                    <template >
+                    <v-row>
+                      <v-col cols="6">
+                        <v-menu
+                          ref="menuRsvpLocker"
+                          v-model="menuRsvpLocker"
+                          :close-on-content-click="false"
+                          :return-value.sync="editedItem.startLockerReservations"
+                          transition="scale-transition"
+                          offset-y
+                          min-width="290px"
+                        >
+                          <template v-slot:activator="{ on }">
+                            <v-text-field
+                              v-model="editedItem.startLockerReservations"
+                              required
+                              :rules="startRules"
+                              label="Inicio inscripciones"
+                              prepend-icon="event"
+                              readonly
+                              v-on="on"
+                            ></v-text-field>
+                          </template>
+                          <v-date-picker
+                            v-model="editedItem.startLockerReservations"
+                            no-title
+                            scrollable
+                            locale="es"
+                            @change="errored_lockers=false"
+                          >
+                            <div class="flex-grow-1"></div>
+                            <v-btn text color="primary" @click="menuRsvpLocker= false">Cancel</v-btn>
+                            <v-btn
+                              text
+                              color="primary"
+                              @click="$refs.menuRsvpLocker.save(editedItem.startLockerReservations),dateRange(
+                                editedItem.startLockerReservations,
+                                editedItem.closeLockerReservations,'lockers')"
+                            >OK</v-btn>
+                          </v-date-picker>
+                        </v-menu>
+                        <p class="pl-8">Desde las 12:00 AM</p>
+                      </v-col>
+
+                      <v-col cols="6">
+                        <v-menu
+                          ref="menuRsvpLockerEnd"
+                          v-model="menuRsvpLockerEnd"
+                          :close-on-content-click="false"
+                          :return-value.sync="editedItem.closeLockerReservations"
+                          transition="scale-transition"
+                          offset-y
+                          min-width="290px"
+                        >
+                          <template v-slot:activator="{ on }">
+                            <v-text-field
+                              v-model="editedItem.closeLockerReservations"
+                              required
+                              :rules="endRules"
+                              label="Cierre inscripciones"
+                              prepend-icon="event"
+                              readonly
+                              v-on="on"
+                            ></v-text-field>
+                          </template>
+                          <v-date-picker
+                            v-model="editedItem.closeLockerReservations"
+                            no-title
+                            scrollable
+                            locale="es"
+                            @change="errored_lockers=false"
+                          >
+                            <div class="flex-grow-1"></div>
+                            <v-btn text color="primary" @click="menuRsvpLockerEnd= false">Cancel</v-btn>
+                            <v-btn
+                              text
+                              color="primary"
+                              @click="$refs.menuRsvpLockerEnd.save(editedItem.closeLockerReservations),dateRange(
+                                editedItem.startLockerReservations,
+                                editedItem.closeLockerReservations,'lockers')"
+                            >OK</v-btn>
+                          </v-date-picker>
+                        </v-menu>
+                        <p class="pl-8">Hasta las 11:59 PM</p>
+                      </v-col>
+                      <v-col>
+                        <span
+                          class="red--text"
+                          v-if="errored_lockers"
+                          align="center"
+                        >La fecha de cierre debe ser después que la de inicio</span>
                       </v-col>
                     </v-row>
+                    </template>
                   </v-container>
                 </v-form>
               </v-card-text>
@@ -141,8 +241,14 @@
         </v-toolbar>
       </template>
       <template v-slot:item.name="{ item }">
-        {{item.name}} 
-        <v-chip small class="ma-2" color="green" text-color="white" v-if="item.flagCurrent==true">Activo</v-chip>
+        {{item.name}}
+        <v-chip
+          small
+          class="ma-2"
+          color="green"
+          text-color="white"
+          v-if="item.flagCurrent==true"
+        >Activo</v-chip>
       </template>
 
       <template v-slot:item.startInscriptions="{ item }">
@@ -151,11 +257,28 @@
       <template v-slot:item.closeInscriptions="{ item }">
         <td>{{momentDatetime(item.closeInscriptions, 'LL')}}</td>
       </template>
+      <template v-slot:item.startLockerReservations="{ item }">
+        <td>{{momentDatetime(item.startLockerReservations, 'LL')}}</td>
+      </template>
+      <template v-slot:item.closeLockerReservations="{ item }">
+        <td>{{momentDatetime(item.closeLockerReservations, 'LL')}}</td>
+      </template>
       <template v-slot:item.action="{ item }">
         <v-tooltip top>
           <template v-slot:activator="{ on }">
-            <v-icon medium class="mr-2" color="green" v-if="item.flagCurrent==true">mdi-toggle-switch</v-icon>
-            <v-icon medium class="mr-2" v-on="on" @click="confirmSetActive(item)" v-else>mdi-toggle-switch-off</v-icon>
+            <v-icon
+              medium
+              class="mr-2"
+              color="green"
+              v-if="item.flagCurrent==true"
+            >mdi-toggle-switch</v-icon>
+            <v-icon
+              medium
+              class="mr-2"
+              v-on="on"
+              @click="confirmSetActive(item)"
+              v-else
+            >mdi-toggle-switch-off</v-icon>
           </template>
           <span>Activar periodo</span>
         </v-tooltip>
@@ -167,7 +290,14 @@
         </v-tooltip>
         <v-tooltip top>
           <template v-slot:activator="{ on }">
-            <v-icon small class="mr-2" v-on="on" @click="deleteItem(item)" color="red darken-4" :disabled="item.flagCurrent">delete</v-icon>
+            <v-icon
+              small
+              class="mr-2"
+              v-on="on"
+              @click="deleteItem(item)"
+              color="red darken-4"
+              :disabled="item.flagCurrent"
+            >delete</v-icon>
           </template>
           <span>Borrar</span>
         </v-tooltip>
@@ -186,10 +316,13 @@ import axios from "axios";
 export default {
   data: () => ({
     errored: false,
+    errored_lockers: false,
     dialog: false,
     valid: true,
     menu: false,
     menu2: false,
+    menuRsvpLocker: false,
+    menuRsvpLockerEnd: false,
     yearRules: [
       v => !!v || "Año requerido",
       v => /^\d+$/.test(v) || "Debe ser número",
@@ -202,7 +335,9 @@ export default {
       { text: "Año", value: "year" },
       { text: "Inicio inscripciones", value: "startInscriptions" },
       { text: "Cierre inscripciones", value: "closeInscriptions" },
-      { text: "", value: "action", sortable: false },
+      { text: "Inicio reservación Lockers", value: "startLockerReservations" },
+      { text: "Cierre reservación Lockers", value: "closeLockerReservations" },
+      { text: "", value: "action", sortable: false }
     ],
     terms: [],
     errors: "",
@@ -211,13 +346,17 @@ export default {
       name: "",
       year: "",
       startInscriptions: "",
-      closeInscriptions: ""
+      closeInscriptions: "",
+      startLockerReservations: "",
+      closeLockerReservations: ""
     },
     defaultItem: {
       name: "",
       year: "",
       startInscriptions: "",
-      closeInscriptions: ""
+      closeInscriptions: "",
+      startLockerReservations: "",
+      closeLockerReservations: ""
     }
   }),
   computed: {
@@ -237,19 +376,24 @@ export default {
     momentDatetime(datetime, datetime_format) {
       return this.$moment.utc(datetime).format(datetime_format);
     },
-    dateRange(dateA, dateB) {
+    dateRange(dateA, dateB, error) {
       if (dateA == "" || dateB == "") {
         return null;
       }
       if (dateB > dateA) {
         return true;
       } else {
-        this.errored = true;
+        if (error == 'lockers'){
+          this.errored_lockers = true
+        }
+        else{
+          this.errored = true
+        }
         return false;
       }
     },
-    confirmSetActive(item){
-        this.$swal({
+    confirmSetActive(item) {
+      this.$swal({
         title: "¿Estas seguro?",
         text: "Esto cambiará al periodo actual como el activo",
         type: "warning",
@@ -263,22 +407,21 @@ export default {
           this.setAsActive(item._id);
         }
       });
-
     },
-    setAsActive(id){
-      const URL = helper.baseURL + "/terms/current/"+id;
+    setAsActive(id) {
+      const URL = helper.baseURL + "/terms/current/" + id;
       axios.defaults.headers.common["Authorization"] =
         "Bearer " + localStorage.getItem("token");
 
       axios
         .put(URL)
-        .then(()=>{
+        .then(() => {
           this.$swal("Actualizado", "Periodo activo", "success");
           this.getTerms();
         })
-        .catch(()=>{
+        .catch(() => {
           this.$swal("Error", "No se modifico", "error");
-        })
+        });
     },
     editItem(item) {
       this.editedIndex = this.terms.indexOf(item);
@@ -289,6 +432,12 @@ export default {
           .toISOString()
           .substr(0, 10),
         closeInscriptions: this.$moment(item.closeInscriptions)
+          .toISOString()
+          .substr(0, 10),
+        startLockerReservations: this.$moment(item.startLockerReservations)
+          .toISOString()
+          .substr(0, 10),
+        closeLockerReservations: this.$moment(item.closeLockerReservations)
           .toISOString()
           .substr(0, 10)
       };
@@ -315,6 +464,7 @@ export default {
       this.valid = true;
       this.dialog = false;
       this.errored = false;
+      this.errored_lockers = false;
       this.editedItem = Object.assign({}, this.defaultItem);
       this.editedIndex = -1;
       this.$refs.form.resetValidation();
@@ -324,7 +474,11 @@ export default {
         this.$refs.form.validate() &&
         this.dateRange(
           this.editedItem.startInscriptions,
-          this.editedItem.closeInscriptions
+          this.editedItem.closeInscriptions,'term'
+        ) &&
+        this.dateRange(
+          this.editedItem.startLockerReservations,
+          this.editedItem.closeLockerReservations,'lockers'
         )
       ) {
         this.snackbar = true;
@@ -332,8 +486,14 @@ export default {
           name: this.editedItem.name,
           year: parseInt(this.editedItem.year),
           startInscriptions: this.editedItem.startInscriptions,
-          closeInscriptions: this.editedItem.closeInscriptions+"T23:59:59.000Z"
+          closeInscriptions:
+            this.editedItem.closeInscriptions + "T23:59:59.000Z",
+          startLockerReservations: this.editedItem.startLockerReservations,
+          closeLockerReservations:
+            this.editedItem.closeLockerReservations + "T23:59:59.000Z"
+
         };
+        
         if (this.editedIndex > -1) {
           //Edit term
           this.updateTerm(this.terms[this.editedIndex]._id, json_term);

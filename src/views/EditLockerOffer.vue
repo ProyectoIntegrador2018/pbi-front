@@ -98,17 +98,24 @@ export default {
         isError: false,
         femaleDresser: {
           cost:"",
-          count:""
+          count:"",
+          originalCount: "",
+          originalCost: ""
+
         },  
         maleDresser: {
           cost:"",
-          count:""
+          count:"",
+          originalCount: "",
+          originalCost: "",
+          id: "",
         },      
         errorMsg:{
           femaleCost:"",
           femaleAmount:"",
           maleCost:"",
-          maleAmount:""
+          maleAmount:"",
+          id: ""
         },
       }
     },
@@ -193,7 +200,7 @@ export default {
         }
     },        
     saveLockerInfo()
-      {
+    {        
         this.isError = false
         this.validateFemaleCost()
         this.validateMaleCost()
@@ -202,39 +209,133 @@ export default {
         if(this.isError){
           return
         }
-
-        //Falta el endpoint para modificar costos
-
-        const URL = helper.baseURL + "/lockers/";
-        axios.defaults.headers.common['Authorization'] = "Bearer "+ localStorage.getItem("token");
-        axios
-        .post(URL,
+        
+        if(this.femaleDresser.count > this.femaleDresser.originalCount)
         {
+          //Se agregan casilleros
+          const URL = helper.baseURL + "/lockers/add/" + this.femaleDresser.id;
+          axios.defaults.headers.common['Authorization'] = "Bearer "+ localStorage.getItem("token");
+          axios
+          .put(URL,
+          {
             campus:"Monterrey",
             dresser:"Mujeres",
-            count:this.femaleDresser.count,
-            cost:this.femaleDresser.cost
-        })
-        .then(response => {
-            axios
-            .post(URL,
-            {
-                campus:"Monterrey",
-                dresser:"Hombres",
-                count:this.maleDresser.count,
-                cost:this.maleDresser.cost
-            })
-            .then(response => {
-                this.$swal("Oferta de Casilleros Actualizada","Se ha actualizado la oferta de casilleros","success")
-                .then((_) => {
-                    window.open("/lockers","_self")
-                })
-            })                  
-        }).catch(error =>{
+            add:this.femaleDresser.count - this.femaleDresser.originalCount
+          })    
+          .then((response)=>{
+              this.$swal("Casilleros creados", `Se han agregado ${this.femaleDresser.count - this.femaleDresser.originalCount} casilleros nuevos en el vestidor de Mujeres`, "success");  
+              this.femaleDresser.originalCount = this.femaleDresser.count 
+         })      
+          .catch(error =>{
             this.$swal("Error",error.response.data.error,"error")
-        })
+          })
+        }
+        else if(this.femaleDresser.count < this.femaleDresser.originalCount)
+        {
+            //Se restan casilleros
+            const URL = helper.baseURL + "/lockers/remove/" + this.femaleDresser.id;
+            axios.defaults.headers.common['Authorization'] = "Bearer "+ localStorage.getItem("token");
+            axios
+            .put(URL,
+            {
+              campus:"Monterrey",
+              dresser:"Mujeres",
+              substract:this.femaleDresser.originalCount - this.femaleDresser.count
+            })
+            .then((response)=>{
+                this.$swal("Casilleros eliminados", `Se han eliminado ${this.femaleDresser.originalCount - this.femaleDresser.count} casilleros del vestidor de Mujeres`, "success");  
+                this.femaleDresser.originalCount = this.femaleDresser.count 
+            })
+            .catch(error =>{
+              this.$swal("Error",error.response.data.error,"error")
+            });           
+        }
+        else if(this.femaleDresser.originalCount == 0 && this.femaleDresser.count > 0)
+        {
+          //Se crean nuevo casilleros
+          const URL = helper.baseURL + "/lockers/";
+          axios
+          .post(URL,{
+            campus:"Monterrey",
+            dresser:"Mujeres",
+            count:this.femaleDresser.count
+          })
+          .then((response)=>{
+              this.$swal("Casilleros creados", `Se han creado ${this.femaleDresser.count} casilleros nuevos en el vestidor de Mujeres`, "success");  
+              this.femaleDresser.originalCount = this.femaleDresser.count 
+          })
+        }
 
-      },
+        if(this.maleDresser.originalCount == this.maleDresser.count && this.femaleDresser.originalCount == this.femaleDresser.count)
+        {
+          this.$swal("Sin cambios", "No hay cambios que realizar", "success");  
+        }
+
+        this.saveLockerInfoMale();
+
+    },
+    saveLockerInfoMale()
+    {
+       //CASILLEROS HOMBRES
+        if(this.maleDresser.count > this.maleDresser.originalCount)
+        {
+          window.console.log("Entre 1")
+          //Se agregan casilleros
+          const URL = helper.baseURL + "/lockers/add/" + this.maleDresser.id;
+          axios.defaults.headers.common['Authorization'] = "Bearer "+ localStorage.getItem("token");
+          axios
+          .put(URL,
+          {
+            campus:"Monterrey",
+            dresser:"Hombres",
+            add:this.maleDresser.count - this.maleDresser.originalCount
+          })    
+          .then((response)=>{
+            window.console.log("Entre")
+              this.$swal("Casilleros creados", `Se han agregado ${this.maleDresser.count - this.maleDresser.originalCount} casilleros nuevos en el vestidor de Hombres`, "success");  
+              this.maleDresser.originalCount = this.maleDresser.count 
+          })      
+          .catch(error =>{
+            this.$swal("Error",error.response.data.error,"error")
+          })
+        }
+        else if(this.maleDresser.count < this.maleDresser.originalCount) 
+        {
+            const URL = helper.baseURL + "/lockers/remove/" + this.maleDresser.id;
+            axios.defaults.headers.common['Authorization'] = "Bearer "+ localStorage.getItem("token");
+            axios
+            .put(URL,
+            {
+              campus:"Monterrey",
+              dresser:"Hombres",
+              substract:this.maleDresser.originalCount - this.maleDresser.count
+            })
+            .then((response)=>{
+                this.$swal("Casilleros eliminados", `Se han eliminado ${this.maleDresser.originalCount - this.maleDresser.count} casilleros nuevos en el vestidor de Hombres`, "success");  
+                this.maleDresser.originalCount = this.maleDresser.count 
+            })
+            .catch(error =>{
+              this.$swal("Error",error.response.data.error,"error")
+            });               
+                 
+        }
+        else if(this.maleDresser.originalCount == 0 && this.maleDresser.count > 0)
+        {
+          //Se crean nuevo casilleros
+          const URL = helper.baseURL + "/lockers/";
+          axios
+          .post(URL,{
+            campus:"Monterrey",
+            dresser:"Hombres",
+            count:this.maleDresser.count
+          })
+          .then((response)=>{
+              this.$swal("Casilleros creados", `Se han creado ${this.maleDresser.count} casilleros nuevos en el vestidor de Hombres`, "success");  
+              this.maleDresser.originalCount = this.maleDresser.count  
+          })
+        }
+
+    },
       getLockerInfo()
       {
         axios.defaults.headers.common["Authorization"] =
@@ -244,8 +345,15 @@ export default {
         axios
         .get(URLH)
         .then(response => {
+          window.console.log(response.data)
             this.maleDresser.cost = response.data.cost
             this.maleDresser.count = response.data.count
+            this.maleDresser.originalCount = response.data.count
+            this.maleDresser.originalCost = response.data.cost
+            this.maleDresser.id = response.data._id
+
+            window.console.log(this.maleDresser.id)
+
         })
         .catch(error => {
         this.$swal("Error", error.response.data.error, "error");
@@ -256,7 +364,10 @@ export default {
         .get(URLM)
         .then(response => {
             this.femaleDresser.cost = response.data.cost
-            this.femaleDresser.count = response.data.count
+            this.femaleDresser.count = response.data.count           
+            this.femaleDresser.originalCount = response.data.count
+            this.femaleDresser.originalCost = response.data.cost
+            this.femaleDresser.id = response.data._id
         })
         .catch(error => {
         this.$swal("Error", error.response.data.error, "error");

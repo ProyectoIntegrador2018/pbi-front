@@ -88,7 +88,13 @@ After installing please you can follow this simple steps:
 ```bash
 $ git clone git@github.com:ProyectoIntegrador2018/pbi-front.git
 ```
-2. To completely setup this proyect is needed to setup the back-end ([pbi-api](https://github.com/ProyectoIntegrador2018/pbi-api)).
+2. Fire up a terminal and run to download the node modules required:
+
+```bash
+$ npm install
+```
+
+3. To completely setup this proyect is needed to setup the back-end ([pbi-api](https://github.com/ProyectoIntegrador2018/pbi-api)).
 
 ### Running the stack for Development
 

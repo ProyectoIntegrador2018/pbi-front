@@ -21,7 +21,7 @@
     <v-item-group class="fill-height" fluid>
       <v-container class="fill-height">
         <v-row align="center" justify="center">
-          <v-col cols="12" md="4">            
+          <v-col cols="12" md="3">            
             <v-card class="d-flex align-center" color="light-green darken-1" height="200" @click="redirectToTerm()">
               <v-row>
                 <v-col cols="12" justify="center" align="center" class="py-0">
@@ -34,7 +34,7 @@
             </v-card>
           </v-col>
 
-          <v-col cols="12" md="4">
+          <v-col cols="12" md="3">
             <v-card
               class="d-flex align-center"
               color="orange"
@@ -52,7 +52,7 @@
             </v-card>
           </v-col>
 
-          <v-col cols="12" md="4">
+          <v-col cols="12" md="3">
             <v-card
               class="d-flex align-center"
               color="blue lighten-1"
@@ -69,6 +69,25 @@
               </v-row>
             </v-card>
           </v-col>
+
+          <v-col cols="12" md="3">
+            <v-card
+              class="d-flex align-center"
+              color="#84D0D0"
+              height="200"
+              @click="redirectLockers()"
+            >
+              <v-row>
+                <v-col cols="12" justify="center" align="center" class="py-0">
+                  <v-icon align="center" x-large color="white">mdi-locker-multiple</v-icon>
+                </v-col>
+                <v-col cols="12">
+                  <h2 class="btn" align="center">Administrar Casilleros</h2>
+                </v-col>
+              </v-row>
+            </v-card>
+          </v-col>
+
         </v-row>
       </v-container>
     </v-item-group>
@@ -91,6 +110,10 @@ export default {
     },
     redirectUsers() {
       var route = "/users/";
+      window.open(route, "_self");
+    },
+    redirectLockers(){
+      var route = "/lockers/";
       window.open(route, "_self");
     }
   }

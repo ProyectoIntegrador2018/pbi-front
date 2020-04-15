@@ -26,7 +26,8 @@
       :footer-props="{
      'items-per-page-options': [100, 500]
       }"
-      
+      :loading="isLoading"
+      loading-text="Cargando... Favor de esperar"
     >
       <template v-slot:top>
         <v-toolbar flat color="white">
@@ -267,6 +268,7 @@ import axios from "axios";
 
 export default {
   data: () => ({
+    isLoading: true,
     searchPages: "",
     errored: false,
     dialog: false,
@@ -432,6 +434,7 @@ export default {
         });
     },
     getCourses(value) {
+      this.isLoading = true
       if (value == undefined) {
         value = this.selectedTerm;
       } else {
@@ -446,6 +449,7 @@ export default {
             course.numEnrolled = course.enrolled.length
             this.courses.push(course)
           })
+          this.isLoading = false
         })
         .catch((error) => {
           this.$swal("Error", "No se pudieron cargar", "error");

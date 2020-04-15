@@ -40,7 +40,7 @@
         <v-row align="center" justify="center">
           <v-dialog v-model="dialog" max-width="500px">
             <template v-slot:activator="{ on }">
-              <v-btn color="primary" dark class="mb-2" large v-on="on">Inscribir alumno</v-btn>
+              <v-btn color="primary" dark class="mb-2" large v-on="on">Tomar Lista</v-btn>
             </template>
             <v-card>
               <v-card-title>
@@ -96,8 +96,8 @@
               <v-btn disabled color="primary">No hay usuarios</v-btn>
             </template>
             <template v-slot:item.action="{ item }">
-              <v-btn class="ma-2" small color="error" @click="deleteItem(item)">
-                <v-icon>delete</v-icon>Desinscribir
+              <v-btn class="ma-2" small color="" @click="showStudentData(item)">
+                <v-icon>mdi-eye</v-icon>&nbsp; Ver
               </v-btn>
             </template>
           </v-data-table>
@@ -155,7 +155,7 @@ export default {
       { text: "Nombre", align: "left", value: "name" },
       { text: "Apellido", value: "surename" },
       { text: "Nomina", value: "nomina" },
-      { text: "Actions", align: "center", value: "action", sortable: false }
+      { text: "Métricas", align: "center", value: "action", sortable: false }
     ],
     json_fields: {
       Nombre: "name",
@@ -185,7 +185,7 @@ export default {
   }),
   methods: {
     getCourse() {
-      const URL = helper.baseURL + "/classes/" + this.$route.params.id;
+      const URL = helper.baseURL + "/classes/" + this.$route.query.idClase;
       axios
         .get(URL)
         .then(response => {
@@ -220,6 +220,12 @@ export default {
           });
         });
     },
+    showStudentData(item){
+      var idStudent = item._id
+      var route = '/profesor/alumno/'+idStudent
+      window.open(route, "_self");
+    }
+    ,
     deleteItem(item) {
       this.$swal({
         title: "¿Estas seguro?",

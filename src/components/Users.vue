@@ -5,7 +5,13 @@
       :headers="headers"
       :items="users"
       :search="search"
-      :footer-props="{'items-per-page-options': [15, 50, 100, 500]}"
+
+      :loading="isLoading"
+      loading-text="Cargando... Favor de esperar"
+      :footer-props="{
+    'items-per-page-options': [15, 50, 100, 500]
+  }"
+
       :items-per-page="15"
       sort-by="name"
       class="elevation-1"
@@ -149,6 +155,7 @@ import axios from "axios";
 
 export default {
   data: () => ({
+    isLoading: true,
     errored: false,
     dialog: false,
     valid: true,
@@ -359,6 +366,7 @@ export default {
       axios
         .get(URL)
         .then(response => {
+
           var coursesIDs = response.data.classes;
           coursesIDs.forEach(clase => {
             this.nombresClasesPeriodo(clase);
@@ -394,6 +402,7 @@ export default {
         if(classCounter>0){
           this.usersInPeriod.push(user)
         }
+        this.isLoading = false
       });
     },
     historialMedico(item) {

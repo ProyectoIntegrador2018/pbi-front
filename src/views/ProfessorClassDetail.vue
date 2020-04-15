@@ -2,7 +2,11 @@
   <div>
     <v-content>
       <v-container fluid>
-        <adminheader :title="course.name" titleStyle='3' secondRoute="/clases/"></adminheader>
+       <h1
+          class="display-3"
+          align="center"
+          style="white-space: normal; word-wrap:break-word"
+        >{{title}}</h1>
         <v-row>
           <v-col align="center" justify="center">
             <span>
@@ -40,7 +44,7 @@
         <v-row align="center" justify="center">
           <v-dialog v-model="dialog" max-width="500px">
             <template v-slot:activator="{ on }">
-              <v-btn color="primary" dark class="mb-2" large v-on="on">Inscribir alumno</v-btn>
+              <v-btn color="primary" dark class="mb-2" large v-on="on">Tomar Lista</v-btn>
             </template>
             <v-card>
               <v-card-title>
@@ -70,6 +74,14 @@
       </v-container>
 
       <v-container fluid my-5 px-md-12>
+        <div justify="left" align="left">
+          <v-col cols="2" class="px-0">
+              <v-btn large block class="px-0" href="/profesor">
+                <v-icon align="center" medium >mdi-arrow-left</v-icon>
+                Regresar
+              </v-btn>
+          </v-col>
+        </div>
         <v-card>
           <v-card-title>
             Usuarios registrados
@@ -96,8 +108,8 @@
               <v-btn disabled color="primary">No hay usuarios</v-btn>
             </template>
             <template v-slot:item.action="{ item }">
-              <v-btn class="ma-2" small color="error" @click="deleteItem(item)">
-                <v-icon>delete</v-icon>Desinscribir
+              <v-btn class="ma-2" small color="" @click="showStudentData(item)">
+                <v-icon>mdi-eye</v-icon>&nbsp; Ver
               </v-btn>
             </template>
           </v-data-table>
@@ -134,13 +146,14 @@
 <script>
 const helper = require("../helper.js");
 import axios from "axios";
-import adminheader from "../components/adminheader.vue";
+
 
 export default {
   components:{
-    adminheader
+    
   },
   data: () => ({
+    title:"",
     isLoading: true,
     searchPages: "",
     dialog: false,
@@ -155,7 +168,7 @@ export default {
       { text: "Nombre", align: "left", value: "name" },
       { text: "Apellido", value: "surename" },
       { text: "Nomina", value: "nomina" },
-      { text: "Actions", align: "center", value: "action", sortable: false }
+      { text: "Métricas", align: "center", value: "action", sortable: false }
     ],
     json_fields: {
       Nombre: "name",
@@ -190,6 +203,7 @@ export default {
         .get(URL)
         .then(response => {
           this.course = response.data;
+          this.title = response.data.name
           this.isLoading = false
         })
         .catch(error => {
@@ -220,6 +234,12 @@ export default {
           });
         });
     },
+    showStudentData(item){
+      var idStudent = item._id
+      var route = '/profesor/alumno/'+idStudent+'?idClase='+ this.$route.params.id
+      window.open(route, "_self");
+    }
+    ,
     deleteItem(item) {
       this.$swal({
         title: "¿Estas seguro?",

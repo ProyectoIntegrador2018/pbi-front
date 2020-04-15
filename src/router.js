@@ -19,6 +19,9 @@ import UserDetails from './views/UserDetails.vue'
 import MyMedicalRecord from './views/MyMedicalRecord.vue'
 import AdminMedicalRecord from './views/AdminMedicalRecord.vue'
 import notfound from './views/404.vue'
+import Profesor from './views/ProfessorClasses.vue'
+import ProfesorClase from './views/ProfessorClassDetail.vue'
+import ProfesorAlumno from './views/ProfessorAlumno.vue'
 
 import axios from "axios";
 const helper = require("./helper.js");
@@ -100,6 +103,24 @@ const router = new Router({
             name: 'Usuarios',
             component: Users,
             meta:{isAdmin: true}
+        },
+        {
+            path: '/profesor',
+            name: 'Profesor',
+            component: Profesor,
+            meta:{isUser: true}
+        },
+        {
+            path: '/profesor/clase/:id',
+            name: 'Clase',
+            component: ProfesorClase,
+            meta:{isUser: true}
+        },
+        {
+            path: '/profesor/alumno/:id',
+            name: 'Metricas',
+            component: ProfesorAlumno,
+            meta:{isUser: true} 
         },
         {
             path: '*',

@@ -1,6 +1,12 @@
 <template>
   <div>
-    <v-data-table ref="table" :headers="headers" :items="terms" sort-by="name" class="elevation-1">
+    <v-data-table ref="table" 
+      :headers="headers" 
+      :items="terms" 
+      sort-by="name" 
+      class="elevation-1"
+      :loading="isLoading"
+      loading-text="Cargando... Favor de esperar">
       <template v-slot:top>
         <v-toolbar flat color="white">
           <v-toolbar-title>Periodos registrados</v-toolbar-title>
@@ -185,6 +191,7 @@ import axios from "axios";
 
 export default {
   data: () => ({
+    isLoading: true,
     errored: false,
     dialog: false,
     valid: true,
@@ -369,6 +376,7 @@ export default {
         .get(URL)
         .then(response => {
           this.terms = response.data;
+          this.isLoading = false
         })
         .catch(() => {
           this.$swal("Error", "No se pudieron cargar", "error");

@@ -3,19 +3,13 @@
     <v-content>
       <v-container fluid>
         <v-row align="center" justify="center">
+          <h1 class="display-3 font-weight-bold" align="center">{{this.nombreProfesor}}</h1>  
           <h1 class="display-2 font-weight-bold" align="center">Mis clases {{this.Periodo}}</h1>
         </v-row>
       </v-container>
       
       <v-container fluid my-5 px-md-12>
-        <div justify="left" align="left">
-          <v-col cols="2" class="px-0">
-              <v-btn large block class="px-0" href="/home">
-                <v-icon align="center" medium >mdi-arrow-left</v-icon>
-                Regresar
-              </v-btn>
-          </v-col>
-        </div>
+        
           <div>
             <v-data-table 
               ref="table" 
@@ -34,7 +28,7 @@
                 </v-toolbar>
               </template>
               <template v-slot:item.action="{ item }">
-                <v-icon small @click="deleteItem(item)" :disabled="show">delete</v-icon>
+                <v-icon small @click="showClass(item)">mdi-clipboard-list-outline</v-icon>
               </template>
             </v-data-table>
           </div>
@@ -52,14 +46,14 @@ export default {
   name: "UserClasses",
   data(){
     return{
+      nombreProfesor: "Anastasio Martínez",
       isLoading: true,
       Periodo: "",
       periodID: "",
       show: true,
-      clases : [],
+      clases : [{name:"Yoga",frequency:"Frec",startHour:"0",endHour:"0",classroom:"Gimnasio",_id:"5de6ac4ba0898f0017d19f31"}],
       headers: [
         { text: "Nombre", align: "left", value: "name" },
-        { text: "Instructor", value: "instructor" },
         { text: "Frecuencia", value: "frequency" },
         { text: "Hora de inicio", value: "startHour" },
         { text: "Hora de fin", value: "endHour" },
@@ -101,6 +95,10 @@ export default {
       var route = "/myinfo/";
       window.open(route, "_self");
     },
+    showClass(item){
+      var idClase = item._id
+      this.$router.push("/profesor/clase/"+idClase)
+    },
     deleteItem(item){
       this.$swal({
         title:"Dar de baja la clase",
@@ -127,7 +125,7 @@ export default {
         })
     },
     getItems(){
-      this.clases = []
+      //this.clases = []
       axios.defaults.headers.common['Authorization'] = "Bearer "+ localStorage.getItem("token");
       const URL = helper.baseURL + "/classes/user";
       
@@ -135,7 +133,7 @@ export default {
       .get(URL)
       .then((Response)=>{
         
-        this.clases = Response.data
+        //this.clases = Response.data
         this.isLoading = false
       })
       .catch((error)=>{

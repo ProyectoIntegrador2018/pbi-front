@@ -13,7 +13,8 @@
       :footer-props="{
      'items-per-page-options': [100, 500]
       }"
-      
+      :loading="isLoading"
+      loading-text="Cargando... Favor de esperar"
     >
       <template v-slot:top>
         <v-toolbar flat color="white">
@@ -44,6 +45,7 @@ import axios from "axios";
 
 export default {
   data: () => ({
+    isLoading: true,
     selected: [],
     selectedTerm: "",
     flagAlertSecondClass: false,
@@ -95,6 +97,7 @@ export default {
                   return course
               }
           })
+          this.isLoading = false
         })
         .catch(() => {
           this.$swal("Error", "No se pudieron cargar", "error");

@@ -13,6 +13,8 @@
           sort-by="term"
           class="elevation-1"
           item-key="_id"
+          :loading="isLoading"
+          loading-text="Cargando... Favor de esperar"
         >
           <template v-slot:top>
             <v-toolbar flat color="white">
@@ -54,6 +56,7 @@ export default {
     adminheader
   },
   data: () => ({
+    isLoading: true,
     dialog: false,
     valid: true,
     user: {},
@@ -83,6 +86,7 @@ export default {
         .get(URL)
         .then(response => {
           this.user = response.data;
+          this.isLoading = false
         })
         .catch(error => {
           this.$swal({

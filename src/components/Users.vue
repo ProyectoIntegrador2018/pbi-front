@@ -5,6 +5,8 @@
       :headers="headers"
       :items="users"
       :search="search"
+      :loading="isLoading"
+      loading-text="Cargando... Favor de esperar"
       :footer-props="{
     'items-per-page-options': [15, 50, 100, 500]
   }"
@@ -142,6 +144,7 @@ import axios from "axios";
 
 export default {
   data: () => ({
+    isLoading: true,
     errored: false,
     dialog: false,
     valid: true,
@@ -354,6 +357,7 @@ export default {
               })
               user.inscritas = classCounter + " clase(s)"
             })
+            this.isLoading = false
         })
 
     },

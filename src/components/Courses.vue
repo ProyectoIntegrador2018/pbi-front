@@ -22,7 +22,8 @@
       :items="courses"
       :search="searchPages"
       sort-by="name"
-      class="elevation-1":footer-props="{
+      class="elevation-1"
+      :footer-props="{
      'items-per-page-options': [100, 500]
       }"
       

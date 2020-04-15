@@ -18,6 +18,9 @@ import UserClasses from './views/UserClasses.vue'
 import UserDetails from './views/UserDetails.vue'
 import MyMedicalRecord from './views/MyMedicalRecord.vue'
 import AdminMedicalRecord from './views/AdminMedicalRecord.vue'
+import SelectLocker from './views/SelectLocker.vue'
+import AdminLockers from './views/AdminLockers.vue'
+import LockerOffer from './views/EditLockerOffer.vue'
 import notfound from './views/404.vue'
 
 import axios from "axios";
@@ -132,11 +135,29 @@ const router = new Router({
             meta:{isUser: true}
         },
         {
+            path: '/selectlocker',
+            name: 'SelectLocker',
+            component: SelectLocker,
+            meta:{isUser: true}
+        },
+        {
             path: '/admin/medicalrecord/:id',
             name: 'MedicalRecord',
             component: AdminMedicalRecord,
             meta:{isAdmin: true}
-        }
+        },
+        {
+            path: '/lockers',
+            name: 'Lockers',
+            component: AdminLockers,
+            meta:{isAdmin: true}
+        },
+        {
+            path: '/lockeroffer',
+            name: 'LockerOffer',
+            component: LockerOffer,
+            meta:{isAdmin: true}
+        },
         
     ]
   })

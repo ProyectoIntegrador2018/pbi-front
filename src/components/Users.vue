@@ -5,11 +5,13 @@
       :headers="headers"
       :items="users"
       :search="search"
+
       :loading="isLoading"
       loading-text="Cargando... Favor de esperar"
       :footer-props="{
     'items-per-page-options': [15, 50, 100, 500]
   }"
+
       :items-per-page="15"
       sort-by="name"
       class="elevation-1"
@@ -364,6 +366,7 @@ export default {
       axios
         .get(URL)
         .then(response => {
+
           var coursesIDs = response.data.classes;
           coursesIDs.forEach(clase => {
             this.nombresClasesPeriodo(clase);

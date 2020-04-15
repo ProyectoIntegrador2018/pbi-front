@@ -28,7 +28,7 @@
     <v-item-group class="fill-height" fluid>
       <v-container class="fill-height">
         <v-row align="center" justify="center">
-          <v-col cols="12" md="3">
+          <v-col cols="10" md="3">
             <v-card
               class="d-flex align-center"
               color="#73C9D0"
@@ -111,6 +111,28 @@
               </v-row>
             </v-card>
           </v-col>
+
+          <v-col cols="12" md="3">
+            <v-card
+              class="d-flex align-center"
+              color="blue lighten-1"
+              height="200"
+              @click="redirectToLockers"
+            >
+              <v-row>
+                <v-col cols="12" justify="center" align="center" class="py-0">
+                  <v-icon align="center" x-large color="white">mdi-locker</v-icon>
+                </v-col>
+                <v-col cols="12" class="px-0 py-0">
+                  <h2 class="btn" align="center">Paso 5</h2>
+                </v-col>
+                <v-col cols="12" class="px-0 py-0">
+                  <h2 class="btn" align="center">Mi Locker</h2>
+                </v-col>
+              </v-row>
+            </v-card>
+          </v-col>
+          
         </v-row>
       </v-container>
     </v-item-group>
@@ -144,17 +166,26 @@ export default {
     },
     redirectToCourseSignUp() {
       if(!this.userData){
-            this.$swal("Bienvenido","Para poder inscribirte debes llenar tu información personal. Presiona OK para ir","info")
-            .then(()=>{
+        this.$swal({
+        title: "Falta Información Personal",
+        text: "Es requisito para realizar inscripción",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Llenar Información",
+        cancelButtonText: "Cancelar"
+          }).then(result => {
+            if (result.value) {
               this.redirectToUserInfo()
-            })
-          }
+            }
+          });
+        }
       else if (this.hasMedicalRecord()){
         var route = "/inscribirclase/";
         window.open(route, "_self");
       }
-      else {
-        
+      else {        
         this.$swal({
         title: "Falta Historial médico",
         text: "Es requisito para realizar inscripción",
@@ -175,6 +206,44 @@ export default {
     redirectToMedicalRecord() {
       var route = "/mymedicalrecord/";
       window.open(route, "_self");
+    },
+    redirectToLockers() {
+      if(!this.userData){
+        this.$swal({
+        title: "Falta Información Personal",
+        text: "Es requisito para inscribir casillero",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Llenar Información",
+        cancelButtonText: "Cancelar"
+          }).then(result => {
+            if (result.value) {
+              this.redirectToUserInfo()
+            }
+          });
+        }
+      else if (this.hasMedicalRecord()){
+        var route = "/selectlocker/";
+        window.open(route, "_self");
+      }
+      else {        
+        this.$swal({
+        title: "Falta Historial médico",
+        text: "Es requisito para inscribir casillero",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Llenar historial",
+        cancelButtonText: "Cancelar"
+      }).then(result => {
+        if (result.value) {
+          this.redirectToMedicalRecord()
+        }
+      });
+      }
     },
     getUserInfo() {
       axios.defaults.headers.common["Authorization"] =

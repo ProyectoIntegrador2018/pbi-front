@@ -25,6 +25,7 @@ import notfound from './views/404.vue'
 import Profesor from './views/ProfessorClasses.vue'
 import ProfesorClase from './views/ProfessorClassDetail.vue'
 import ProfesorAlumno from './views/ProfessorAlumno.vue'
+import NewNutritionalRecord from './views/NewNutritionalRecord.vue'
 
 import axios from "axios";
 const helper = require("./helper.js");
@@ -179,6 +180,12 @@ const router = new Router({
             component: LockerOffer,
             meta:{isAdmin: true}
         },
+        {
+            path: '/nutricion/nuevoexpediente',
+            name: 'NewNutritionalRecord',
+            component: NewNutritionalRecord,
+            meta:{isUser: true} //Modificar a Is Nutriologo
+        }
         
     ]
   })

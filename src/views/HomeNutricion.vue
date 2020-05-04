@@ -15,42 +15,12 @@
 
     <v-layout text-center wrap>
       <v-flex mb-4>
-        <h1 class="display-2 font-weight-bold mb-3 align-center">Funciones del Administrador</h1>
+        <h1 class="display-2 font-weight-bold mb-3 align-center">Nutrición</h1>
       </v-flex>
     </v-layout>
     <v-item-group class="fill-height" fluid>
       <v-container class="fill-height">
         <v-row align="center" justify="center">
-          <v-col cols="12" md="4">            
-            <v-card class="d-flex align-center" color="light-green darken-1" height="200" @click="redirectToExpediente()">
-              <v-row>
-                <v-col cols="12" justify="center" align="center" class="py-0">
-                  <v-icon align="center" x-large color="white">mdi-calendar-clock</v-icon>
-                </v-col>
-                <v-col cols="12">
-                  <h2 class="btn" align="center">Expedientes</h2>
-                </v-col>
-              </v-row>
-            </v-card>
-          </v-col>
-
-          <v-col cols="12" md="4">
-            <v-card
-              class="d-flex align-center"
-              color="orange"
-              height="200"
-              @click="redirectToSeguimiento()"
-            >
-              <v-row>
-                <v-col cols="12" justify="center" align="center" class="py-0">
-                  <v-icon align="center" x-large color="white">mdi-swim</v-icon>
-                </v-col>
-                <v-col cols="12">
-                  <h2 class="btn" align="center">Seguimiento</h2>
-                </v-col>
-              </v-row>
-            </v-card>
-          </v-col>
 
           <v-col cols="12" md="4">
             <v-card
@@ -69,6 +39,39 @@
               </v-row>
             </v-card>
           </v-col>
+
+          <v-col cols="12" md="4">            
+            <v-card class="d-flex align-center" color="light-green darken-1" height="200" @click="redirectToAgenda()">
+              <v-row>
+                <v-col cols="12" justify="center" align="center" class="py-0">
+                  <v-icon align="center" x-large color="white">mdi-calendar-clock</v-icon>
+                </v-col>
+                <v-col cols="12">
+                  <h2 class="btn" align="center">Agenda</h2>
+                </v-col>
+              </v-row>
+            </v-card>
+          </v-col>
+
+          <v-col cols="12" md="4">
+            <v-card
+              class="d-flex align-center"
+              color="orange"
+              height="200"
+              @click="redirectToReportes()"
+            >
+              <v-row>
+                <v-col cols="12" justify="center" align="center" class="py-0">
+                  <v-icon align="center" x-large color="white">mdi-chart-bar</v-icon>
+                </v-col>
+                <v-col cols="12">
+                  <h2 class="btn" align="center">Reportes</h2>
+                </v-col>
+              </v-row>
+            </v-card>
+          </v-col>
+
+
         </v-row>
       </v-container>
     </v-item-group>
@@ -81,11 +84,11 @@ export default {
     
   },
   methods: {
-    redirectToExpediente() {
+    redirectToAgenda() {
       var route = "/error/";
       window.open(route, "_self");
     },
-    redirectToSeguimiento() {
+    redirectToReportes() {
       var route = "/error/";
       window.open(route, "_self");
     },

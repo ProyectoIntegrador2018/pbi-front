@@ -27,6 +27,7 @@ import ProfesorClase from './views/ProfessorClassDetail.vue'
 import ProfesorAlumno from './views/ProfessorAlumno.vue'
 import HomeNutricion from './views/HomeNutricion.vue'
 import NutriRecordatorio from './views/NutriRecordatorio.vue'
+import NutriCita from './views/NutriCita.vue'
 
 import axios from "axios";
 const helper = require("./helper.js");
@@ -189,9 +190,21 @@ const router = new Router({
             meta:{isAdmin: true}
         },
         {
+            path: '/nutricion/login',
+            name: 'NutriRecordatorio',
+            component: NutriRecordatorio,
+            meta:{isAdmin: true}
+        },
+        {
             path: '/nutricion/recordatorio',
             name: 'NutriRecordatorio',
             component: NutriRecordatorio,
+            meta:{isAdmin: true}
+        },
+        {
+            path: '/nutricion/cita',
+            name: 'NutriCita',
+            component: NutriCita,
             meta:{isAdmin: true}
         }
         

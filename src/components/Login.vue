@@ -62,8 +62,14 @@ import axios from "axios";
     methods:{
 
       logIn(correo,pass){   
+          if(this.userType == "Administrador"){
+            const URL = helper.baseURL + "/login";
+          }
+          else if(this.userType == "Nutrición"){
+            const URL = helper.baseURL + "/nutricion/login";
+          }
           var temp = {"email":correo.toLowerCase(),"password":pass}
-          const URL = helper.baseURL + "/login";
+          
           axios
           .post(URL, temp)
           .then(response => {
@@ -80,6 +86,7 @@ import axios from "axios";
       redirect() {
         window.open(this.redirectRoute, "_self");
       }
+      
     }
   }
 </script>

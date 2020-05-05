@@ -203,7 +203,7 @@ const router = new Router({
             meta:{isNutri: true}
         },
         {
-            path: '/nutricion/cita',
+            path: '/nutricion/:id/cita',
             name: 'NutriCita',
             component: NutriCita,
             meta:{isNutri: true}
@@ -282,8 +282,6 @@ router.beforeEach((to, from, next) => {
 
         var token = window.localStorage.getItem("token")
         const URL = helper.baseURL + "/nutricion/validate?token=" + token;
-        console.log("AHHH")
-        console.log(token)
 
         axios  
         .get(URL)

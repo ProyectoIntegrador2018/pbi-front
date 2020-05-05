@@ -215,13 +215,7 @@
                             </v-row>
                         </v-col>  
                         <v-col cols="10" class="px-0 py-0" >
-                            <v-row class="d-flex flex-row-reverse mx-6 my-0">                                    
-                                <v-col cols="4">
-                                    <v-btn large block href="/nutricion/expedientemedico">                                    
-                                    Antecedentes Médicos
-                                    <v-icon align="center" medium >mdi-arrow-right</v-icon>
-                                    </v-btn>
-                                </v-col>
+                            <v-row class="d-flex flex-row-reverse mx-6 my-0">
                                 <v-col cols="4">                           
                                     <v-btn large block color="primary" @click="saveMyInfo">
                                     <v-icon align="center" medium color="white">mdi-content-save-outline</v-icon>
@@ -512,6 +506,7 @@ export default {
       this.validateOtherProgram()
       this.validateSize()
       if(this.isError){
+        this.$swal("Error","Favor de verificar todos los campos","error")
         return
       }
       const URL = helper.baseURL + "/nutricion/records";
@@ -534,9 +529,10 @@ export default {
         }
       )
       .then(response => {
+          var userId = response.data._id
           this.$swal("Información Guardada","Se ha actualizado la Información del Paciente","success")
           .then((_) => {
-              window.open("./expedientemedico","_self")
+              window.open("./expedientemedico?id="+userId,"_self")
           })
       }).catch(error =>{
           this.$swal("Error",error.response.data.error,"error")

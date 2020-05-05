@@ -92,14 +92,14 @@
                               <v-row>
                                 <v-col class="px-0 py-0" cols="6">
                                     <span class="subtitle-1"> ¿Cuántos días a la semana?: </span>
-                                    <v-select
-                                        :items="activityFrequencyOptions"
-                                        label="-Selecciona Frecuencia-"
-                                        v-model="patient.activityFrequency"     
-                                        solo
-                                        @change="this.validateActivityFrequency" 
-                                        :errorMessages="this.errorPatient.activityFrequency"                                   
-                                    ></v-select>
+                                     <v-text-field
+                                      v-model="patient.activityFrequency"
+                                      label="Frecuencia"
+                                      single-line
+                                      solo
+                                      @change="this.validateActivityFrequency"
+                                      :errorMessages="this.errorPatient.activityFrequency"
+                                      ></v-text-field>
                                 </v-col>
                                 <v-col class="py-0" cols="6">
                                     <span class="subtitle-1"> Duración: </span>
@@ -139,14 +139,14 @@
                               <v-row>
                                 <v-col class="px-0 py-0" cols="6">
                                 <span class="subtitle-1"> ¿Cuántas horas duermes?: </span>
-                                <v-select
-                                    :items="sleepQuantityOptions"
-                                    label="-Selecciona Cantidad-"
-                                    v-model="patient.sleepQuantity"     
-                                    solo
-                                    @change="this.validateSleepQuantity" 
-                                    :errorMessages="this.errorPatient.sleepQuantity"                                   
-                                ></v-select>
+                                <v-text-field
+                                  v-model="patient.sleepQuantity"
+                                  label="Cantidad"
+                                  single-line
+                                  solo
+                                  @change="this.validateSleepQuantity"
+                                  :errorMessages="this.errorPatient.sleepQuantity"
+                                  ></v-text-field>
                                 </v-col>
                               </v-row>
                               <v-divider class="py-2"></v-divider> 
@@ -171,14 +171,14 @@
                                 <template v-if="patient.isDrinker === true" >
                                   <v-col class="px-0 py-0" cols="6">
                                       <span class="subtitle-1"> ¿Cuántas?: </span>
-                                      <v-select
-                                          :items="drinksQuantityOptions"
-                                          label="-Selecciona Cantidad-"
-                                          v-model="patient.drinksQuantity"     
-                                          solo
-                                          @change="this.validateDrinksQuantity" 
-                                          :errorMessages="this.errorPatient.drinksQuantity"                                   
-                                      ></v-select>
+                                      <v-text-field
+                                      v-model="patient.drinksQuantity"
+                                      label="Cantidad"
+                                      single-line
+                                      solo
+                                      @change="this.validateDrinksQuantity"
+                                      :errorMessages="this.errorPatient.drinksQuantity"
+                                      ></v-text-field>
                                   </v-col>   
                                 </template>                                 
                               </v-row>
@@ -190,7 +190,7 @@
                                       <span class="subtitle-1"> ¿Con qué frecuencia?: </span>
                                       <v-select
                                           :items="drinksFrequencyOptions"
-                                          label="-Selecciona Cantidad-"
+                                          label="-Selecciona Frecuencia-"
                                           v-model="patient.drinksFrequency"     
                                           solo
                                           @change="this.validateDrinksFrequency" 
@@ -203,7 +203,7 @@
                                         solo
                                         name="input-7-4"
                                         v-model="patient.drinksType"  
-                                        label="Actividad Física"
+                                        label="Tipo de bebidas alcohólicas"
                                         @change="this.validateDrinksType"
                                         :errorMessages="this.errorPatient.drinksType"  
                                     ></v-textarea>                                        
@@ -263,7 +263,7 @@
                                     <template v-if="patient.otherControlledMethodChecked === 'Otro'" >
                                         <v-text-field
                                         v-model="patient.otherControlledMethod"                                    
-                                        label="Otro Antecedente"
+                                        label="Otro Método"
                                         @change="this.validateOtherControlledMethod"
                                         :errorMessages="this.errorPatient.otherControlledMethod"
                                         single-line
@@ -275,28 +275,61 @@
                             </v-row>  
                             <v-divider class="py-2"></v-divider>      
                         </v-col> 
+                        <v-col class="px-0" cols="10">
+                            <h2 align="left">Datos Bioquímicos</h2>
+                        </v-col>
+                        <v-col class="py-0" cols="10">
+                          <v-row>
+                            <v-col class="pl-0 py-0" cols="4">
+                              <span class="subtitle-1"> Colesterol (menor a 220 mg/dl) </span>
+                              <v-text-field
+                              v-model="patient.cholesterol"
+                              label="Colesterol"
+                              single-line
+                              solo
+                              @change="this.validateCholesterol"
+                              :errorMessages="this.errorPatient.cholesterol"
+                              ></v-text-field>                                           
+                            </v-col>
+                            <v-col class="py-0" cols="4">
+                              <span class="subtitle-1"> Triglicéridos (menor a 220 mg/dl) </span>
+                              <v-text-field
+                              v-model="patient.triglycerides"
+                              label="Triglicéridos"
+                              single-line
+                              solo
+                              @change="this.validateTriglycerides"
+                              :errorMessages="this.errorPatient.triglycerides"
+                              ></v-text-field>                                           
+                            </v-col>
+                            <v-col class="pr-0 py-0" cols="4">
+                              <span class="subtitle-1"> Glucosa (60-110 mg/dl) </span>
+                              <v-text-field
+                              v-model=" patient.glucose"
+                              label="Glucosa"
+                              single-line
+                              solo
+                              @change="this.validateGlucose"
+                              :errorMessages="this.errorPatient.glucose"
+                              ></v-text-field>                                           
+                            </v-col>
+                          </v-row>
+                        </v-col>
+
                         <v-col class="px-0 py-0" cols="10">                                           
                                 <span class="subtitle-1"> Comentarios: </span>
                                 <v-textarea
                                     solo
                                     name="input-7-4"
-                                    v-model="patient.comments"  
-                                    @change="this.validateComments"
-                                    :errorMessages="this.errorPatient.comments"                      
+                                    v-model="patient.comments"                   
                                 label="Comentarios"
                                 ></v-textarea>                                        
                             </v-col>
                         <v-col cols="10" class="px-0 py-0" >
-                            <v-row class="d-flex flex-row-reverse mx-6 my-0">                                    
-                                <v-col cols="4">
-                                    <v-btn large block href="/home">
-                                    <v-icon align="center" medium >mdi-arrow-left</v-icon>
-                                    Regresar
-                                    </v-btn>
-                                </v-col>
+                            <v-row class="d-flex flex-row-reverse mx-6 my-0">     
                                 <v-col cols="4">                           
-                                    <v-btn large block color="primary" >
-                                    <v-icon align="center" medium color="white">mdi-content-save-outline</v-icon>
+                                    <v-btn large block color="primary" @click="saveMyInfo">
+                                    <v-icon align="center" medium color="white" >mdi-content-save-outline</v-icon>
                                     Guardar
                                     </v-btn>
                                 </v-col>
@@ -341,6 +374,9 @@ export default {
             controlledMethod:[],
             otherControlledMethodChecked:"",
             otherControlledMethod:"", 
+            cholesterol:"",
+            triglycerides:"",
+            glucose:"",
             comments:"" 
         },        
         errorPatient:{
@@ -356,11 +392,11 @@ export default {
             drinksType:"",
             supplementName:"",
             otherControlledMethod:"",
+            cholesterol:"",
+            triglycerides:"",
+            glucose:"",
             comments:""
         },
-        activityFrequencyOptions: ['1','2','3','4','5','6','7'],
-        drinksQuantityOptions: ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15'],      
-        sleepQuantityOptions: ['1','2','3','4','5','6','7','8','9','10','11','12','13','14'],     
         drinksFrequencyOptions: ['Semanal', 'Quincenal', 'Fines de semana', 'Mensual', 'Anual'],       
       }
     },
@@ -396,16 +432,25 @@ export default {
       if(!this.patient["activityFrequency"]){  
           this.isError = true
           this.errorPatient.activityFrequency = "Campo requerido"
-        }else{
-          this.errorPatient.activityFrequency = ""
         }
+      else if(Number.isNaN(Number(this.patient["activityFrequency"]))){
+          this.isError = true
+          this.errorPatient.activityFrequency = "Debe ser un número"
+      }
+      else if(this.patient["activityFrequency"] % 1 !=0 || this.patient["activityFrequency"] < 0){
+          this.isError = true
+          this.errorPatient.activityFrequency = "Número inválido"
+      }
+      else{
+          this.errorPatient.activityFrequency = ""
+      }
     },
     validateDurationHours(){
       if(!this.patient["durationHours"]){  
           this.isError = true
           this.errorPatient.durationHours = "Campo requerido"
         }
-      else if(this.patient["durationHours"].isNaN ){
+      else if(Number.isNaN(Number(this.patient["durationHours"]))){
           this.isError = true
           this.errorPatient.durationHours = "Debe ser un número"
       }
@@ -422,7 +467,7 @@ export default {
           this.isError = true
           this.errorPatient.durationMinutes = "Campo requerido"
         }
-      else if(this.patient["durationMinutes"].isNaN ){
+      else if(Number.isNaN(Number(this.patient["durationMinutes"]))){
           this.isError = true
           this.errorPatient.durationMinutes = "Debe ser un número"
       }
@@ -438,17 +483,35 @@ export default {
       if(!this.patient["sleepQuantity"]){  
           this.isError = true
           this.errorPatient.sleepQuantity = "Campo requerido"
-        }else{
+        }
+      else if(Number.isNaN(Number(this.patient["sleepQuantity"]))){
+          this.isError = true
+          this.errorPatient.sleepQuantity = "Debe ser un número"
+      }
+      else if(this.patient["sleepQuantity"] % 1 !=0 || this.patient["sleepQuantity"] < 0){
+          this.isError = true
+          this.errorPatient.sleepQuantity = "Número inválido"
+      }
+      else{
           this.errorPatient.sleepQuantity = ""
         }
     },
     validateDrinksQuantity(){
-       if(this.patient["isDrinker"] === true && !this.patient["drinksQuantity"]){  
+      if(this.patient["isDrinker"] === true && !this.patient["drinksQuantity"]){  
           this.isError = true
           this.errorPatient.drinksQuantity = "Campo requerido"
-        }else{
-          this.errorPatient.drinksQuantity = ""
         }
+      else if(Number.isNaN(Number(this.patient["drinksQuantity"]))){
+          this.isError = true
+          this.errorPatient.drinksQuantity = "Debe ser un número"
+      }
+      else if(this.patient["drinksQuantity"] % 1 !=0 || this.patient["drinksQuantity"] < 0){
+          this.isError = true
+          this.errorPatient.drinksQuantity = "Número inválido"
+      }
+      else{
+          this.errorPatient.drinksQuantity = ""
+      }
     },
     validateDrinksFrequency(){      
       if(this.patient["isDrinker"] === true && !this.patient["drinksFrequency"]){  
@@ -483,7 +546,139 @@ export default {
         }
 
     },
-    validateComments(){
+    validateCholesterol(){
+      if(Number.isNaN(Number(this.patient["cholesterol"]))){
+          this.isError = true
+          this.errorPatient.cholesterol = "Debe ser un número"
+      }
+      else if(this.patient["cholesterol"] < 0){
+          this.isError = true
+          this.errorPatient.cholesterol = "Número inválido"
+      }
+      else{
+          this.errorPatient.cholesterol = ""
+        }
+    },
+    validateTriglycerides(){
+      if(Number.isNaN(Number(this.patient["triglycerides"]))){
+          this.isError = true
+          this.errorPatient.triglycerides = "Debe ser un número"
+      }
+      else if(this.patient["triglycerides"] < 0){
+          this.isError = true
+          this.errorPatient.triglycerides = "Número inválido"
+      }
+      else{
+          this.errorPatient.triglycerides = ""
+        }
+    },
+    validateGlucose(){
+      if(Number.isNaN(Number(this.patient["glucose"]))){
+          this.isError = true
+          this.errorPatient.glucose = "Debe ser un número"
+      }
+      else if(this.patient["glucose"] < 0){
+          this.isError = true
+          this.errorPatient.glucose = "Número inválido"
+      }
+      else{
+          this.errorPatient.glucose = ""
+        }
+    },
+    getParameterByName(name, url) {
+      if (!url) url = window.location.href;
+      name = name.replace(/[\[\]]/g, '\\$&');
+      var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+          results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    },
+    saveMyInfo(){
+      this.isError = false
+      this.validateOtherFamilyBackground()
+      this.validateOtherPersonalBackground()
+      this.validatePhysicalActivity()
+      this.validateActivityFrequency()
+      this.validateDurationHours()
+      this.validateDurationMinutes()
+      this.validateSleepQuantity()
+      this.validateDrinksQuantity()
+      this.validateDrinksFrequency()
+      this.validateDrinksType()
+      this.validateSupplementName()
+      this.validateOtherControlledMethod()
+      this.validateCholesterol()
+      this.validateTriglycerides()
+      this.validateGlucose()
+      
+      if(this.isError){
+        this.$swal("Error","Favor de verificar todos los campos","error")
+        return
+      }
+
+      if(this.patient.otherFamilyBackgroundChecked === 'Otro' &&
+        this.patient.familyBackground[this.patient.familyBackground.length-1]!=this.patient.otherFamilyBackground)
+      {
+        this.patient.familyBackground.push(this.patient.otherFamilyBackground);
+      }
+      if(this.patient.otherPersonalBackgroundChecked === 'Otro' &&
+          this.patient.personalBackground[this.patient.personalBackground.length-1]!=this.patient.otherPersonalBackground)
+      {
+        this.patient.personalBackground.push(this.patient.otherPersonalBackground);
+      }
+      if(this.patient.otherControlledMethodChecked === 'Otro' && 
+          this.patient.controlledMethod[this.patient.controlledMethod.length-1]!=this.patient.otherControlledMethod)
+      {
+        this.patient.controlledMethod.push(this.patient.otherControlledMethod);
+      }
+      
+      var userId = this.getParameterByName("id", window.location);
+      if(!userId){
+        this.$swal("Error","Usuario no encontrado","error")
+        return
+      }
+
+      const URL = helper.baseURL + "/nutricion/records/history/"+userId;
+      axios.defaults.headers.common['Authorization'] = "Bearer "+ localStorage.getItem("token");
+      axios
+      .post(URL,
+        {
+          familyBackground: this.patient.familyBackground,
+          personalBackground: this.patient.personalBackground,
+          lifestyle:{
+            physicalActivity: this.patient.physicalActivity,
+            duration: (Number(this.patient.durationHours)+(Number(this.patient.durationMinutes)/100)),
+            frequency: (Number(this.patient.activityFrequency)),
+            sleepHours: (Number(this.patient.sleepQuantity)),
+            smoker: this.patient.isSmoker,
+            drinker: this.patient.isDrinker,
+            drinkType: this.patient.drinksType,
+            drinkQuantity: (Number(this.patient.drinksQuantity)),
+            drinkFrequency: this.patient.drinksFrequency
+          },
+          diet:{
+            supplementConsumer: this.patient.supplement,
+            supplementName: this.patient.supplementName,
+            controlledMethod: this.patient.controlledMethod
+          },      
+          comments: this.patient.comments,
+          biochemical:{
+            cholesterol: this.patient.cholesterol,
+            triglycerides: this.patient.triglycerides,
+            glucose: this.patient.glucose
+          }
+        }
+      )
+      .then(response => {
+          this.$swal("Información Guardada","Se ha actualizado la Información del Paciente","success")
+          .then((_) => {
+              window.open("./expedientemedico","_self")
+          })
+      }).catch(error =>{
+          this.$swal("Error",error.response.data.error,"error")
+      })
+
     }
     
   },

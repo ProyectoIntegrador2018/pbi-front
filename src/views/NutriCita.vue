@@ -158,7 +158,7 @@
           <v-card-actions>
                     <v-row>                                    
                         <v-col cols="12" sm="6" class="py-0">
-                            <v-btn large block href="/nutricion/expedientes">
+                            <v-btn large block href="/nutricion/pacientes">
                              <v-icon align="center" medium >mdi-arrow-left</v-icon>
                              Regresar
                             </v-btn>

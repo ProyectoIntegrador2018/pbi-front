@@ -33,6 +33,8 @@ import NutriLogin from './views/NutriLogin.vue'
 import HomeNutricion from './views/HomeNutricion.vue'
 import NutriRecordatorio from './views/NutriRecordatorio.vue'
 import NutriCita from './views/NutriCita.vue'
+import NutriPacientes from './views/NutriPacientes.vue'
+import NutriListaCitas from './views/NutriListaCitas'
 
 
 import axios from "axios";
@@ -192,13 +194,13 @@ const router = new Router({
             path: '/nutricion/informacionpersonal',
             name: 'NutritionalRecordPersonalInfo',
             component: NutritionalRecordPersonalInfo,
-            meta:{isUser: true} //Modificar a Is Nutriologo
+            meta:{isNutri: true} 
         },
         {
             path: '/nutricion/expedientemedico',
             name: 'NutritionalRecordMedical',
             component: NutritionalRecordMedical,
-            meta:{isUser: true} //Modificar a Is Nutriologo
+            meta:{isNutri: true} 
         },
         {
             path: '/nutricion/login',
@@ -213,6 +215,18 @@ const router = new Router({
             meta:{isNutri: true}
         },
         {
+            path: '/nutricion/pacientes',
+            name: 'NutriPacientes',
+            component: NutriPacientes,
+            meta:{isNutri: true}
+        },
+        {
+            path: '/nutricion/pacientes/citas/:id',
+            name: 'NutriListaCitas',
+            component: NutriListaCitas,
+            meta:{isNutri: true}
+        },
+        {
             path: '/nutricion/:id/recordatorio',
             name: 'NutriRecordatorio',
             component: NutriRecordatorio,
@@ -223,7 +237,8 @@ const router = new Router({
             name: 'NutriCita',
             component: NutriCita,
             meta:{isNutri: true}
-        }
+        },
+       
     ]
   })
   

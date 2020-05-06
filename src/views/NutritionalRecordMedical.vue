@@ -686,7 +686,7 @@ export default {
       .then(response => {
           this.$swal("Información Guardada","Se ha actualizado la Información del Paciente","success")
           .then((_) => {
-              window.open("./expedientemedico","_self")
+              window.open("./"+this.userId+"/recordatorio","_self")
           })
       }).catch(error =>{
           this.$swal("Error",error.response.data.error,"error")

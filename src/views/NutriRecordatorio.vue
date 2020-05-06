@@ -509,7 +509,24 @@ export default {
 
                .post(URL,this.comidas)
                .then(() => {
-                 this.$swal("Guardado", "Seguimiento guardado", "success");
+                 this.$swal({
+                    title: 'Guardado',
+                    text: "Seguimiento guardado, ¿Qué quieres hacer ahora?",
+                    type: 'success',
+                    showCancelButton: true,
+                    confirmButtonColor: 'green',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Crear cita',
+                    cancelButtonText: 'Regresar a cita de expedientes'
+                 }).then((result)=>{
+                   window.console.log(result)
+                   
+                   if(result.value){
+                     window.open("/nutricion/"+this.$route.params.id+"/cita","_self")
+                   }else{
+                     window.open("/nutricion/pacientes","_self")
+                   }
+                 })
                })
                .catch(error => {
                  this.$swal({

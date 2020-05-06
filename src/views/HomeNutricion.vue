@@ -41,7 +41,7 @@
           </v-col>
 
           <v-col cols="12" md="4">            
-            <v-card class="d-flex align-center" color="light-green darken-1" height="200" @click="redirectToAgenda()">
+            <v-card disabled="true" class="d-flex align-center" color="light-green darken-1" height="200" @click="redirectToAgenda()">
               <v-row>
                 <v-col cols="12" justify="center" align="center" class="py-0">
                   <v-icon align="center" x-large color="white">mdi-calendar-clock</v-icon>
@@ -55,6 +55,7 @@
 
           <v-col cols="12" md="4">
             <v-card
+              disabled="true"
               class="d-flex align-center"
               color="orange"
               height="200"
@@ -93,7 +94,7 @@ export default {
       window.open(route, "_self");
     },
     redirectToPacientes() {
-      var route = "/error/";
+      var route = "/nutricion/pacientes";
       window.open(route, "_self");
     }
   }

@@ -25,6 +25,10 @@ import notfound from './views/404.vue'
 import Profesor from './views/ProfessorClasses.vue'
 import ProfesorClase from './views/ProfessorClassDetail.vue'
 import ProfesorAlumno from './views/ProfessorAlumno.vue'
+
+import NutritionalRecordPersonalInfo from './views/NutritionalRecordPersonalInfo.vue'
+import NutritionalRecordMedical from './views/NutritionalRecordMedical.vue'
+
 import NutriLogin from './views/NutriLogin.vue'
 import HomeNutricion from './views/HomeNutricion.vue'
 import NutriRecordatorio from './views/NutriRecordatorio.vue'
@@ -183,6 +187,18 @@ const router = new Router({
             name: 'LockerOffer',
             component: LockerOffer,
             meta:{isAdmin: true}
+        },
+        {
+            path: '/nutricion/informacionpersonal',
+            name: 'NutritionalRecordPersonalInfo',
+            component: NutritionalRecordPersonalInfo,
+            meta:{isUser: true} //Modificar a Is Nutriologo
+        },
+        {
+            path: '/nutricion/expedientemedico',
+            name: 'NutritionalRecordMedical',
+            component: NutritionalRecordMedical,
+            meta:{isUser: true} //Modificar a Is Nutriologo
         },
         {
             path: '/nutricion/login',

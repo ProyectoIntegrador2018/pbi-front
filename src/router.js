@@ -25,8 +25,15 @@ import notfound from './views/404.vue'
 import Profesor from './views/ProfessorClasses.vue'
 import ProfesorClase from './views/ProfessorClassDetail.vue'
 import ProfesorAlumno from './views/ProfessorAlumno.vue'
+
 import NutritionalRecordPersonalInfo from './views/NutritionalRecordPersonalInfo.vue'
 import NutritionalRecordMedical from './views/NutritionalRecordMedical.vue'
+
+import NutriLogin from './views/NutriLogin.vue'
+import HomeNutricion from './views/HomeNutricion.vue'
+import NutriRecordatorio from './views/NutriRecordatorio.vue'
+import NutriCita from './views/NutriCita.vue'
+
 
 import axios from "axios";
 const helper = require("./helper.js");
@@ -192,14 +199,38 @@ const router = new Router({
             name: 'NutritionalRecordMedical',
             component: NutritionalRecordMedical,
             meta:{isUser: true} //Modificar a Is Nutriologo
+        },
+        {
+            path: '/nutricion/login',
+            name: 'NutriLogin',
+            component: NutriLogin,
+            
+        },
+        {
+            path: '/nutricion/home',
+            name: 'HomeNutricion',
+            component: HomeNutricion,
+            meta:{isNutri: true}
+        },
+        {
+            path: '/nutricion/:id/recordatorio',
+            name: 'NutriRecordatorio',
+            component: NutriRecordatorio,
+            meta:{isNutri: true}
+        },
+        {
+            path: '/nutricion/:id/cita',
+            name: 'NutriCita',
+            component: NutriCita,
+            meta:{isNutri: true}
         }
-        
     ]
   })
   
 router.beforeEach((to, from, next) => {
     let autorizacionUsr = to.matched.some(record => record.meta.isUser)
     let autorizacionAdmin = to.matched.some(record => record.meta.isAdmin)
+    let autorizacionNutri = to.matched.some(record => record.meta.isNutri)
 
     let notfound = to.matched.some(record => record.meta.notfound)
 
@@ -208,7 +239,7 @@ router.beforeEach((to, from, next) => {
         return
     }
 
-    if(!autorizacionAdmin&&!autorizacionUsr){
+    if(!autorizacionAdmin&&!autorizacionUsr&&!autorizacionNutri){
         next()
     }
 
@@ -220,7 +251,11 @@ router.beforeEach((to, from, next) => {
         next(next({ path: '/login'}))
     }
 
-    if(localStorage.getItem("token")){
+    if(autorizacionNutri && !localStorage.getItem("token")){
+        next(next({ path: '/nutricion/login'}))
+    }
+
+    if(!autorizacionNutri && localStorage.getItem("token")){
         var token = window.localStorage.getItem("token")
         const URL = helper.baseURL + "/validate?token=" + token;
         axios  
@@ -256,6 +291,30 @@ router.beforeEach((to, from, next) => {
             }else{
                 next({ path: '/login'})
             }
+        })
+    }
+
+    if(autorizacionNutri && localStorage.getItem("token")){
+
+        var token = window.localStorage.getItem("token")
+        const URL = helper.baseURL + "/nutricion/validate?token=" + token;
+
+        axios  
+        .get(URL)
+        .then(response=>{   
+            if(!response.data){
+                window.localStorage.clear("token")
+                next({ path: '/nutricion/login'})
+            }else{
+                if(!autorizacionNutri){
+                        next({ path: '/nutricion/home'})
+                    }else{
+                        next()
+                    }
+          }
+        }).catch((error)=>{
+            window.localStorage.clear("token")
+            next({ path: '/nutricion/login'})
         })
     }
     

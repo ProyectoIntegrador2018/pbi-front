@@ -3,7 +3,7 @@
       <v-container class="fill-height">
         <v-row justify="center">
             <v-col cols="10">
-            <h1 align="center">Nuevo Expediente Nutricional</h1>
+            <h1 align="center">Expediente Nutricional</h1>
             <v-card class="d-flex align-center" color="white">
                     <v-row justify="center" class="mb-5">
                         <v-col class="px-0" cols="10">
@@ -18,6 +18,7 @@
                                         label="L0XXXXXXX / A0XXXXXXX"
                                         single-line
                                         solo
+                                        :disabled="this.willUpdateInfo"
                                         @change="this.validateNomina"
                                         :errorMessages="this.errorPatient.nomina"
                                         ></v-text-field>
@@ -105,6 +106,7 @@
                                         label="ejemplo@ejemplo.com"
                                         single-line
                                         solo
+                                        :disabled="this.willUpdateInfo"
                                         @change="this.validateEmail"
                                         :errorMessages="this.errorPatient.email"
                                         ></v-text-field>
@@ -245,6 +247,8 @@ export default {
         menu: false,
         currentDate: "",
         dobRules: [v => !!v || "Fecha requerida"],
+        willUpdateInfo: false,   
+        userId: "",     
         patient: {
             nomina:"",
             name:"",
@@ -336,10 +340,14 @@ export default {
     
   },
   methods: {
+    dateToString(date){
+      var dateString = date.toISOString().substr(0, 10)
+      return dateString
+    },
     getCurrentDate(){
         var today = new Date();
-        this.currentDate= today.toISOString().substr(0, 10)
-    },
+        this.currentDate = this.dateToString(today)
+    },    
     dateStringToDate(date) {
         var parts =date.split('-');
         var mydate = new Date(parts[0], parts[1] - 1, parts[2]); 
@@ -487,7 +495,131 @@ export default {
           this.errorPatient.size = ""
         }
     },
-    saveMyInfo()
+    getParameterByName(name, url) {
+      if (!url) url = window.location.href;
+      name = name.replace(/[\[\]]/g, '\\$&');
+      var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+          results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    },
+    updateView(){
+      if(this.getParameterByName("id", window.location)===null)
+      {
+          this.willUpdatateInfo = false;          
+      }
+      else{
+        this.willUpdateInfo = true; 
+        this.userId = this.getParameterByName("id", window.location);     
+        this.loadInfo()
+      }
+    },
+    loadInfo(){
+      const token = this.$route.query.token
+        const URL = helper.baseURL + "/nutricion/records/"+this.userId;
+        axios.defaults.headers.common['Authorization'] = "Bearer "+ localStorage.getItem("token");
+        axios
+        .get(URL)
+        .then(response => {
+          const history = response.data
+            this.patient.nomina = history.matricula
+            this.patient.name = history.name
+            this.patient.surname = history.surname
+            this.patient.dateOfBirth = history.birthdate.substr(0, 10)
+            this.patient.age = this.calculateAge(this.dateStringToDate(this.patient.dateOfBirth))            
+            this.patient.email = history.email
+            this.patient.department = history.mayorArea
+            this.patient.gender = history.gender
+            this.patient.patientType = history.patientType
+            this.patient.course = history.class
+
+            var goalExistsInList = this.goalsOptions.includes(history.goal);
+            if(goalExistsInList == true)
+            {
+              this.patient.goal = history.goal
+            }
+            else if(history.goal)
+            {
+              this.patient.goal = "Otro"
+              this.patient.otherGoal = history.goal
+            }
+
+            var programExistsInList = this.programOptions.includes(history.program);
+            if(programExistsInList == true)
+            {
+              this.patient.program = history.program
+            }
+            else if(history.program)
+            {
+              this.patient.program = "Otro"
+              this.patient.otherProgram = history.program
+            }
+            this.patient.size = history.size
+          
+      }).catch(error =>{
+            this.$swal("Error",error.response.data.error,"error")
+        })
+    },
+    saveMyInfo(){
+      if(this.willUpdateInfo){
+       this.saveMyInfoUpdate()
+      }
+      else{
+        this.saveMyInfoCreateNew()
+      }
+    },
+    saveMyInfoUpdate(){
+      this.isError = false
+      this.validateNomina()
+      this.validateName()
+      this.validateSurname()
+      this.validateDateOfBirth()
+      this.validateEmail()
+      this.validateDepartment()
+      this.validateGender()
+      this.validatePatientType()
+      this.validateCourse()
+      this.validateGoal()
+      this.validateOtherGoal()
+      this.validateOtherProgram()      
+      this.validateProgram()
+      this.validateOtherProgram()
+      this.validateSize()
+      if(this.isError){
+        this.$swal("Error","Favor de verificar todos los campos","error")
+        return
+      }
+      const URL = helper.baseURL + "/nutricion/records/"+this.userId;
+      axios.defaults.headers.common['Authorization'] = "Bearer "+ localStorage.getItem("token");
+      axios
+      .put(URL,
+        {
+        matricula: this.patient.nomina.toLowerCase(),
+        name: this.patient.name,
+        surname: this.patient.surname,
+        birthdate: this.patient.dateOfBirth,
+        email: this.patient.email.toLowerCase(),
+        mayorArea: this.patient.department,
+        gender: this.patient.gender,
+        patientType: this.patient.patientType,
+        class: this.patient.course,
+        goal: this.patient["goalToUpload"],
+        program: this.patient["programToUpload"],
+        size: this.patient.size
+        }
+      )
+      .then(response => {
+          var userId = response.data._id
+          this.$swal("Información Guardada","Se ha actualizado la Información del Paciente","success")
+          .then((_) => {
+              window.open("./expedientemedico?id="+userId,"_self")
+          })
+      }).catch(error =>{
+          this.$swal("Error",error.response.data.error,"error")
+      })
+    },
+    saveMyInfoCreateNew()
     {      
       this.isError = false
       this.validateNomina()
@@ -529,10 +661,10 @@ export default {
         }
       )
       .then(response => {
-          var userId = response.data._id
-          this.$swal("Información Guardada","Se ha actualizado la Información del Paciente","success")
+          var newUserId = response.data._id
+          this.$swal("Información Guardada","Se ha registrado la Información del Paciente","success")
           .then((_) => {
-              window.open("./expedientemedico?id="+userId,"_self")
+              window.open("./expedientemedico?id="+newUserId,"_self")
           })
       }).catch(error =>{
           this.$swal("Error",error.response.data.error,"error")
@@ -540,6 +672,7 @@ export default {
     }
   },
     created(){    
+    this.updateView()
     this.getCurrentDate()
   }
 };

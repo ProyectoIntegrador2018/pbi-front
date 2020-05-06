@@ -3,7 +3,7 @@
       <v-container class="fill-height">
         <v-row justify="center">
             <v-col cols="10">
-            <h1 align="center">Nuevo Expediente Nutricional</h1>
+            <h1 align="center">Expediente Nutricional</h1>
             <v-card class="d-flex align-center" color="white">
                     <v-row justify="center" class="mb-5">
                         <v-col class="px-0" cols="10">
@@ -12,19 +12,14 @@
                             <v-col class="px-0 pt-0" cols="10">  
                                 <span class="subtitle-1"> Antecedentes patológicos familiares </span>
                                 <v-row>
-                                    <v-col cols="4">
-                                        <v-checkbox class ="my-0" v-model=patient.familyBackground label="Hipertensión Arterial" value="Hipertensión Arterial"></v-checkbox>
-                                        <v-checkbox class ="my-0" v-model=patient.familyBackground label="Diabetes" value="Diabetes"></v-checkbox>
-                                        <v-checkbox class ="my-0" v-model=patient.familyBackground label="Colesterol elevado" value="Colesterol elevado"></v-checkbox>
+                                    <v-col cols="4" >
+                                        <v-checkbox v-for="item in BackgroundListCol1" :key="item" class ="my-0" v-model=patient.familyBackground :label="item" :value="item"></v-checkbox>
+                                    </v-col>
+                                    <v-col cols="4" >
+                                        <v-checkbox v-for="item in BackgroundListCol2" :key="item" class ="my-0" v-model=patient.familyBackground :label="item" :value="item"></v-checkbox>
                                     </v-col>
                                     <v-col cols="4">
-                                        <v-checkbox class ="my-0" v-model=patient.familyBackground label="Triglicéridos elevados" value="Triglicéridos elevados"></v-checkbox>
-                                        <v-checkbox class ="my-0" v-model=patient.familyBackground label="Cáncer" value="Cáncer"></v-checkbox>
-                                        <v-checkbox class ="my-0" v-model=patient.familyBackground label="Estreñimiento" value="Estreñimiento"></v-checkbox>
-                                    </v-col>
-                                    <v-col cols="4">
-                                        <v-checkbox class ="my-0" v-model=patient.familyBackground label="Gastritis " value="Gastritis"></v-checkbox>
-                                        <v-checkbox class ="my-0" v-model=patient.familyBackground label="Colitis" value="Colitis"></v-checkbox>
+                                        <v-checkbox v-for="item in BackgroundListCol3" :key="item" class ="my-0" v-model=patient.familyBackground :label="item" :value="item"></v-checkbox>
                                         <v-checkbox class ="my-0" v-model=patient.otherFamilyBackgroundChecked label="Otro" value="Otro"></v-checkbox>
                                         <template v-if="patient.otherFamilyBackgroundChecked === 'Otro'" >
                                             <v-text-field
@@ -46,18 +41,13 @@
                                 <span class="subtitle-1"> Antecedentes patológicos personales </span>
                                 <v-row>
                                     <v-col cols="4">
-                                        <v-checkbox class ="my-0" v-model=patient.personalBackground label="Hipertensión Arterial" value="Hipertensión Arterial"></v-checkbox>
-                                        <v-checkbox class ="my-0" v-model=patient.personalBackground label="Diabetes" value="Diabetes"></v-checkbox>
-                                        <v-checkbox class ="my-0" v-model=patient.personalBackground label="Colesterol elevado" value="Colesterol elevado"></v-checkbox>
-                                        </v-col>
-                                    <v-col cols="4">
-                                        <v-checkbox class ="my-0" v-model=patient.personalBackground label="Triglicéridos elevados" value="Triglicéridos elevados"></v-checkbox>
-                                        <v-checkbox class ="my-0" v-model=patient.personalBackground label="Cáncer" value="Cáncer"></v-checkbox>
-                                        <v-checkbox class ="my-0" v-model=patient.personalBackground label="Estreñimiento" value="Estreñimiento"></v-checkbox>
+                                        <v-checkbox v-for="item in BackgroundListCol1" :key="item" class ="my-0" v-model=patient.personalBackground :label="item" :value="item"></v-checkbox>
                                     </v-col>
                                     <v-col cols="4">
-                                        <v-checkbox class ="my-0" v-model=patient.personalBackground label="Gastritis " value="Gastritis"></v-checkbox>
-                                        <v-checkbox class ="my-0" v-model=patient.personalBackground label="Colitis" value="Colitis"></v-checkbox>
+                                        <v-checkbox v-for="item in BackgroundListCol2" :key="item" class ="my-0" v-model=patient.personalBackground :label="item" :value="item"></v-checkbox>
+                                    </v-col>
+                                    <v-col cols="4">
+                                        <v-checkbox v-for="item in BackgroundListCol3" :key="item" class ="my-0" v-model=patient.personalBackground :label="item" :value="item"></v-checkbox>
                                         <v-checkbox class ="my-0" v-model=patient.otherPersonalBackgroundChecked label="Otro" value="Otro"></v-checkbox>
                                         <template v-if="patient.otherPersonalBackgroundChecked === 'Otro'" >
                                             <v-text-field
@@ -245,20 +235,13 @@
                             <span class="subtitle-1"> ¿Ha empleado algún método para cuidar su peso? </span>
                             <v-row>
                                 <v-col cols="4">
-                                    <v-checkbox class ="my-0" v-model=patient.controlledMethod label="Solo Dieta" value="Solo Dieta"></v-checkbox>
-                                    <v-checkbox class ="my-0" v-model=patient.controlledMethod label="Solo entrenamiento" value="Solo entrenamiento"></v-checkbox>
-                                    <v-checkbox class ="my-0" v-model=patient.controlledMethod label="No comer nada" value="No comer nada"></v-checkbox>
-                                    <v-checkbox class ="my-0" v-model=patient.controlledMethod label="Omitir alguna comida" value="Omitir alguna comida"></v-checkbox>
-                                 </v-col>
+                                    <v-checkbox v-for="item in ControlledMethodListCol1" :key="item" class ="my-0" v-model=patient.controlledMethod :label="item" :value="item"></v-checkbox>
+                                </v-col>
                                 <v-col cols="4">
-                                    <v-checkbox class ="my-0" v-model=patient.controlledMethod label="Dieta-entrenamiento" value="Dieta-entrenamiento"></v-checkbox>
-                                    <v-checkbox class ="my-0" v-model=patient.controlledMethod label="Diuréticos" value="Diuréticos"></v-checkbox>
-                                    <v-checkbox class ="my-0" v-model=patient.controlledMethod label="Sauna" value="Sauna"></v-checkbox>
-                                    <v-checkbox class ="my-0" v-model=patient.controlledMethod label="Vómitos" value="Vómitos"></v-checkbox>                                    
-                                  </v-col>
+                                    <v-checkbox v-for="item in ControlledMethodListCol2" :key="item" class ="my-0" v-model=patient.controlledMethod :label="item" :value="item"></v-checkbox>
+                                </v-col>
                                 <v-col cols="4">
-                                    <v-checkbox class ="my-0" v-model=patient.controlledMethod label="Laxante" value="Laxante"></v-checkbox>
-                                    <v-checkbox class ="my-0" v-model=patient.controlledMethod label="Entrenamiento con ropa para sudar" value="Entrenamiento con ropa para sudar"></v-checkbox>
+                                    <v-checkbox v-for="item in ControlledMethodListCol3" :key="item" class ="my-0" v-model=patient.controlledMethod :label="item" :value="item"></v-checkbox>
                                     <v-checkbox class ="my-0" v-model=patient.otherControlledMethodChecked label="Otro" value="Otro"></v-checkbox>
                                     <template v-if="patient.otherControlledMethodChecked === 'Otro'" >
                                         <v-text-field
@@ -326,11 +309,17 @@
                                 ></v-textarea>                                        
                             </v-col>
                         <v-col cols="10" class="px-0 py-0" >
-                            <v-row class="d-flex flex-row-reverse mx-6 my-0">     
-                                <v-col cols="4">                           
+                            <v-row class="d-flex flex-row-reverse mx-6 my-0"> 
+                                <v-col cols="4">    
                                     <v-btn large block color="primary" @click="saveMyInfo">
                                     <v-icon align="center" medium color="white" >mdi-content-save-outline</v-icon>
                                     Guardar
+                                    </v-btn>
+                                </v-col>
+                                <v-col cols="6">
+                                    <v-btn large block @click="redirectPersonalInfo"> 
+                                     <v-icon align="center" medium >mdi-arrow-left</v-icon>
+                                     Datos del Paciente
                                     </v-btn>
                                 </v-col>
                             </v-row>
@@ -352,6 +341,7 @@ export default {
   data () {
       return {          
         isError: false,
+        userId:"",
         patient: {
             familyBackground:[],
             otherFamilyBackgroundChecked: "",
@@ -397,7 +387,36 @@ export default {
             glucose:"",
             comments:""
         },
-        drinksFrequencyOptions: ['Semanal', 'Quincenal', 'Fines de semana', 'Mensual', 'Anual'],       
+        drinksFrequencyOptions: [
+          'Semanal', 
+          'Quincenal', 
+          'Fines de semana', 
+          'Mensual', 
+          'Anual'],       
+        ControlledMethodListCol1 : [
+          'Solo Dieta',
+          'Solo entrenamiento',
+          'No comer nada',
+          'Omitir alguna comida'],
+        ControlledMethodListCol2 : [
+          'Dieta-entrenamiento',
+          'Diuréticos',
+          'Sauna',
+          'Vómitos'],
+        ControlledMethodListCol3 : [
+          'Laxante',
+          'Entrenamiento con ropa para sudar'],
+        BackgroundListCol1 : [
+          'Hipertensión Arterial',
+          'Diabetes',
+          'Colesterol elevado'],
+        BackgroundListCol2 : [
+          'Triglicéridos elevados',
+          'Cáncer',
+          'Estreñimiento'],
+        BackgroundListCol3 : [
+          'Gastritis',
+          'Colitis']
       }
     },
   components: {
@@ -631,15 +650,9 @@ export default {
           this.patient.controlledMethod[this.patient.controlledMethod.length-1]!=this.patient.otherControlledMethod)
       {
         this.patient.controlledMethod.push(this.patient.otherControlledMethod);
-      }
+      }      
       
-      var userId = this.getParameterByName("id", window.location);
-      if(!userId){
-        this.$swal("Error","Usuario no encontrado","error")
-        return
-      }
-
-      const URL = helper.baseURL + "/nutricion/records/history/"+userId;
+      const URL = helper.baseURL + "/nutricion/records/history/"+this.userId;
       axios.defaults.headers.common['Authorization'] = "Bearer "+ localStorage.getItem("token");
       axios
       .post(URL,
@@ -648,7 +661,7 @@ export default {
           personalBackground: this.patient.personalBackground,
           lifestyle:{
             physicalActivity: this.patient.physicalActivity,
-            duration: (Number(this.patient.durationHours)+(Number(this.patient.durationMinutes)/100)),
+            duration: (Number(this.patient.durationHours)*60+(Number(this.patient.durationMinutes))),
             frequency: (Number(this.patient.activityFrequency)),
             sleepHours: (Number(this.patient.sleepQuantity)),
             smoker: this.patient.isSmoker,
@@ -679,11 +692,109 @@ export default {
           this.$swal("Error",error.response.data.error,"error")
       })
 
+    },
+    loadInfo(){
+      this.userId= this.getParameterByName("id", window.location);
+
+      if(this.userId === null)
+      {
+        this.$swal("Error","El usuario no existe","error")
+        window.open("./informacionpersonal","_self")        
+      }
+
+      const token = this.$route.query.token
+        const URL = helper.baseURL + "/nutricion/records/"+this.userId;
+        axios.defaults.headers.common['Authorization'] = "Bearer "+ localStorage.getItem("token");
+        axios
+        .get(URL)
+        .then(response => {
+          const history = response.data.history
+
+          for(var iK=0; iK<history.familyBackground.length; iK++)
+          {
+              if(this.BackgroundListCol1.includes(history.familyBackground[iK]) ||
+                this.BackgroundListCol2.includes(history.familyBackground[iK]) ||
+                this.BackgroundListCol3.includes(history.familyBackground[iK]))
+              {
+                  this.patient.familyBackground.push(history.familyBackground[iK])                    
+              }
+              else
+              {                
+                  this.patient.otherFamilyBackgroundChecked = "Otro"  
+                  this.patient.otherFamilyBackground = history.familyBackground[iK]
+              }
+          }
+          for(var iK=0; iK<history.personalBackground.length; iK++)
+          {
+              if(this.BackgroundListCol1.includes(history.personalBackground[iK]) ||
+                this.BackgroundListCol2.includes(history.personalBackground[iK]) ||
+                this.BackgroundListCol3.includes(history.personalBackground[iK]))
+              {
+                  this.patient.personalBackground.push(history.personalBackground[iK])                    
+              }
+              else
+              {                
+                  this.patient.otherPersonalBackgroundChecked = "Otro"  
+                  this.patient.otherPersonalBackground = history.personalBackground[iK]
+              }
+          }
+          this.patient.physicalActivity = history.lifestyle.physicalActivity
+          this.patient.activityFrequency = history.lifestyle.frequency
+          this.patient.durationHours = Math.floor(history.lifestyle.duration/60)
+          this.patient.durationMinutes = history.lifestyle.duration - (Math.floor(history.lifestyle.duration/60))*60
+          this.patient.sleepQuantity = history.lifestyle.sleepHours
+
+          if(history.lifestyle.smoker)
+          {
+            this.patient.isSmoker = true
+          }else{
+            this.patient.isSmoker = false
+          }
+          if(history.lifestyle.drinker)
+          {
+            this.patient.isDrinker = true
+          }else{
+            this.patient.isSmoker = false
+          }
+          this.patient.drinksQuantity = history.lifestyle.drinkQuantity
+          this.patient.drinksType = history.lifestyle.drinkType
+          this.patient.drinksFrequency = history.lifestyle.drinkFrequency
+          if(history.diet.supplementConsumer)
+          {
+            this.patient.supplement = true
+          }else{
+            this.patient.supplement = false
+          }     
+          this.patient.supplementName = history.diet.supplementName       
+          for(var iK=0; iK<history.diet.controlledMethod.length; iK++)
+          {
+              if(this.ControlledMethodListCol1.includes(history.diet.controlledMethod[iK]) ||
+                this.ControlledMethodListCol2.includes(history.diet.controlledMethod[iK]) ||
+                this.ControlledMethodListCol3.includes(history.diet.controlledMethod[iK]))
+              {
+                  this.patient.controlledMethod.push(history.diet.controlledMethod[iK])                    
+              }
+              else
+              {                
+                  this.patient.otherControlledMethodChecked = "Otro"  
+                  this.patient.otherControlledMethod = history.diet.controlledMethod[iK]
+              }
+          }  
+          this.patient.cholesterol = history.biochemical.cholesterol
+          this.patient.triglycerides = history.biochemical.triglycerides
+          this.patient.glucose = history.biochemical.glucose
+          this.patient.comments = history.comments    
+      }).catch(error =>{
+            this.$swal("Error",error.response.data.error,"error")
+        })
+    },
+    redirectPersonalInfo(){
+      window.open("./informacionpersonal?id="+this.userId,"_self")
     }
-    
   },
     created(){
-  }
+      this.loadInfo()
+  },
 };
 </script>
 

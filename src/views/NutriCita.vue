@@ -233,18 +233,12 @@ export default {
              notes: this.cita.nota
            }
 
-           console.log(json_cita)
-
-           console.log(this.$route.params.id)
-
            const URL = helper.baseURL + '/nutricion/appointment/' + this.$route.params.id
-           console.log(URL)
            axios.defaults.headers.common['Authorization'] = "Bearer "+ localStorage.getItem("token");
            axios
              .post(URL,json_cita)
              .then(() => {
                this.$swal("Guardado", "Seguimiento guardado", "success");
-               console.log("hohoj")
              })
              .catch(error => {
                this.$swal({

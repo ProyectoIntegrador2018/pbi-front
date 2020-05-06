@@ -197,7 +197,7 @@ const router = new Router({
             meta:{isNutri: true}
         },
         {
-            path: '/nutricion/recordatorio',
+            path: '/nutricion/:id/recordatorio',
             name: 'NutriRecordatorio',
             component: NutriRecordatorio,
             meta:{isNutri: true}

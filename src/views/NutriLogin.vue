@@ -5,7 +5,7 @@
             <v-card class="d-flex align-center" color="white">
               <v-row class="mx-10 my-10">
                 <v-col cols="12" md="12">
-                  <h3 class="my-5">Iniciar sesión de Administrador</h3>
+                  <h3 class="my-5">Iniciar sesión de Nutrición</h3>
                   <v-text-field
                     v-model="userLogin.email"
                     :rules="[rules.required]"
@@ -25,9 +25,6 @@
                   ></v-text-field>
                   <v-btn large block color="primary" @click="logIn(userLogin.email,userLogin.password)">Entrar</v-btn>
                   <v-row>
-                  <v-col cols="12">
-                    <iframe width="100%" height="100%" frameBorder="0" src="https://drive.google.com/file/d/1RaK1u8n79yWg1RD-rLu2BIcL8vqdAkIu/preview" allowfullscreen></iframe>
-                  </v-col>
                 </v-row>                
                 </v-col>
               </v-row>
@@ -62,7 +59,7 @@ import axios from "axios";
 
       logIn(correo,pass){   
           
-          const URL = helper.baseURL + "/login";
+          const URL = helper.baseURL + "/nutricion/login";
           var temp = {"email":correo.toLowerCase(),"password":pass}
           
           axios
@@ -79,7 +76,7 @@ import axios from "axios";
           })
       },
       redirect() {
-        var route = "/admin/home/";
+        var route = "/nutricion/home/";
         window.open(route, "_self");
       }
       

@@ -215,6 +215,7 @@ export default {
       postNuevaCita(){
        if(this.$refs.form.validate()){
           var json_cita = {
+             date: new Date(),
              height: this.cita.altura,
              weight: this.cita.peso,
              IMC: this.cita.imc,

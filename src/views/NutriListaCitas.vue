@@ -27,7 +27,7 @@
               :search="search"
               loading-text="Cargando... Favor de esperar"
             >
-              
+              <template #item.formatDate="{item}">{{dateToString(item.date)}}</template>
               <template #item.full_name="{item}">{{item.name}}  {{item.surname}}</template>
               <template v-slot:top>
                 <v-toolbar flat color="white">
@@ -87,7 +87,7 @@ export default {
       show: true,
       appointments : [],
       headers: [
-        { text: "Fecha", value:""},
+        { text: "Fecha", value:"formatDate"},
         { text: "Peso", value: "weight" },
         { text: "Altura", value: "height" },
         { text: "IMC", aign: "left", value: "IMC"},
@@ -102,6 +102,11 @@ export default {
     
   },
   methods: {
+    dateToString(date){
+      date = new Date(date)
+      var dateString = date.toISOString().substr(0, 10)
+      return dateString
+    },
     createAppoint(){
       window.open("/nutricion/"+this.$route.params.id+"/cita")
     },
@@ -151,6 +156,7 @@ export default {
       .get(URL)
       .then((Response)=>{   
         this.appointments = Response.data
+        console.log(Response.data)
         this.isLoading = false
       })
       .catch((error)=>{

@@ -270,7 +270,7 @@ router.beforeEach((to, from, next) => {
         next(next({ path: '/nutricion/login'}))
     }
 
-    if(!autorizacionNutri && localStorage.getItem("token")){
+    if(localStorage.getItem("token")){
         var token = window.localStorage.getItem("token")
         const URL = helper.baseURL + "/validate?token=" + token;
         axios  
@@ -280,7 +280,9 @@ router.beforeEach((to, from, next) => {
                 window.localStorage.clear("token")
                 if(autorizacionAdmin){
                     next({ path: '/admin'})
-                }else{
+                }else if(autorizacionNutri){
+                    next({ path: '/nutricion/login'})
+                }else {
                     next({ path: '/login'})
                 }
             }else{
@@ -291,7 +293,16 @@ router.beforeEach((to, from, next) => {
                    }else{
                        next()
                    }
-               }else{
+               }else if(response.data.admin){
+                if(!autorizacionAdmin){
+                    next({ path: '/admin/home'})
+                }else{
+                    next()
+                }
+               }
+               
+               
+               {
                    if(!autorizacionUsr){
                        next({ path: '/home'})
                    }else{

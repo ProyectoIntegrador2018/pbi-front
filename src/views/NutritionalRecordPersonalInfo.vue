@@ -502,12 +502,13 @@ export default {
           results = regex.exec(url);
       if (!results) return null;
       if (!results[2]) return '';
+      console.log(decodeURIComponent(results[2].replace(/\+/g, ' ')))
       return decodeURIComponent(results[2].replace(/\+/g, ' '));
     },
     updateView(){
       if(this.getParameterByName("id", window.location)===null)
       {
-          this.willUpdatateInfo = false;          
+          this.willUpdateInfo = false;          
       }
       else{
         this.willUpdateInfo = true; 

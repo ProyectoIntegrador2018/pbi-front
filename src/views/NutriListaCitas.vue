@@ -46,14 +46,14 @@
                 </v-toolbar>
               </template>
               <template v-slot:item.record="{ item }">
-                <!-- <v-tooltip top>
+                <v-tooltip top>
                   <template v-slot:activator="{ on }">
                     <v-btn icon v-on="on">  
-                      <v-icon small @click="showReport(item)">search</v-icon>
+                      <v-icon small @click="verCita(item)">search</v-icon>
                     </v-btn>
                   </template>
-                  <span>Ver/Editar Expediente</span>
-                </v-tooltip> -->
+                  <span>Ver/Editar Cita</span>
+                </v-tooltip>
                 <v-tooltip top>
                   <template v-slot:activator="{ on }">
                     <v-btn icon v-on="on">
@@ -122,11 +122,11 @@ export default {
         cancelButtonColor: "blue"}).then((result)=>{
           if(result.value){
             axios.defaults.headers.common['Authorization'] = "Bearer "+ localStorage.getItem("token");
-            const URL = helper.baseURL + "/nutricion/records/"+item._id ;
+            const URL = helper.baseURL + "/nutricion/appointment/"+item._id ;
             axios
             .delete(URL)
             .then(()=>{
-              this.$swal("Expediente eliminado","","success")
+              this.$swal("Cita eliminada","","success")
               this.getItems()
             })
             .catch((error)=>{
@@ -156,7 +156,7 @@ export default {
       .get(URL)
       .then((Response)=>{   
         this.appointments = Response.data
-        console.log(Response.data)
+        
         this.isLoading = false
       })
       .catch((error)=>{
@@ -164,14 +164,18 @@ export default {
       })
       
     },
+    verCita(item){
+      var route = '/nutricion/'+this.$route.params.id+'/cita?cid=' +item._id
+      window.open(route,"_self")
+    },
     getStatusFlag(){
       const URL = helper.baseURL + "/terms/status/"+ this.periodID;
       axios
         .get(URL)
         .then(response => {
           this.show = !response.data.status
-          console.log(this.show)
-          console.log(response.data.status);
+          //console.log(this.show)
+          //console.log(response.data.status);
           
         })
         .catch(() => {

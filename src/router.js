@@ -353,7 +353,6 @@ router.beforeEach((to, from, next) => {
                     }
                     //Si el token es válido, checar que tipo de cuenta es
                 } else {
-                    console.log(response.data)
                     if (autorizacionAdmin) {
                         if (response.data.admin) {
                             next()

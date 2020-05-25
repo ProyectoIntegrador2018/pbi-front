@@ -167,20 +167,6 @@ export default {
     verCita(item){
       var route = '/nutricion/'+this.$route.params.id+'/cita?cid=' +item._id
       window.open(route,"_self")
-    },
-    getStatusFlag(){
-      const URL = helper.baseURL + "/terms/status/"+ this.periodID;
-      axios
-        .get(URL)
-        .then(response => {
-          this.show = !response.data.status
-          //console.log(this.show)
-          //console.log(response.data.status);
-          
-        })
-        .catch(() => {
-          this.$swal("Error", "No se pudo cargar periodo", "error");
-        });
     }
   },
   created(){

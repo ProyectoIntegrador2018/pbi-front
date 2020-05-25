@@ -35,6 +35,7 @@ import NutriRecordatorio from './views/NutriRecordatorio.vue'
 import NutriCita from './views/NutriCita.vue'
 import NutriPacientes from './views/NutriPacientes.vue'
 import NutriListaCitas from './views/NutriListaCitas'
+import NutriReportesPacientes from './views/NutriReportesPacientes'
 
 
 import axios from "axios";
@@ -261,6 +262,14 @@ const router = new Router({
             path: '/nutricion/pacientes',
             name: 'NutriPacientes',
             component: NutriPacientes,
+            meta: {
+                isNutri: true
+            }
+        },
+        {
+            path: '/nutricion/pacientes/reportes',
+            name: 'NutriReportesPacientes',
+            component: NutriReportesPacientes,
             meta: {
                 isNutri: true
             }

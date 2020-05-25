@@ -54,7 +54,7 @@
                   </v-col>
                   <v-col cols="12" md="6" class="py-0">
                     <v-text-field 
-                    v-model="userSignUp.surename" 
+                    v-model="userSignUp.surname" 
                     label="Apellidos" 
                     single-line 
                     solo                    
@@ -125,7 +125,7 @@ export default {
       userLogin: { email: "", password: "" },
       userSignUp: {
         name: "",
-        surename: "",
+        surname: "",
         email: "",
         password: "",
         pConfirm: "",
@@ -200,7 +200,7 @@ export default {
       var email = userSignUp["email"].toLowerCase();
       var temp = {
         name: userSignUp["name"],
-        surename: userSignUp["surename"],
+        surname: userSignUp["surname"],
         email: email,
         password: userSignUp["password"],
         nomina: userSignUp["nomina"],
@@ -264,7 +264,7 @@ export default {
       }
     },
     validateSurname() {
-      if (!this.userSignUp["surename"]) {
+      if (!this.userSignUp["surname"]) {
         this.isError = true;
         this.errorMsg.surname = "Campo requerido";
       } else {

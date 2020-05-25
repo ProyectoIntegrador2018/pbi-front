@@ -166,13 +166,13 @@ export default {
     ],
     headers: [
       { text: "Nombre", align: "left", value: "name" },
-      { text: "Apellido", value: "surename" },
+      { text: "Apellido", value: "surname" },
       { text: "Nomina", value: "nomina" },
       { text: "Métricas", align: "center", value: "action", sortable: false }
     ],
     json_fields: {
       Nombre: "name",
-      Apellido: "surename",
+      Apellido: "surname",
       Nomina: "nomina",
       Email:"email",
       Departamento: "departamento",
@@ -180,7 +180,7 @@ export default {
     },
     inscritos_historial: {
       "Nombre": "name",
-      "Apellido": "surename",
+      "Apellido": "surname",
       "Nomina": "nomina",
       "Correo": "email",
       "Compañía de seguros": "medicalRecord.insuranceCompany",

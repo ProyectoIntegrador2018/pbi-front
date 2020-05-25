@@ -199,13 +199,13 @@
                                     ></v-textarea>                                        
                                   </v-col>  
                                 </v-row>
-                                <v-divider class="py-2"></v-divider> 
                               </v-col>   
                             </template>
                         <v-col class="px-0" cols="10">
+                          <v-divider class="py-2"></v-divider>
                             <h2 align="left">Datos Dietéticos</h2>
                         </v-col>              
-                        <v-col class="py-0" cols="10">
+                        <v-col class="py-0" cols="10">                          
                           <v-row>
                             <v-col class="pl-0 py-0" cols="6">  
                                 <span class="subtitle-1"> ¿Consume algun suplemento nutricional (vitaminas,minerales,proteína)? </span>   
@@ -230,33 +230,6 @@
                             </template>
                           </v-row>
                           <v-divider class="py-2"></v-divider>     
-                        </v-col>
-                        <v-col class="px-0 pt-0" cols="10">  
-                            <span class="subtitle-1"> ¿Ha empleado algún método para cuidar su peso? </span>
-                            <v-row>
-                                <v-col cols="4">
-                                    <v-checkbox v-for="item in ControlledMethodListCol1" :key="item" class ="my-0" v-model=patient.controlledMethod :label="item" :value="item"></v-checkbox>
-                                </v-col>
-                                <v-col cols="4">
-                                    <v-checkbox v-for="item in ControlledMethodListCol2" :key="item" class ="my-0" v-model=patient.controlledMethod :label="item" :value="item"></v-checkbox>
-                                </v-col>
-                                <v-col cols="4">
-                                    <v-checkbox v-for="item in ControlledMethodListCol3" :key="item" class ="my-0" v-model=patient.controlledMethod :label="item" :value="item"></v-checkbox>
-                                    <v-checkbox class ="my-0" v-model=patient.otherControlledMethodChecked label="Otro" value="Otro"></v-checkbox>
-                                    <template v-if="patient.otherControlledMethodChecked === 'Otro'" >
-                                        <v-text-field
-                                        v-model="patient.otherControlledMethod"                                    
-                                        label="Otro Método"
-                                        @change="this.validateOtherControlledMethod"
-                                        :errorMessages="this.errorPatient.otherControlledMethod"
-                                        single-line
-                                        solo             
-                                        >
-                                        </v-text-field>
-                                    </template>
-                                </v-col>
-                            </v-row>  
-                            <v-divider class="py-2"></v-divider>      
                         </v-col> 
                         <v-col class="px-0" cols="10">
                             <h2 align="left">Datos Bioquímicos</h2>
@@ -361,9 +334,6 @@ export default {
             drinksType:"",    
             supplement: false,
             supplementName:"",
-            controlledMethod:[],
-            otherControlledMethodChecked:"",
-            otherControlledMethod:"", 
             cholesterol:"",
             triglycerides:"",
             glucose:"",
@@ -380,8 +350,7 @@ export default {
             drinksQuantity:"",            
             drinksFrequency:"",
             drinksType:"",
-            supplementName:"",
-            otherControlledMethod:"",
+            supplementName:"",            
             cholesterol:"",
             triglycerides:"",
             glucose:"",
@@ -392,20 +361,7 @@ export default {
           'Quincenal', 
           'Fines de semana', 
           'Mensual', 
-          'Anual'],       
-        ControlledMethodListCol1 : [
-          'Solo Dieta',
-          'Solo entrenamiento',
-          'No comer nada',
-          'Omitir alguna comida'],
-        ControlledMethodListCol2 : [
-          'Dieta-entrenamiento',
-          'Diuréticos',
-          'Sauna',
-          'Vómitos'],
-        ControlledMethodListCol3 : [
-          'Laxante',
-          'Entrenamiento con ropa para sudar'],
+          'Anual'], 
         BackgroundListCol1 : [
           'Hipertensión Arterial',
           'Diabetes',
@@ -556,15 +512,6 @@ export default {
           this.errorPatient.supplementName = ""
         }
     },    
-    validateOtherControlledMethod(){
-      if(this.patient["otherControlledMethodChecked"] === "Otro" && !this.patient["otherControlledMethod"]){  
-          this.isError = true
-          this.errorPatient.otherControlledMethod = "Campo requerido"
-        }else{
-          this.errorPatient.otherControlledMethod = ""
-        }
-
-    },
     validateCholesterol(){
       if(Number.isNaN(Number(this.patient["cholesterol"]))){
           this.isError = true
@@ -626,7 +573,6 @@ export default {
       this.validateDrinksFrequency()
       this.validateDrinksType()
       this.validateSupplementName()
-      this.validateOtherControlledMethod()
       this.validateCholesterol()
       this.validateTriglycerides()
       this.validateGlucose()
@@ -645,12 +591,7 @@ export default {
           this.patient.personalBackground[this.patient.personalBackground.length-1]!=this.patient.otherPersonalBackground)
       {
         this.patient.personalBackground.push(this.patient.otherPersonalBackground);
-      }
-      if(this.patient.otherControlledMethodChecked === 'Otro' && 
-          this.patient.controlledMethod[this.patient.controlledMethod.length-1]!=this.patient.otherControlledMethod)
-      {
-        this.patient.controlledMethod.push(this.patient.otherControlledMethod);
-      }      
+      }    
       
       const URL = helper.baseURL + "/nutricion/records/history/"+this.userId;
       axios.defaults.headers.common['Authorization'] = "Bearer "+ localStorage.getItem("token");
@@ -673,7 +614,7 @@ export default {
           diet:{
             supplementConsumer: this.patient.supplement,
             supplementName: this.patient.supplementName,
-            controlledMethod: this.patient.controlledMethod
+            controlledMethod: "" //QUITAR DESPUES DE QUE SE ACTUALICE LA BASE DE DATOS
           },      
           comments: this.patient.comments,
           biochemical:{
@@ -765,21 +706,7 @@ export default {
           }else{
             this.patient.supplement = false
           }     
-          this.patient.supplementName = history.diet.supplementName       
-          for(var iK=0; iK<history.diet.controlledMethod.length; iK++)
-          {
-              if(this.ControlledMethodListCol1.includes(history.diet.controlledMethod[iK]) ||
-                this.ControlledMethodListCol2.includes(history.diet.controlledMethod[iK]) ||
-                this.ControlledMethodListCol3.includes(history.diet.controlledMethod[iK]))
-              {
-                  this.patient.controlledMethod.push(history.diet.controlledMethod[iK])                    
-              }
-              else
-              {                
-                  this.patient.otherControlledMethodChecked = "Otro"  
-                  this.patient.otherControlledMethod = history.diet.controlledMethod[iK]
-              }
-          }  
+          this.patient.supplementName = history.diet.supplementName        
           this.patient.cholesterol = history.biochemical.cholesterol
           this.patient.triglycerides = history.biochemical.triglycerides
           this.patient.glucose = history.biochemical.glucose

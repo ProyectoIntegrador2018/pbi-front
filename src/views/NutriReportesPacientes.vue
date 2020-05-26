@@ -117,8 +117,9 @@
               :search="search"
               loading-text="Cargando... Favor de esperar"
             >
-              
-              <template #item.full_name="{item}">{{item.name}}  {{item.surname}}</template>
+              <template #item.matricula="{item}">{{item.record.matricula}}</template>
+              <template #item.full_name="{item}">{{item.record.name}}  {{item.record.surname}}</template>
+              <template #item.nutriinfo="{item}">{{item.nutritionist.name}}</template>
               <template v-slot:top>
                 <v-toolbar flat color="white">
                     <v-text-field
@@ -160,9 +161,10 @@ export default {
       headers: [
           { text: "Fecha", value: "date"},
           { text: "Matrícula/Nómina", value: "matricula"},
-          { text: "Nombre", value: "nombre"},
+          { text: "Nombre", value: "full_name"},
           { text: "Altura", value: "height"},
-          { text: "Peso", value: "weight"}
+          { text: "Peso", value: "weight"},
+          { text: "Nutricion", value: "nutriinfo"}
       ]
   }),
   methods: {
@@ -170,17 +172,23 @@ export default {
         if(this.$refs.form.validate() && this.dateRange(this.fechaA,this.fechaB))
         {
             this.showTable = true
-            console.log(this.fechaA, this.fechaB)
+            
                 this.appointments = []
                 axios.defaults.headers.common['Authorization'] = "Bearer "+ localStorage.getItem("token");
-                const URL = helper.baseURL 
+                const URL = helper.baseURL  + '/nutricion/appointments/span'
+                var dates = {
+                  startDate: this.fechaA,
+                  endDate: this.fechaB
+                }
+                console.log(dates)
                 axios
-                .get(URL)
+                .put(URL,dates)
                 .then((response)=> {
                     this.appointments = response.data
+                    console.log(response.data)
                     this.isLoading = false
                 }).catch((error)=>{
-                    this.$swal("Error",error.response.data.error,"error")
+                    this.$swal("Error",error.response.data.error.message,"error")
                 })
             
         }else{

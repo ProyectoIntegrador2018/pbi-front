@@ -55,7 +55,6 @@
 
           <v-col cols="12" md="4">
             <v-card
-              disabled="true"
               class="d-flex align-center"
               color="orange"
               height="200"
@@ -89,12 +88,12 @@ export default {
       var route = "/error/";
       window.open(route, "_self");
     },
-    redirectToReportes() {
-      var route = "/error/";
-      window.open(route, "_self");
-    },
     redirectToPacientes() {
       var route = "/nutricion/pacientes";
+      window.open(route, "_self");
+    },
+    redirectToReportes() {
+      var route = "/nutricion/indicadores";
       window.open(route, "_self");
     }
   }

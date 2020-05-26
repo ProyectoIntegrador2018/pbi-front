@@ -21,13 +21,13 @@
               ref="table" 
               :headers="headers" 
               :items="appointments" 
-              sort-by="name" 
+              sort-by="date" 
               class="elevation-1"
               :loading="isLoading"
               :search="search"
               loading-text="Cargando... Favor de esperar"
             >
-              <template #item.formatDate="{item}">{{dateToString(item.date)}}</template>
+              <template #item.formatDate="{item}">{{momentDatetime(item.date,"LL")}}</template>
               <template #item.full_name="{item}">{{item.name}}  {{item.surname}}</template>
               <template v-slot:top>
                 <v-toolbar flat color="white">
@@ -45,6 +45,27 @@
                   <v-btn class="blue  darken-3 white--text"   @click="createAppoint()">Nueva cita</v-btn>
                 </v-toolbar>
               </template>
+              <template v-slot:item.weight="{ item }">
+               {{item.weight}} kg
+              </template>
+              <template v-slot:item.height="{ item }">
+               {{item.height}} mts
+              </template>
+              <template v-slot:item.muscleMass="{ item }">
+               {{item.muscleMass}} Kg
+              </template>
+              <template v-slot:item.fatMass="{ item }">
+               {{item.fatMass}} Kg
+              </template>
+              <template v-slot:item.muscleMass="{ item }">
+               {{item.muscleMass}} Kg
+              </template>
+              <template v-slot:item.totalWater="{ item }">
+               {{item.totalWater}} Lt
+              </template>
+              <template v-slot:item.fatMassPct="{ item }">
+               {{item.fatMassPct}}%
+              </template>
               <template v-slot:item.record="{ item }">
                 <v-tooltip top>
                   <template v-slot:activator="{ on }">
@@ -57,7 +78,7 @@
                 <v-tooltip top>
                   <template v-slot:activator="{ on }">
                     <v-btn icon v-on="on">
-                      <v-icon small @click="deleteItem(item)">delete</v-icon></v-icon>
+                      <v-icon small @click="deleteItem(item)">delete</v-icon>
                     </v-btn>
                   </template>
                   <span>Eliminar Cita</span>
@@ -93,7 +114,9 @@ export default {
         { text: "IMC", aign: "left", value: "IMC"},
         { text: "Masa Muscular", align: "left", value: "muscleMass"},
         { text: "Masa de Grasa", align: "left", value: "fatMass"},
+        { text: "Porcentaje de grasa", align:" ", value: "fatMassPct"},
         { text: "Agua corporal", value:"totalWater"},
+        { text: "Atendió", value:"nutritionist.name"},
         { text: "Acciones", align: "center", value: "record"}
       ],
     }
@@ -101,14 +124,18 @@ export default {
   components: {
     
   },
+
   methods: {
+    momentDatetime(datetime, datetime_format) {
+      return this.$moment.utc(datetime).format(datetime_format);
+    },
     dateToString(date){
       date = new Date(date)
       var dateString = date.toISOString().substr(0, 10)
       return dateString
     },
     createAppoint(){
-      window.open("/nutricion/"+this.$route.params.id+"/cita")
+      window.open("/nutricion/"+this.$route.params.id+"/cita","_self")
     },
     deleteItem(item){
       this.$swal({
@@ -117,7 +144,7 @@ export default {
         type:"warning",
         showCancelButton:true,
         cancelButtonText:"No",
-        confirmButtonText:"Dar de baja",
+        confirmButtonText:"Eliminar",
         confirmButtonColor: "red",
         cancelButtonColor: "blue"}).then((result)=>{
           if(result.value){
@@ -143,7 +170,7 @@ export default {
       .then((response)=>{
         this.patient = response.data
         this.getItems();
-      }).cancelButtonText((error)=>{
+      }).catch((error)=>{
         this.$swal("Error",error.response.data.error,"error")
       })
     },
@@ -156,7 +183,6 @@ export default {
       .get(URL)
       .then((Response)=>{   
         this.appointments = Response.data
-        
         this.isLoading = false
       })
       .catch((error)=>{

@@ -85,6 +85,7 @@ export default {
       axios
         .get(URL)
         .then(response => {
+          console.log(response.data)
           this.user = response.data;
           this.isLoading = false
         })

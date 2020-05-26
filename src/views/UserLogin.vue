@@ -156,7 +156,7 @@ export default {
         .post(URL, temp)
         .then(response => {
           localStorage.token = response.data.token;
-          //window.console.log(response.data.token);
+          
           this.redirect();
         })
         .catch(error => {
@@ -186,6 +186,7 @@ export default {
         });
     },
     signUp() {
+      
       this.isError = false;
       this.validateName();
       this.validateSurname();
@@ -206,18 +207,19 @@ export default {
         nomina: userSignUp["nomina"],
         dateBirth: "01-01-2000"
       };
-      window.console.log(temp);
-      const URL = helper.baseURL + "/users";
+      
+      const URL = helper.baseURL + "/accounts";
       axios
         .post(URL, temp)
         .then(response => {
-          //window.console.log(response["token"]);
+          console.log("Se creo cuenta")
           this.$swal(
             "Cuenta creada",
             "Ya puedes iniciar sesión con tus credenciales",
             "success"
           );
         }).catch((error)=>{
+          
           this.$swal("No se pudo crear la cuenta",error.response.data.error,"error")
         })
       },

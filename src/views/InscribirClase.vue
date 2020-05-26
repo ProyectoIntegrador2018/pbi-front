@@ -94,6 +94,7 @@ export default {
         })
         .catch(() => {
           this.$swal("Error", "No se pudieron cargar", "error");
+          
         });
     },
     getUserInfo() {
@@ -113,6 +114,7 @@ export default {
         })
         .catch(error => {
           this.$swal("Error", error.response.data.error, "error");
+          console.log("es en /user get")
         });
     },
     hasMedicalRecord() {

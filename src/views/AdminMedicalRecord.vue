@@ -400,7 +400,7 @@ export default {
             const medicalR = response.data.medicalRecord
 
             this.userAccount.name = response.data.name
-            this.userAccount.surname = response.data.surename
+            this.userAccount.surname = response.data.surname
             this.userAccount.payroll = response.data.nomina
             
             if(medicalR.age == 0)

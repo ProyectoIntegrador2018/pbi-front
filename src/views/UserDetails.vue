@@ -2,7 +2,7 @@
   <div>
     <v-content>
       <v-container fluid>
-        <adminheader :title="user.name" :subtitle="user.surename" secondRoute="/users/" titleStyle='2'></adminheader>
+        <adminheader :title="user.name" :subtitle="user.surname" secondRoute="/users/" titleStyle='2'></adminheader>
         <h1 align="center" justify="center" class="subtitle-1">{{user.nomina}}</h1>
       </v-container>
       <v-container fluid my-5 px-md-12>
@@ -85,6 +85,7 @@ export default {
       axios
         .get(URL)
         .then(response => {
+          console.log(response.data)
           this.user = response.data;
           this.isLoading = false
         })

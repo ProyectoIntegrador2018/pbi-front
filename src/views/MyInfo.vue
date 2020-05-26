@@ -207,7 +207,7 @@ export default {
             this.userAccount.email = response.data.email
             this.userAccount.nomina = response.data.nomina
             this.userAccount.name = response.data.name
-            this.userAccount.surname = response.data.surename            
+            this.userAccount.surname = response.data.surname            
             this.userAccount.department = response.data.departamento   
             var rectoriaExistsInList = this.rectoriasLista.includes(response.data.rectoria);
             if(rectoriaExistsInList == true)
@@ -241,9 +241,11 @@ export default {
   
         const token = this.$route.query.token
         const URL = helper.baseURL + "/user";
+        var json_info = {token:token,name:this.userAccount.name,surname:this.userAccount.surname,departamento:this.userAccount.department,rectoria:this.userAccount.rectoriaToUpload}
+        console.log(json_info)
         axios.defaults.headers.common['Authorization'] = "Bearer "+ localStorage.getItem("token");
         axios
-        .put(URL,{token:token,name:this.userAccount.name,surename:this.userAccount.surname,departamento:this.userAccount.department,rectoria:this.userAccount.rectoriaToUpload})
+        .put(URL,json_info)
         .then(response => {
             this.$swal("Información Guardada","Se ha actualizado tu Información","success")
             .then((_) => {

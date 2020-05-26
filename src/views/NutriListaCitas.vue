@@ -67,14 +67,14 @@
                {{item.fatMassPct}}%
               </template>
               <template v-slot:item.record="{ item }">
-                <!-- <v-tooltip top>
+                <v-tooltip top>
                   <template v-slot:activator="{ on }">
                     <v-btn icon v-on="on">  
-                      <v-icon small @click="showReport(item)">search</v-icon>
+                      <v-icon small @click="verCita(item)">search</v-icon>
                     </v-btn>
                   </template>
-                  <span>Ver/Editar Expediente</span>
-                </v-tooltip> -->
+                  <span>Ver/Editar Cita</span>
+                </v-tooltip>
                 <v-tooltip top>
                   <template v-slot:activator="{ on }">
                     <v-btn icon v-on="on">
@@ -149,11 +149,11 @@ export default {
         cancelButtonColor: "blue"}).then((result)=>{
           if(result.value){
             axios.defaults.headers.common['Authorization'] = "Bearer "+ localStorage.getItem("token");
-            const URL = helper.baseURL + "/nutricion/cita/"+item._id ;
+            const URL = helper.baseURL + "/nutricion/appointment/"+item._id ;
             axios
             .delete(URL)
             .then(()=>{
-              this.$swal("Expediente eliminado","","success")
+              this.$swal("Cita eliminada","","success")
               this.getItems()
             })
             .catch((error)=>{
@@ -190,16 +190,9 @@ export default {
       })
       
     },
-    getStatusFlag(){
-      const URL = helper.baseURL + "/terms/status/"+ this.periodID;
-      axios
-        .get(URL)
-        .then(response => {
-          this.show = !response.data.status 
-        })
-        .catch(() => {
-          this.$swal("Error", "No se pudo cargar periodo", "error");
-        });
+    verCita(item){
+      var route = '/nutricion/'+this.$route.params.id+'/cita?cid=' +item._id
+      window.open(route,"_self")
     }
   },
   created(){

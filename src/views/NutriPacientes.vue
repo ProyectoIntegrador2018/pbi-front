@@ -1,21 +1,9 @@
  <template>
   <div>
     <v-content>
-      <v-container fluid>
-        <v-row align="center" justify="center">
-          <h1 class="display-2 font-weight-bold" align="center">Pacientes</h1>
-        </v-row>
-      </v-container>
-      
+      <nutriheader title="Pacientes"></nutriheader>
       <v-container fluid my-5 px-md-12>
-        <div justify="left" align="left">
-          <v-col cols="2" class="px-0">
-              <v-btn large block class="px-0" href="/nutricion/home">
-                <v-icon align="center" medium >mdi-arrow-left</v-icon>
-                Regresar
-              </v-btn>
-          </v-col>
-        </div>
+        
           <div>
             <v-data-table 
               ref="table" 
@@ -33,16 +21,16 @@
                 <v-toolbar flat color="white">
                   <v-toolbar-title>Mis pacientes</v-toolbar-title>
                   <!-- <v-divider class="mx-4" inset vertical></v-divider> -->
-                  <v-spacer></v-spacer>
-                  <v-text-field
-                    v-model="search"
-                    append-icon="mdi-magnify"
-                    label="Buscar Matrícula/Nómina"
-                    single-line
-                    hide-details
-                  ></v-text-field>
-                  <v-spacer></v-spacer>
-                  <v-btn class="blue  darken-3 white--text" href="/nutricion/informacionpersonal" >Nuevo Expediente</v-btn>
+                  <v-spacer> </v-spacer>
+                    <v-text-field
+                      v-model="search"
+                      append-icon="mdi-magnify"
+                      label="Buscar Matrícula/Nómina"
+                      single-line
+                      hide-details
+                    ></v-text-field>
+                    <v-spacer> </v-spacer>
+                   <v-btn class="blue  darken-3 white--text" href="/nutricion/informacionpersonal" >Nuevo Expediente</v-btn>
                 </v-toolbar>
               </template>
               <template v-slot:item.appoint="{ item }">
@@ -85,6 +73,13 @@
             </v-data-table>
           </div>
       </v-container>
+      <v-container fluid my-2>
+        <v-col align="center" cols="12">
+          <v-btn large class="blue  darken-3 white--text" @click="viewReports()">
+              Ver reportes de pacientes
+          </v-btn>
+        </v-col>
+    </v-container>
     </v-content>
   </div>
 </template>
@@ -93,6 +88,7 @@
 const helper = require("../helper.js");
 
 import axios from "axios";
+import nutriheader from "../components/nutriheader.vue";
 
 export default {
   name: "UserClasses",
@@ -114,7 +110,7 @@ export default {
     }
   },
   components: {
-    
+    nutriheader
   },
   methods: {
     showAppoint(item){
@@ -133,6 +129,9 @@ export default {
     redirectToUserInfo() {
       var route = "/myinfo/";
       window.open(route, "_self");
+    },
+    viewReports(){
+      window.open("/nutricion/pacientes/reportes", "_self");
     },
     deleteItem(item){
       this.$swal({
@@ -174,20 +173,6 @@ export default {
         this.$swal("Error",error.response.data.error,"error")
       })
       
-    },
-    getStatusFlag(){
-      const URL = helper.baseURL + "/terms/status/"+ this.periodID;
-      axios
-        .get(URL)
-        .then(response => {
-          this.show = !response.data.status
-          console.log(this.show)
-          console.log(response.data.status);
-          
-        })
-        .catch(() => {
-          this.$swal("Error", "No se pudo cargar periodo", "error");
-        });
     }
   },
   created(){

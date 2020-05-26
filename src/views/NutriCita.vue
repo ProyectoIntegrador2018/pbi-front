@@ -38,14 +38,14 @@
                     <span class="subtitle-2">
                       IMC:
                     </span>
-                    <v-text-field required v-model="cita.imc"  :rules="[v => !! v || 'Campo requerido. Clic en Calcular']"  single-line solo disabled></v-text-field>
+                    <v-text-field required v-model="cita.imc"  single-line solo disabled></v-text-field>
                   </v-col>
 
                   <v-col cols="12" sm="6" class="py-0">
                     <span class="subtitle-2">
                       Diagnóstico IMC:
                     </span>
-                    <v-text-field required v-model="cita.diag_imc" :rules="[v => !! v || 'Campo requerido. Clic en Calcular']"  single-line solo disabled></v-text-field>
+                    <v-text-field required v-model="cita.diag_imc" single-line solo disabled></v-text-field>
                   </v-col>
                 </v-row>   
                 <v-row class="py-0">
@@ -216,6 +216,7 @@ export default {
   }),
   methods: {
       save(){
+        this.calcularIMC()
         if(this.willUpdate){
           this.editCita()
         }else {

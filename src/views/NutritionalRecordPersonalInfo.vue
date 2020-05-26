@@ -49,9 +49,7 @@
                                 <v-col class="px-0 py-0" cols="12">
                                         <span class="subtitle-1"> Fecha de Nacimiento: </span> 
                                         <v-menu
-                                        ref="menu"                                        
-                                        @change="this.validateSurname"
-                                        :errorMessages="this.errorPatient.surname"                                      
+                                        ref="menu"                                                          
                                         :close-on-content-click="false"
                                         :return-value.sync="patient.dateOfBirth"
                                         transition="scale-transition"
@@ -62,8 +60,7 @@
                                             <v-text-field
                                             v-model="patient.dateOfBirth"                                            
                                             required
-                                            :rules="dobRules"                                           
-                                            
+                                            :rules="dobRules"         
                                             label="Fecha de Nacimiento"
                                             prepend-icon="event"
                                             readonly
@@ -158,7 +155,18 @@
                                             @change="this.validateCourse" 
                                             :errorMessages="this.errorPatient.course"                                   
                                         ></v-select>
-                                </v-col>     
+                                </v-col> 
+                                <v-col v-if="patient.course === 'Otro'" class="px-0 pl-10 py-0" cols="12">            
+                                        <span class="subtitle-1"> Otra Clase: </span>
+                                        <v-text-field
+                                        v-model="patient.otherCourse"                        
+                                        label="Clase"
+                                        single-line
+                                        solo
+                                        @change="this.validateOtherCourse"
+                                        :errorMessages="this.errorPatient.otherCourse"
+                                        ></v-text-field>
+                                </v-col>    
                                 <v-col class="px-0 py-0" cols="12">            
                                         <span class="subtitle-1"> Objetivo: </span>
                                         <v-select
@@ -260,6 +268,8 @@ export default {
             gender:"",
             patientType:"",
             course:"",
+            otherCourse:"",
+            courseToUpload:"",
             goal:"",
             otherGoal:"",
             goalToUpload:"",
@@ -276,6 +286,7 @@ export default {
             email:"",
             gender:"",
             course:"",
+            otherCourse:"",
             patientType:"",
             goal:"",
             otherGoal:"",
@@ -293,26 +304,26 @@ export default {
             'Alumnos'
         ],
         courseOptions: [
-            'AFG', 
-            'AFP', 
-            'Body Sculpt', 
-            'Fitness',
-            'Tenis',
+            'Acondicionamiento Fisico General',
+            'Basquetbol mixto',
+            'Body Sculpt',
+            'Box',
+            'Ciclismo Indoor',
+            'Escalada',
+            'Fight Do',
+            'Fit & Dance',
+            'Futbol Soccer varonil',
+            'Natación principiante',
+            'Natación intermedio',
+            'Tenis principiante',
+            'Tenis intermedio',
+            'Personalizado',
+            'Prosalud',
+            'Gimnasio libre acceso',
+            'Voleibol mixto',
             'Yoga',
             'Zumba', 
-            'Prosalud', 
-            'Box',
-            'Natación', 
-            'Baloncesto', 
-            'Cicismo/Fitness', 
-            'Cicilismo',
-            'Escalada',
-            'Evaluaciones Médicas', 
-            'Líderes',
-            'Consulta en lína', 
-            'Karate',
-            'Cupón',
-            'Análisis Corporal'            
+            'Otro'            
         ],
         goalsOptions: [
             'Bajar de Peso', 
@@ -439,7 +450,21 @@ export default {
           this.errorPatient.course = "Campo requerido"
         }else{
           this.errorPatient.course = ""
+          if(this.patient["course"] != "Otro"){
+            this.patient["courseToUpload"] = this.patient["course"] 
+          }          
         }
+    },
+    validateOtherCourse(){
+        if(this.patient["course"] === "Otro" && !this.patient.otherCourse){
+          this.isError = true
+          this.errorPatient.otherCourse = "Campo requerido"
+        }else{
+          this.errorPatient.otherCourse = ""
+          if(this.patient["course"] === "Otro"){
+            this.patient["courseToUpload"] = this.patient["otherCourse"]  
+          }
+        }        
     },
     validateGoal(){
         if(!this.patient["goal"]){
@@ -449,8 +474,7 @@ export default {
           this.errorPatient.goal = ""
           if(this.patient["goal"] != "Otro"){
             this.patient["goalToUpload"] = this.patient["goal"] 
-          }
-          
+          }          
         }
     },    
     validateOtherGoal(){
@@ -533,7 +557,17 @@ export default {
             this.patient.department = history.mayorArea
             this.patient.gender = history.gender
             this.patient.patientType = history.patientType
-            this.patient.course = history.class
+            
+            var courseExistsInList = this.courseOptions.includes(history.class);
+            if(courseExistsInList == true)
+            {
+              this.patient.course = history.class
+            }
+            else if(history.class)
+            {
+              this.patient.course = "Otro"
+              this.patient.otherCourse = history.class
+            }
 
             var goalExistsInList = this.goalsOptions.includes(history.goal);
             if(goalExistsInList == true)
@@ -564,13 +598,13 @@ export default {
     },
     saveMyInfo(){
       if(this.willUpdateInfo){
-       this.saveMyInfoUpdate()
+        this.saveMyInfoUpdate()
       }
       else{
         this.saveMyInfoCreateNew()
       }
     },
-    saveMyInfoUpdate(){
+    saveMyInfoUpdate(){      
       this.isError = false
       this.validateNomina()
       this.validateName()
@@ -581,6 +615,7 @@ export default {
       this.validateGender()
       this.validatePatientType()
       this.validateCourse()
+      this.validateOtherCourse()
       this.validateGoal()
       this.validateOtherGoal()
       this.validateOtherProgram()      
@@ -604,7 +639,7 @@ export default {
         mayorArea: this.patient.department,
         gender: this.patient.gender,
         patientType: this.patient.patientType,
-        class: this.patient.course,
+        class: this.patient["courseToUpload"],
         goal: this.patient["goalToUpload"],
         program: this.patient["programToUpload"],
         size: this.patient.size
@@ -632,6 +667,7 @@ export default {
       this.validateGender()
       this.validatePatientType()
       this.validateCourse()
+      this.validateOtherCourse()
       this.validateGoal()
       this.validateOtherGoal()
       this.validateOtherProgram()      
@@ -655,7 +691,7 @@ export default {
         mayorArea: this.patient.department,
         gender: this.patient.gender,
         patientType: this.patient.patientType,
-        class: this.patient.course,
+        class: this.patient["courseToUpload"],
         goal: this.patient["goalToUpload"],
         program: this.patient["programToUpload"],
         size: this.patient.size

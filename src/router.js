@@ -35,7 +35,10 @@ import NutriRecordatorio from './views/NutriRecordatorio.vue'
 import NutriCita from './views/NutriCita.vue'
 import NutriPacientes from './views/NutriPacientes.vue'
 import NutriListaCitas from './views/NutriListaCitas'
+
 import NutriReportesPacientes from './views/NutriReportesPacientes'
+import NutriIndicadores from './views/NutriIndicadores.vue'
+
 
 
 import axios from "axios";
@@ -298,7 +301,12 @@ const router = new Router({
                 isNutri: true
             }
         },
-
+        {
+            path: '/nutricion/indicadores',
+            name: 'NutriIndicadores',
+            component: NutriIndicadores,
+            meta:{isNutri: true}
+        }
     ]
 })
 

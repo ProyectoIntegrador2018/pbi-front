@@ -239,7 +239,9 @@ export default {
            axios
              .post(URL,json_cita)
              .then(() => {
-               this.$swal("Guardado", "Seguimiento guardado", "success");
+               this.$swal("Guardado", "Seguimiento guardado", "success").then(()=>{
+                 window.open("/nutricion/pacientes/citas/"+this.$route.params.id,"_self")
+               });
              })
              .catch(error => {
                this.$swal({
@@ -275,7 +277,7 @@ export default {
 
            this.cita.imc = this.cita.imc.toFixed(2)
         } catch (error) {
-          console.log("error")
+          window.console.log("error")
         }
         
       }

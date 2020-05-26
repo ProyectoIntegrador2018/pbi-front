@@ -54,7 +54,7 @@
                   </v-col>
                   <v-col cols="12" md="6" class="py-0">
                     <v-text-field 
-                    v-model="userSignUp.surename" 
+                    v-model="userSignUp.surname" 
                     label="Apellidos" 
                     single-line 
                     solo                    
@@ -125,7 +125,7 @@ export default {
       userLogin: { email: "", password: "" },
       userSignUp: {
         name: "",
-        surename: "",
+        surname: "",
         email: "",
         password: "",
         pConfirm: "",
@@ -156,7 +156,7 @@ export default {
         .post(URL, temp)
         .then(response => {
           localStorage.token = response.data.token;
-          //window.console.log(response.data.token);
+          
           this.redirect();
         })
         .catch(error => {
@@ -186,6 +186,7 @@ export default {
         });
     },
     signUp() {
+      
       this.isError = false;
       this.validateName();
       this.validateSurname();
@@ -200,24 +201,25 @@ export default {
       var email = userSignUp["email"].toLowerCase();
       var temp = {
         name: userSignUp["name"],
-        surename: userSignUp["surename"],
+        surname: userSignUp["surname"],
         email: email,
         password: userSignUp["password"],
         nomina: userSignUp["nomina"],
         dateBirth: "01-01-2000"
       };
-      window.console.log(temp);
-      const URL = helper.baseURL + "/users";
+      
+      const URL = helper.baseURL + "/accounts";
       axios
         .post(URL, temp)
         .then(response => {
-          //window.console.log(response["token"]);
+          console.log("Se creo cuenta")
           this.$swal(
             "Cuenta creada",
             "Ya puedes iniciar sesión con tus credenciales",
             "success"
           );
         }).catch((error)=>{
+          
           this.$swal("No se pudo crear la cuenta",error.response.data.error,"error")
         })
       },
@@ -264,7 +266,7 @@ export default {
       }
     },
     validateSurname() {
-      if (!this.userSignUp["surename"]) {
+      if (!this.userSignUp["surname"]) {
         this.isError = true;
         this.errorMsg.surname = "Campo requerido";
       } else {

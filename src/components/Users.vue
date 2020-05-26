@@ -168,7 +168,7 @@ export default {
     search: "",
     headers: [
       { text: "Nombre", align: "left", value: "name" },
-      { text: "Apellido", value: "surename" },
+      { text: "Apellido", value: "surname" },
       { text: "Nómina", value: "nomina" },
       { text: "Email", value: "email" },
       { text: "Rectoría", value: "rectoria" },
@@ -178,7 +178,7 @@ export default {
     ],
     users_fields: {
       Nombre: "name",
-      Apellido: "surename",
+      Apellido: "surname",
       Nomina: "nomina",
       Correo: "email",
       Rectoría: "rectoria",
@@ -194,7 +194,7 @@ export default {
     editedItem: {
       id: "",
       name: "",
-      surename: "",
+      surname: "",
       email: "",
       nomina: "",
       rectoria: "",
@@ -206,7 +206,7 @@ export default {
     defaultItem: {
       id: "",
       name: "",
-      surename: "",
+      surname: "",
       email: "",
       nomina: "",
       rectoria: "",
@@ -265,6 +265,7 @@ export default {
       }
     },
     editItem(item) {
+
       this.editedIndex = this.users.indexOf(item);
 
       var rectoriaToShow;
@@ -278,9 +279,9 @@ export default {
       }
 
       const json_item = {
-        id: item.id,
+        id: item._id,
         name: item.name,
-        surname: item.surename,
+        surname: item.surname,
         nomina: item.nomina,
         email: item.email,
         courses: item.classes,
@@ -313,7 +314,7 @@ export default {
 
         const json_user = {
           name: this.editedItem.name,
-          surename: this.editedItem.surname,
+          surname: this.editedItem.surname,
           rectoria: rectoriaToUpload,
           departamento: this.editedItem.departamento
         };
@@ -321,6 +322,7 @@ export default {
         const URL = helper.baseURL + "/admin/users/" + this.editedItem.id;
         axios.defaults.headers.common["Authorization"] =
           "Bearer " + localStorage.getItem("token");
+
         axios
           .put(URL, json_user)
           .then(response => {

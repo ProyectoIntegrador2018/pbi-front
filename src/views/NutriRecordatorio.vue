@@ -282,13 +282,13 @@
               <v-row justify="center" class="py-0">
                 <v-col cols="12" sm="2" class="py-0">
                   <span class="subtitle-2">
-                    Total Frutas:
+                    Frutas:
                   </span>
                   <v-text-field v-model="comidas[3].fruit"  single-line :rules="numberRules" solo disabled></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="2" class="py-0">
                   <span class="subtitle-2">
-                    Total Verduras:
+                    Verduras:
                   </span>
                   <v-text-field v-model="comidas[3].vegetable"  single-line :rules="numberRules" solo disabled></v-text-field>
                 </v-col>
@@ -359,25 +359,25 @@
               <v-row justify="center" class="py-0">
                 <v-col cols="12" sm="3" class="py-0">
                   <span class="subtitle-2">
-                    Hidratos de carbono:
+                   Carbohidratos (g):
                   </span>
                   <v-text-field v-model="hidratos" required single-line :rules="numberRules" solo disabled></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="3" class="py-0">
                   <span class="subtitle-2">
-                    Proteínas:
+                    Proteínas (g):
                   </span>
                   <v-text-field v-model="proteinas" required single-line :rules="numberRules" solo disabled></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="3" class="py-0">
                   <span class="subtitle-2">
-                    Grasas:
+                    Grasas  (g):
                   </span>
                   <v-text-field v-model="grasas"  required single-line :rules="numberRules" solo disabled></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="3" class="py-0">
                   <span class="subtitle-2">
-                    Suma de Calorías:
+                    Total Kcal:
                   </span>
                   <v-text-field v-model="totalCalorias"  required single-line :rules="numberRules" solo disabled></v-text-field>
                 </v-col>
@@ -495,6 +495,25 @@ export default {
       this.comidas[3].meatWhole = +this.comidas[0].meatWhole  +  +this.comidas[1].meatWhole  +  +this.comidas[2].meatWhole
       this.comidas[3].meatSemiGreasy = +this.comidas[0].meatSemiGreasy  +  +this.comidas[1].meatSemiGreasy  +  +this.comidas[2].meatSemiGreasy
       this.comidas[3].meatGreasy = +this.comidas[0].meatGreasy  +  +this.comidas[1].meatGreasy  +  +this.comidas[2].meatGreasy
+  
+
+      this.hidratos = (this.comidas[3].fruit*15) + (this.comidas[3].cereal*15) + (this.comidas[3].vegetable*4)
+                      + (this.comidas[3].legume*20)  + (this.comidas[3].milkSkimmed*12)  + (this.comidas[3].milkSemiSkimmed*12)
+                      + (this.comidas[3].milkWhole*12) + (this.comidas[3].sugar*10)
+                      
+      this.totalCalorias = (this.comidas[3].fruit*60) + (this.comidas[3].cereal*70) + (this.comidas[3].vegetable*25) 
+                      + (this.comidas[3].meatWhole*40) + (this.comidas[3].meatSemiGreasy*55) + (this.comidas[3].meatGreasy*75)
+                      + (this.comidas[3].legume*120)  + (this.comidas[3].milkSkimmed*95)  + (this.comidas[3].milkSemiSkimmed*110)
+                      + (this.comidas[3].milkWhole*150) + (this.comidas[3].sugar*40) + (this.comidas[3].fat*45)
+      
+      this.grasas = (this.comidas[3].meatWhole*1) + (this.comidas[3].meatSemiGreasy*3) + (this.comidas[3].meatGreasy*5)
+                      + (this.comidas[3].legume*1)  + (this.comidas[3].milkSkimmed*2)  + (this.comidas[3].milkSemiSkimmed*4)
+                      + (this.comidas[3].milkWhole*8) + (this.comidas[3].fat*5)
+      
+      this.proteinas = (this.comidas[3].cereal*2) + (this.comidas[3].vegetable*2) 
+                      + (this.comidas[3].meatWhole*7) + (this.comidas[3].meatSemiGreasy*7) + (this.comidas[3].meatGreasy*7)
+                      + (this.comidas[3].legume*8)  + (this.comidas[3].milkSkimmed*9)  + (this.comidas[3].milkSemiSkimmed*9)
+                      + (this.comidas[3].milkWhole*9)               
     },
     confirm(){
 

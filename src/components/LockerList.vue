@@ -247,7 +247,7 @@ export default {
                                 axios
                                     .get(URL)
                                     .then(response => {
-                                        lockerInfo.name = response.data.name + " " + response.data.surename,
+                                        lockerInfo.name = response.data.name + " " + response.data.surname,
                                         lockerInfo.nomina = response.data.nomina,
                                         lockerInfo.email = response.data.email
                                         lockerInfo.userId = response.data._id

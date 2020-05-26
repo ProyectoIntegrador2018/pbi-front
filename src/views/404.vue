@@ -12,11 +12,6 @@
           <p>Meditar un poco ayuda a enfocar el pensamiento... y a encontrar la página que buscas</p>
         </v-col>
       </v-row>
-      <v-row align="center" justify="center">
-        <v-btn outlined fab color="primary" href="/">
-          <v-icon>mdi-home</v-icon>
-        </v-btn>
-      </v-row>
     </v-container>
   </div>
 </template>
@@ -26,10 +21,6 @@ export default {
   name: "HomeAdmin",
   components: {},
   methods: {
-    redirect() {
-      var route = "/";
-      window.open(route, "_self");
-    }
   }
 };
 </script>

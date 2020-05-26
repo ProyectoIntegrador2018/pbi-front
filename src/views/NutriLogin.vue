@@ -59,7 +59,7 @@ import axios from "axios";
 
       logIn(correo,pass){   
           
-          const URL = helper.baseURL + "/nutricion/login";
+          const URL = helper.baseURL + "/login";
           var temp = {"email":correo.toLowerCase(),"password":pass}
           
           axios

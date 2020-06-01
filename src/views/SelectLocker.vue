@@ -6,7 +6,7 @@
           <h1
             class="display-2 font-weight-bold"
             align="center"
-          >Inscribir Casillero para {{this.Periodo}}</h1>
+          >Inscribir Locker para {{this.Periodo}}</h1>
         </v-row>
       </v-container>
       <v-container fluid my-0 px-md-12 py-0>
@@ -49,15 +49,15 @@
                   type="warning"
                   prominent
                   border="left"
-                >Inscripciones a casilleros permitidas del {{momentDatetime(this.start, 'LL')}} a las 12:00 AM al {{momentDatetime(this.close, 'LL')}} hasta las 11:59 PM.</v-alert>
+                >Inscripciones a Lockers permitidas del {{momentDatetime(this.start, 'LL')}} a las 12:00 AM al {{momentDatetime(this.close, 'LL')}} hasta las 11:59 PM.</v-alert>
               </template>
           </template>
         </template>
 
         <p class="py-5 px-5 my-0 caption">
           Ubicación: Vestidores del semisótano del Centro de Congresos 
-          Sugerencias de uso adecuado de Locker: Debes llevar tu candado y colocarlo lo antes posible, Evita dejar objetos de valor, No dejes tus pertenencias en las bancas, Verifica que hayas cerrado el candado, No guardes químicos y/o comida en el casillero.
-          El departamento de Bienestar Integral no se hace responsable por la pérdida o robo de los artículos dejados en el casillero. Atentamente,
+          Sugerencias de uso adecuado de Locker: Debes llevar tu candado y colocarlo lo antes posible, Evita dejar objetos de valor, No dejes tus pertenencias en las bancas, Verifica que hayas cerrado el candado, No guardes químicos y/o comida en el Locker.
+          El departamento de Bienestar Integral no se hace responsable por la pérdida o robo de los artículos dejados en el Locker. Atentamente,
           Coordinación del Programa de Bienestar Integral
         </p>
       </v-container>
@@ -80,7 +80,7 @@ export default {
     Periodo: "",
     medRecord: "",
     periodID:"",
-    showInscription: false, //Es true si la fecha actual se encuentra dentro del periodo de inscripción de casilleros
+    showInscription: false, //Es true si la fecha actual se encuentra dentro del periodo de inscripción de Lockers
     hasLocker: false, //Verifica si el usuario ya tiene un locker asignado
     hasntLoaded: true, //Verifica si el sistema ya comprobó si el usuario tiene un locker o no
     start: "",

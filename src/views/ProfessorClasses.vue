@@ -146,10 +146,7 @@ export default {
       axios
         .get(URL)
         .then(response => {
-          this.show = !response.data.status
-          console.log(this.show)
-          console.log(response.data.status);
-          
+          this.show = !response.data.status          
         })
         .catch(() => {
           this.$swal("Error", "No se pudo cargar periodo", "error");

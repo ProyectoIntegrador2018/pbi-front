@@ -102,7 +102,7 @@ export default {
         this.$swal({
           title:"Confirmar Reservación",
           type:"info",
-          html:`¿Desea Reservar un casillero en el Vestidor de ${vestidor}?`,
+          html:`¿Desea Reservar un Locker en el Vestidor de ${vestidor}?`,
           showCancelButton:true,
           cancelButtonText:"Cancelar",
           confirmButtonText:"Confirmar"}).
@@ -118,9 +118,9 @@ export default {
                 .put(URL)
                 .then(response => {
                   this.$swal({
-                  title:"Casillero Reservado",
+                  title:"Locker Reservado",
                   type:"success",
-                  html:`Ha reservado un casillero en el Vestidor de ${vestidor} con éxito, su número de casillero es: ` + response.data.number
+                  html:`Ha reservado un Locker en el Vestidor de ${vestidor} con éxito, su número de Locker es: ` + response.data.number
                   }).then(()=>{
                     location.reload()
                   })

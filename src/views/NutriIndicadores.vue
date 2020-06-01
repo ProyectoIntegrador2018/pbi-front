@@ -302,12 +302,10 @@ export default {
       this.patientsExcelFileName = "NoPacientes"+"_"+this.nutritionistName+"_"+this.filter.initialDate+"_"+this.filter.finalDate+".xls"
    
       this.isLoadingData = true
-      window.console.log(this.nutritionistId)
       const URL =  helper.baseURL + "/nutricion/report/" + this.nutritionistId   
       axios
         .post(URL,{startDate: this.filter.initialDate, endDate: this.filter.finalDate})
         .then(response => {
-          window.console.log(response.data)
           this.programOptions.forEach(p => {
             for(var i=0; i<2; i++)
             {

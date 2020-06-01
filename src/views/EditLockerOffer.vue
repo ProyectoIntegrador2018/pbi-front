@@ -6,7 +6,7 @@
             <v-card class="d-flex align-center" color="white">
                     <v-row justify="center" class="mb-5">
                         <v-col cols="10">
-                            <h1 align="center">Oferta de Casilleros</h1>
+                            <h1 align="center">Oferta de Lockers</h1>
                         </v-col>
                         <v-col class="px-0 pt-0" cols="10">
                                 <span class="title"> Vestidor Hombres 
@@ -17,7 +17,7 @@
                                 <span class="title"> Costo: </span>
                                 <v-text-field
                                 v-model="maleDresser.cost"                        
-                                label="Costo de Casillero en Vestidor de Hombres"
+                                label="Costo de Locker en Vestidor de Hombres"
                                 single-line
                                 solo
                                 @change="this.validateMaleCost"
@@ -25,10 +25,10 @@
                                 ></v-text-field>
                         </v-col>    
                         <v-col class="px-0 py-0" cols="10">       
-                                <span class="title"> Número de Casilleros: </span>
+                                <span class="title"> Número de Lockers: </span>
                                 <v-text-field
                                 v-model="maleDresser.count"
-                                label="Ejemplo: '100' Creará casilleros 1 - 100"
+                                label="Ejemplo: '100' Creará Lockers 1 - 100"
                                 single-line
                                 solo
                                 @change="this.validateMaleAmount"
@@ -45,7 +45,7 @@
                                 <span class="title"> Costo: </span>
                                 <v-text-field
                                 v-model="femaleDresser.cost"                        
-                                label="Costo de Casillero en Vestidor de Mujeres"
+                                label="Costo de Locker en Vestidor de Mujeres"
                                 single-line
                                 solo
                                 @change="this.validateFemaleCost"
@@ -53,10 +53,10 @@
                                 ></v-text-field>
                         </v-col>    
                         <v-col class="px-0 py-0" cols="10">       
-                                <span class="title"> Número de Casilleros: </span>
+                                <span class="title"> Número de Lockers: </span>
                                 <v-text-field
                                 v-model="femaleDresser.count"
-                                label="Ejemplo: '100' Creará casilleros 1 - 100"
+                                label="Ejemplo: '100' Creará Lockers 1 - 100"
                                 single-line
                                 solo
                                 @change="this.validateFemaleAmount"
@@ -214,7 +214,7 @@ export default {
 
         if(this.femaleDresser.count > this.femaleDresser.originalCount)
         {
-          //Se agregan casilleros
+          //Se agregan Lockers
           const URL = helper.baseURL + "/lockers/add/" + this.femaleDresser.id;
           axios.defaults.headers.common['Authorization'] = "Bearer "+ localStorage.getItem("token");
           axios
@@ -226,7 +226,7 @@ export default {
 
           })    
           .then((response)=>{
-              this.$swal("Casilleros creados", `Se han agregado ${this.femaleDresser.count - this.femaleDresser.originalCount} casilleros nuevos en el vestidor de Mujeres`, "success");  
+              this.$swal("Lockers creados", `Se han agregado ${this.femaleDresser.count - this.femaleDresser.originalCount} Lockers nuevos en el vestidor de Mujeres`, "success");  
               this.femaleDresser.originalCount = this.femaleDresser.count 
          })      
           .catch(error =>{
@@ -235,7 +235,7 @@ export default {
         }
         else if(this.femaleDresser.count < this.femaleDresser.originalCount)
         {
-            //Se restan casilleros
+            //Se restan Lockers
             const URL = helper.baseURL + "/lockers/remove/" + this.femaleDresser.id;
             axios.defaults.headers.common['Authorization'] = "Bearer "+ localStorage.getItem("token");
             axios
@@ -246,7 +246,7 @@ export default {
               substract:this.femaleDresser.originalCount - this.femaleDresser.count
             })
             .then((response)=>{
-                this.$swal("Casilleros eliminados", `Se han eliminado ${this.femaleDresser.originalCount - this.femaleDresser.count} casilleros del vestidor de Mujeres`, "success");  
+                this.$swal("Lockers eliminados", `Se han eliminado ${this.femaleDresser.originalCount - this.femaleDresser.count} Lockers del vestidor de Mujeres`, "success");  
                 this.femaleDresser.originalCount = this.femaleDresser.count 
             })
             .catch(error =>{
@@ -255,7 +255,7 @@ export default {
         }
         else if(this.femaleDresser.originalCount == 0 && this.femaleDresser.count > 0)
         {
-          //Se crean nuevo casilleros
+          //Se crean nuevo Lockers
           const URL = helper.baseURL + "/lockers/";
           axios
           .post(URL,{
@@ -264,7 +264,7 @@ export default {
             count:this.femaleDresser.count
           })
           .then((response)=>{
-              this.$swal("Casilleros creados", `Se han creado ${this.femaleDresser.count} casilleros nuevos en el vestidor de Mujeres`, "success");  
+              this.$swal("Lockers creados", `Se han creado ${this.femaleDresser.count} Lockers nuevos en el vestidor de Mujeres`, "success");  
               this.femaleDresser.originalCount = this.femaleDresser.count 
           })
         }
@@ -298,10 +298,10 @@ export default {
     {
        this.updateLockerCostMale()
 
-       //CASILLEROS HOMBRES
+       //LockerS HOMBRES
         if(this.maleDresser.count > this.maleDresser.originalCount)
         {
-          //Se agregan casilleros
+          //Se agregan Lockers
           const URL = helper.baseURL + "/lockers/add/" + this.maleDresser.id;
           axios.defaults.headers.common['Authorization'] = "Bearer "+ localStorage.getItem("token");
           axios
@@ -312,7 +312,7 @@ export default {
             add:this.maleDresser.count - this.maleDresser.originalCount
           })    
           .then((response)=>{
-              this.$swal("Casilleros creados", `Se han agregado ${this.maleDresser.count - this.maleDresser.originalCount} casilleros nuevos en el vestidor de Hombres`, "success");  
+              this.$swal("Lockers creados", `Se han agregado ${this.maleDresser.count - this.maleDresser.originalCount} Lockers nuevos en el vestidor de Hombres`, "success");  
               this.maleDresser.originalCount = this.maleDresser.count 
           })      
           .catch(error =>{
@@ -331,7 +331,7 @@ export default {
               substract:this.maleDresser.originalCount - this.maleDresser.count
             })
             .then((response)=>{
-                this.$swal("Casilleros eliminados", `Se han eliminado ${this.maleDresser.originalCount - this.maleDresser.count} casilleros nuevos en el vestidor de Hombres`, "success");  
+                this.$swal("Lockers eliminados", `Se han eliminado ${this.maleDresser.originalCount - this.maleDresser.count} Lockers nuevos en el vestidor de Hombres`, "success");  
                 this.maleDresser.originalCount = this.maleDresser.count 
             })
             .catch(error =>{
@@ -341,7 +341,7 @@ export default {
         }
         else if(this.maleDresser.originalCount == 0 && this.maleDresser.count > 0)
         {
-          //Se crean nuevo casilleros
+          //Se crean nuevo Lockers
           const URL = helper.baseURL + "/lockers/";
           axios
           .post(URL,{
@@ -350,7 +350,7 @@ export default {
             count:this.maleDresser.count
           })
           .then((response)=>{
-              this.$swal("Casilleros creados", `Se han creado ${this.maleDresser.count} casilleros nuevos en el vestidor de Hombres`, "success");  
+              this.$swal("Lockers creados", `Se han creado ${this.maleDresser.count} Lockers nuevos en el vestidor de Hombres`, "success");  
               this.maleDresser.originalCount = this.maleDresser.count  
           })
         }

@@ -359,7 +359,6 @@ export default {
           this.cargarInscritasEnPeriodo();
         })
         .catch(Error => {
-          window.console.log(Error);
           this.$swal("Error", Error.response.data.error, "error");
         });
     },

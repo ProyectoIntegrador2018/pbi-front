@@ -234,7 +234,6 @@ export default {
       axios
         .post(URL, temp)
         .then(response => {
-          console.log("Se creo cuenta")
           this.$swal(
             "Cuenta creada",
             "Ya puedes iniciar sesión con tus credenciales",
@@ -250,7 +249,6 @@ export default {
         window.open(route, "_self");
       },
       resendConfirm(){
-        window.console.log("Reenviando")
         const URL = helper.baseURL + "/confirm/retry";
         axios
         .post(URL,{"email": this.userLogin.email.toLowerCase()})

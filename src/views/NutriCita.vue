@@ -336,7 +336,7 @@ export default {
 
            this.cita.imc = this.cita.imc.toFixed(2)
         } catch (error) {
-          window.console.log("error")
+          this.$swal("Error",error,"error")
         }
         
       },

@@ -39,9 +39,6 @@
 </template>
 
 <script>
-function test(){
-  window.console.log("TEST")
-}
 
 const helper = require("../helper.js");
 

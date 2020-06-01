@@ -149,8 +149,6 @@ export default {
         .get(URL)
         .then(response => {
           this.show = !response.data.status
-          console.log(this.show)
-          console.log(response.data.status);
           
         })
         .catch(() => {

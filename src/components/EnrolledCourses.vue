@@ -82,7 +82,6 @@ export default {
             if(course.enrolled.includes(myId))
               return course
           }),
-          //window.console.log(this.enrolledCourses)
           this.openCourses = this.courses.filter(function(course){
               if(course.quota > course.enrolled.length){
                   return course

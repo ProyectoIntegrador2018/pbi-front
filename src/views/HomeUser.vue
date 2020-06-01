@@ -344,7 +344,6 @@ export default {
               return course
           }),
 
-          window.console.log(this.enrolledCourses)
           this.openCourses = this.courses.filter(function(course){
               if(course.quota > course.enrolled.length){
                   return course

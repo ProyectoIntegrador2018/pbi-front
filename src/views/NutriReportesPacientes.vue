@@ -137,7 +137,7 @@
             </v-data-table>
           </v-container>
       </v-container>
-      <v-container fluid my-2>
+      <v-container fluid my-2 v-if="showTable">
       <h2 align="center" class="display-1">Descargar reporte</h2>
         <v-col align="center" cols="12">
           <v-btn color="secondary">
@@ -178,13 +178,19 @@ export default {
           { text: "Nutriólog@", value: "nutriinfo"}
       ],
       reporte_fields: {
-        Fecha: "date",
+        FechaSinFormato: "date",
+        Fecha: {
+          callback: (value) => {
+            var result = /^((19|20)[0-9][0-9])[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])/.exec(value.date)
+            return result[0]
+          }
+        },
         Matrícula_Nómina: "record.matricula",
         Nombre: "record.name",
         Apellido: "record.surname",
         Altura: "height",
         Peso: "weight",
-        Nutricion: "nutritionist.name"
+        "Nutriólog@": "nutritionist.name"
       }
   }),
   methods: {
@@ -203,12 +209,12 @@ export default {
                   startDate: this.fechaA,
                   endDate: this.fechaB
                 }
-                console.log(dates)
+                
                 axios
                 .put(URL,dates)
                 .then((response)=> {
                     this.appointments = response.data
-                    console.log(response.data)
+                    
                     this.isLoading = false
                 }).catch((error)=>{
                     this.$swal("Error",error.response.data.error.message,"error")

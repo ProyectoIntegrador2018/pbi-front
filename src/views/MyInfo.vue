@@ -72,7 +72,31 @@
                                 @change="this.validateOtherRectoria"
                                 :errorMessages="this.errorMsg.otraRectoria"        
                                 ></v-text-field>
-                        </v-col>                              
+                        </v-col>     
+                        <v-col cols="10" class="px-0 py-0">
+                          <v-divider></v-divider>
+                          <h2>Modificar Contraseña (OPCIONAL)</h2>
+                        </v-col>     
+                        <v-col class="px-0 py-0" cols="10">            
+                                <span class="title"> Nueva Contraseña: </span>
+                                <v-text-field
+                                    label="Contraseña"
+                                    v-model="newPass"     
+                                    solo
+                                    @change="validatePass" 
+                                    :errorMessages="errorMsg.pass"                                   
+                                ></v-text-field>
+                        </v-col>  
+                        <v-col class="px-0 py-0" cols="10">            
+                                <span class="title"> Confirmar Nueva Contraseña: </span>
+                                <v-text-field
+                                    label="Confirmar Contraseña"
+                                    v-model="newPassConf"     
+                                    solo
+                                    @change="validateConfirm" 
+                                    :errorMessages="errorMsg.confirm"                                   
+                                ></v-text-field>
+                        </v-col>                   
                         <v-col cols="10" class="px-0 py-0" >
                             <v-row class="d-flex flex-row-reverse mx-6 my-0">                                    
                                 <v-col cols="4">
@@ -105,6 +129,8 @@ export default {
   name: "UserConfirm",
   data () {
       return {
+        newPass:"",
+        newPassConf:"",
         isError: false,
         userAccount: {
           email:"",
@@ -121,7 +147,9 @@ export default {
           surname:"",
           department:"",
           rectoria:"",
-          otraRectoria:""
+          otraRectoria:"",
+          pass:"",
+          confirm:""
         },
         rectoriasLista: ['Rectoría Tecnológico Monterrey',
                             'Talento y Cultura',
@@ -184,6 +212,22 @@ export default {
           this.errorMsg.otraRectoria = ""
         }
     },
+    validatePass(){
+      if(this.newPass.length>0 && this.newPass.length<=7){
+        this.isError = true
+        this.errorMsg.pass = "Contraseña inválida"
+      }else{
+        this.errorMsg.pass = ""
+      }
+    },
+    validateConfirm(){
+      if(this.newPass!=this.newPassConf){
+        this.isError = true
+        this.errorMsg.confirm = "Confirmación no coincide"
+      }else{
+        this.errorMsg.pass = ""
+      }
+    },
     rectoriaSelected(){
         if (this.userAccount.rectoria == "Otro")
         {
@@ -235,13 +279,25 @@ export default {
         this.validateRectoria()
         this.validateOtherRectoria()
         this.rectoriaSelected()
+        this.validatePass()
+        this.validateConfirm()
+      
         if(this.isError){
           return
         }
   
         const token = this.$route.query.token
         const URL = helper.baseURL + "/user";
-        var json_info = {token:token,name:this.userAccount.name,surname:this.userAccount.surname,departamento:this.userAccount.department,rectoria:this.userAccount.rectoriaToUpload}
+        var json_info = {
+            token:token,
+            name:this.userAccount.name,
+            surname:this.userAccount.surname,
+            departamento:this.userAccount.department,
+            rectoria:this.userAccount.rectoriaToUpload}
+        //Verificar actualización de constraseña
+       if(this.newPass!=""){
+         json_info.password = this.newPass
+       }
         console.log(json_info)
         axios.defaults.headers.common['Authorization'] = "Bearer "+ localStorage.getItem("token");
         axios

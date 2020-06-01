@@ -93,7 +93,6 @@ export default {
       return re.test(email);
     },
     resendConfirm(){
-      window.console.log("Reenviando")
       const URL = helper.baseURL + "/confirm/retry";
       axios
       .post(URL,{"email": this.usrEmail})

@@ -39,10 +39,6 @@
 </template>
 
 <script>
-function test(){
-  window.console.log("TEST")
-}
-
 const helper = require("../helper.js");
 
 import axios from "axios";

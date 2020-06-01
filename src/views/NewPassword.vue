@@ -121,7 +121,6 @@ export default {
       },
       confirmar(){
         const token = this.$route.query.token
-        //window.console.log(token)
         const URL = helper.baseURL + "/resetpassword?token="+token;
         axios
         .get(URL)

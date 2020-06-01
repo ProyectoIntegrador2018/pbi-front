@@ -162,9 +162,7 @@ export default {
         return
       }else{
         var claseAInscribir = arrClases.pop()
-        //window.console.log(arrClases.length)
         const URL = helper.baseURL + "/classes/enrollPayroll/user/"+claseAInscribir._id;
-        //window.console.log(arrClases.length)
         axios
         .put(URL)
         .then((response)=>{

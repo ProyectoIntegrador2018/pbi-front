@@ -396,7 +396,6 @@ export default {
         axios
           .put(URL,{id:newNomina})
           .then(response => {
-            window.console.log(response.data)
               this.$swal("Locker Asignado", "Se ha asigando el Locker # a "+newNomina, "success")
               .then(()=>{this.getLockers()});              
          }).catch(error => {

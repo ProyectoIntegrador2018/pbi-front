@@ -563,9 +563,7 @@ export default {
                     cancelButtonColor: '#3085d6',
                     confirmButtonText: 'Crear cita',
                     cancelButtonText: 'Regresar a lista de expedientes'
-                 }).then((result)=>{
-                   window.console.log(result)
-                   
+                 }).then((result)=>{                   
                    if(result.value){
                      window.open("/nutricion/"+this.$route.params.id+"/cita","_self")
                    }else{

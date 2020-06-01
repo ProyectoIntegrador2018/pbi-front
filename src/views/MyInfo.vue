@@ -271,7 +271,6 @@ export default {
       },
       saveMyInfo()
       {
-        //window.console.log("Entre")
         this.isError = false
         this.validateName()
         this.validateSurname()
@@ -298,7 +297,6 @@ export default {
        if(this.newPass!=""){
          json_info.password = this.newPass
        }
-        console.log(json_info)
         axios.defaults.headers.common['Authorization'] = "Bearer "+ localStorage.getItem("token");
         axios
         .put(URL,json_info)

@@ -205,9 +205,6 @@ async function(file)
 					reject(sErrorMessage)					
 				}
 				else{
-					arrClases.forEach(function(clase){
-						//console.log(clase);
-					})
 					resolve(arrClases)
 
 				}
@@ -303,7 +300,6 @@ function (arrClass,strPeriodo){
 
 		//Se imprimen todos los datos al renglón
 		worksheet.getRow(j).values = [nombre,frequency,dTimeStart,dTimeEnd,classroom,instructor,cupo] 
-		//console.log(worksheet.getRow(j).values)
 		worksheet.getRow(j).alignment = { wrapText: true, vertical: 'middle'};
 	}
 

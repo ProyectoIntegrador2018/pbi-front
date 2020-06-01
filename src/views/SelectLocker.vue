@@ -37,7 +37,7 @@
         
         <template v-else>        
           <template v-if="hasLocker">
-            <MyLocker></MyLocker>
+            <MyLocker :showButton="showInscription"></MyLocker>
           </template>          
           <template v-else>
               <template v-if="showInscription">
@@ -141,15 +141,19 @@ export default {
       return this.medRecord;
     },
     getStatusFlag(){
-      const URL = helper.baseURL + "/terms/status/"+ this.periodID;
+      const URL = helper.baseURL + "/terms/status/"+ this.periodID +"/true"
       axios
         .get(URL)
         .then(response => {
-          this.showInscription = response.data.status
+           this.showInscription = response.data.status
+           
            this.hasntLoaded = false;
+           
         })
-        .catch(() => {
+        .catch((error) => {
           this.$swal("Error", "No se pudo cargar periodo", "error");
+          
+
         });
     }
   }

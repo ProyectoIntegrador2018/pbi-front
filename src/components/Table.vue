@@ -156,7 +156,7 @@
                               v-model="editedItem.startLockerReservations"
                               required
                               :rules="startRules"
-                              label="Inicio inscripciones"
+                              label="Inicio reservaciones de lockers"
                               prepend-icon="event"
                               readonly
                               v-on="on"
@@ -198,7 +198,7 @@
                               v-model="editedItem.closeLockerReservations"
                               required
                               :rules="endRules"
-                              label="Cierre inscripciones"
+                              label="Cierre reservaciones de lockers"
                               prepend-icon="event"
                               readonly
                               v-on="on"

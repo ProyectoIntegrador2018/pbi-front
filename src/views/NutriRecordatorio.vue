@@ -382,6 +382,28 @@
                   <v-text-field v-model="totalCalorias"  required single-line :rules="numberRules" solo disabled></v-text-field>
                 </v-col>
               </v-row>
+
+              <v-row justify="center" class="py-0">
+                <v-col cols="12" sm="3" class="py-0">
+                  <span class="subtitle-2">
+                   % Carbohidratos:
+                  </span>
+                  <v-text-field v-model="hidratos_percentage" required single-line :rules="numberRules" solo disabled></v-text-field>
+                </v-col>
+                <v-col cols="12" sm="3" class="py-0">
+                  <span class="subtitle-2">
+                    % Proteínas:
+                  </span>
+                  <v-text-field v-model="proteinas_percentage" required single-line :rules="numberRules" solo disabled></v-text-field>
+                </v-col>
+                <v-col cols="12" sm="3" class="py-0">
+                  <span class="subtitle-2">
+                    % Grasas:
+                  </span>
+                  <v-text-field v-model="grasas_percentage"  required single-line :rules="numberRules" solo disabled></v-text-field>
+                </v-col>
+              </v-row>
+
               <v-row class="py-0">
                 <v-col cols="12" class="py-0">
                     <v-btn color="primary" large block @click="totalPorciones">
@@ -422,6 +444,9 @@ export default {
     totalCalorias: 0,
     proteinas: 0,
     grasas: 0,
+    grasas_percentage: 0,
+    proteinas_percentage: 0,
+    hidratos_percentage: 0,
     comidas: [
         {
           fruit:0,
@@ -513,10 +538,11 @@ export default {
       this.proteinas = (this.comidas[3].cereal*2) + (this.comidas[3].vegetable*2) 
                       + (this.comidas[3].meatWhole*7) + (this.comidas[3].meatSemiGreasy*7) + (this.comidas[3].meatGreasy*7)
                       + (this.comidas[3].legume*8)  + (this.comidas[3].milkSkimmed*9)  + (this.comidas[3].milkSemiSkimmed*9)
-                      + (this.comidas[3].milkWhole*9)               
-    },
-    confirm(){
-
+                      + (this.comidas[3].milkWhole*9)
+                      
+      this.hidratos_percentage = Math.round(((this.hidratos*4)*100)/this.totalCalorias)
+      this.grasas_percentage  =   Math.round(((this.grasas*9)*100)/this.totalCalorias)
+      this.proteinas_percentage = Math.round(((this.proteinas*4)*100)/this.totalCalorias)
     },
     postRecordatorio(){
       this.totalPorciones()
@@ -536,7 +562,7 @@ export default {
                     confirmButtonColor: 'green',
                     cancelButtonColor: '#3085d6',
                     confirmButtonText: 'Crear cita',
-                    cancelButtonText: 'Regresar a cita de expedientes'
+                    cancelButtonText: 'Regresar a lista de expedientes'
                  }).then((result)=>{
                    window.console.log(result)
                    

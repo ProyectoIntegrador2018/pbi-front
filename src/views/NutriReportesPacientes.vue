@@ -117,6 +117,9 @@
               :search="search"
               loading-text="Cargando... Favor de esperar"
             >
+              <template v-slot:item.date="{ item }">
+                <td>{{momentDatetime(item.date, 'LL')}}</td>
+              </template>
               <template #item.matricula="{item}">{{item.record.matricula}}</template>
               <template #item.full_name="{item}">{{item.record.name}}  {{item.record.surname}}</template>
               <template #item.nutriinfo="{item}">{{item.nutritionist.name}}</template>
@@ -134,6 +137,14 @@
             </v-data-table>
           </v-container>
       </v-container>
+      <v-container fluid my-2 v-if="showTable">
+      <h2 align="center" class="display-1">Descargar reporte</h2>
+        <v-col align="center" cols="12">
+          <v-btn color="secondary">
+            <download-excel :data="appointments" :fields="reporte_fields" name="ReportePacientes.xls">Descargar</download-excel>
+          </v-btn>
+        </v-col>
+    </v-container>
     </div>
 </template>
 
@@ -164,10 +175,28 @@ export default {
           { text: "Nombre", value: "full_name"},
           { text: "Altura", value: "height"},
           { text: "Peso", value: "weight"},
-          { text: "Nutricion", value: "nutriinfo"}
-      ]
+          { text: "Nutriólog@", value: "nutriinfo"}
+      ],
+      reporte_fields: {
+        FechaSinFormato: "date",
+        Fecha: {
+          callback: (value) => {
+            var result = /^((19|20)[0-9][0-9])[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])/.exec(value.date)
+            return result[0]
+          }
+        },
+        Matrícula_Nómina: "record.matricula",
+        Nombre: "record.name",
+        Apellido: "record.surname",
+        Altura: "height",
+        Peso: "weight",
+        "Nutriólog@": "nutritionist.name"
+      }
   }),
   methods: {
+      momentDatetime(datetime, datetime_format) {
+        return this.$moment.utc(datetime).format(datetime_format);
+      },
       getAppointments(){
         if(this.$refs.form.validate() && this.dateRange(this.fechaA,this.fechaB))
         {
@@ -180,12 +209,12 @@ export default {
                   startDate: this.fechaA,
                   endDate: this.fechaB
                 }
-                console.log(dates)
+                
                 axios
                 .put(URL,dates)
                 .then((response)=> {
                     this.appointments = response.data
-                    console.log(response.data)
+                    
                     this.isLoading = false
                 }).catch((error)=>{
                     this.$swal("Error",error.response.data.error.message,"error")

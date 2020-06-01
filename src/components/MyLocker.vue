@@ -32,7 +32,7 @@
                             </v-card>
                         </v-col>
                         
-                        <v-col align="center" class="px-0" cols="12">
+                        <v-col align="center" class="px-0" cols="12" v-if="showButton">
                             <v-row align="center" justify="center">
                                 <v-col align="center" class="px-0" cols="3">
                                     <v-btn large block class="px-0" color="red lighten-1" dark @click="removeLockerReservation">
@@ -54,6 +54,7 @@ import axios from "axios";
 const helper = require("../helper.js");
 
 export default {
+  props: ["showButton"],
   data: () => ({
       lockerNumber: "Cargano",
       lockerDresser: "Cargando",

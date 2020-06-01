@@ -6,16 +6,9 @@
           <h1 class="display-2 font-weight-bold" align="center">Seguimiento del paciente: {{patient.name}} {{patient.surname}}</h1>
         </v-row>
       </v-container>
+      <nutriheader title="" secondRoute="/nutricion/pacientes"></nutriheader>
       
       <v-container fluid my-5 px-md-12>
-        <div justify="left" align="left">
-          <v-col cols="2" class="px-0">
-              <v-btn large block class="px-0" href="/nutricion/pacientes">
-                <v-icon align="center" medium >mdi-arrow-left</v-icon>
-                Regresar
-              </v-btn>
-          </v-col>
-        </div>
           <div>
             <v-data-table 
               ref="table" 
@@ -95,7 +88,7 @@
 const helper = require("../helper.js");
 
 import axios from "axios";
-
+import nutriheader from "../components/nutriheader.vue";
 export default {
   name: "UserClasses",
   data(){
@@ -122,7 +115,7 @@ export default {
     }
   },
   components: {
-    
+    nutriheader
   },
 
   methods: {

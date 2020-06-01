@@ -1,7 +1,7 @@
 <template>
    <div>
     <v-content>
-    <adminheader title="Historial Médico" secondRoute="/users/"></adminheader>
+    <adminheader title="Historial Médico"></adminheader>
       <v-container>
         <v-row justify="center">
             <v-col cols="10">

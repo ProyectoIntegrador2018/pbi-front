@@ -283,6 +283,7 @@ export default {
   
     },
     getNutritionist(){
+      
       const URL =  helper.baseURL + "/nutricion/nutritionists" 
       axios
         .get(URL)
@@ -297,7 +298,9 @@ export default {
           this.$swal("Error", "No se pudieron cargar los datos", "error");
         });
     },
-    getConsultations(){         
+    getConsultations(){     
+      this.consultationsData = []
+      this.patientsData = []     
       this.consultationsExcelFileName = "NoConsultas"+"_"+this.nutritionistName+"_"+this.filter.initialDate+"_"+this.filter.finalDate+".xls"
       this.patientsExcelFileName = "NoPacientes"+"_"+this.nutritionistName+"_"+this.filter.initialDate+"_"+this.filter.finalDate+".xls"
    

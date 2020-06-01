@@ -320,7 +320,7 @@ export default {
            this.cita.imc = this.cita.peso / (this.cita.altura * this.cita.altura)
 
           if(this.cita.imc < 18.5){
-            this.cita.diag_imc = "Baso peso"
+            this.cita.diag_imc = "Bajo peso"
           }else if(this.cita.imc >= 18.5 && this.cita.imc <= 24.9){
             this.cita.diag_imc = "Peso Normal"
           }else if(this.cita.imc >= 25 && this.cita.imc <= 29.9){

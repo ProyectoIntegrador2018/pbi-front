@@ -288,7 +288,7 @@ export default {
         .get(URL)
         .then(response => {
           response.data.forEach(n => {
-            var displayInfo = {display: n.name + ' ' + n.surname + ' ' + n.nomina, infocard: n.name + ' ' + n.surname + ' ' + n.nomina + ' ' + n.id}
+            var displayInfo = {display: n.name + ' ' + n.surname + ' ' + n.nomina, infocard: n.name + ' ' + n.surname + ' ' + n.nomina + ' ' + n._id}
             this.nutritionistsData.push(Object.assign(n, displayInfo));  
           })
           this.isLoadingNutritionist = false

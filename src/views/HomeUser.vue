@@ -24,6 +24,34 @@
             >Inscripciones para el periodo: <b>{{Periodo}}</b> permitidas del <u>{{momentDatetime(this.start, 'LL')}}</u> a las 12:00 AM al <u>{{momentDatetime(this.close, 'LL')}}</u> hasta las 11:59 PM.</v-alert>
       </v-col>
     </v-row>
+    <!--Código para la progress bar -->
+    <v-row v-row align="center" justify="center">
+      <v-col class="px-0 mx-0 my-0" cols="9">
+        <h3>Mi progreso de inscripción:</h3>
+      </v-col>
+
+       <v-col class="px-0 pb-0 mx-0 my-0" cols="9">
+         <meter :value="progreso" 
+                optimum="1"
+                low="0.99"
+         style="
+            width:100%;
+            height: 30px;"
+            ></meter>
+       </v-col>
+      
+    </v-row>
+    <v-row v-row align="center" justify="center">
+       <v-col class="px-0 py-0 mx-0 my-0 text-center" cols="3">
+         Paso 1
+       </v-col>
+       <v-col class="px-0 py-0 mx-0 my-0 text-center" cols="3">
+         Paso 2
+       </v-col>
+       <v-col class="px-0 py-0 mx-0 my-0 text-center" cols="3">
+         Paso 3
+       </v-col>
+    </v-row>
 
     <v-item-group class="fill-height" fluid>
       <v-container class="fill-height">
@@ -146,14 +174,19 @@ import axios from "axios";
 export default {
   data: () => ({
     medRecord: "",
+    progreso:0,
     userData: null,
     Periodo: "",
     start: "",
-    close: ""
+    close: "",
+    selectedTerm: null,
+    enrolledCourses: [],
+    userID:"",
   }),
   created(){
     this.getUserInfo()
     this.getTerms()
+
   },
   methods: {
     redirectToEnrolledCourses() {
@@ -254,6 +287,15 @@ export default {
         .then(response => {
           this.medRecord = response.data.filledRecord;
           this.userData = response.data.rectoria
+          this.userID = response.data._id
+          //Llena la barra de progreso
+          if(this.userData){
+            this.progreso+=0.166666
+            if(this.medRecord){
+              this.progreso+=0.33333
+              this.getCourses(this.selectedTerm)
+            }
+          }
         })
         .catch(error => {
           this.$swal("Error", error.response.data.error, "error");
@@ -272,11 +314,46 @@ export default {
         .then(response => {
           response.data.forEach(periodo => {
             if (periodo.flagCurrent) {
+              this.selectedTerm = periodo._id
               this.Periodo = periodo.name + " " + periodo.year;
               this.start = periodo.startInscriptions
               this.close = periodo.closeInscriptions
+             
             }
           });
+        })
+        .catch(() => {
+          this.$swal("Error", "No se pudieron cargar", "error");
+        });
+    },
+    getCourses(value) {
+      if (value == undefined) {
+        value = this.selectedTerm;
+      } else {
+        this.selectedTerm = value;
+      }
+      this.courses = [];
+      const URL = helper.baseURL + "/terms/classes/" + value;
+      axios
+        .get(URL)
+        .then(response => {
+          this.courses = response.data;
+          var myId = this.userID
+          this.enrolledCourses = this.courses.filter(function(course){
+            if(course.enrolled.includes(myId))
+              return course
+          }),
+
+          window.console.log(this.enrolledCourses)
+          this.openCourses = this.courses.filter(function(course){
+              if(course.quota > course.enrolled.length){
+                  return course
+              }
+          })
+          this.isLoading = false
+          if(this.enrolledCourses.length){
+            this.progreso = 1
+          }
         })
         .catch(() => {
           this.$swal("Error", "No se pudieron cargar", "error");
@@ -292,5 +369,52 @@ export default {
 .btn {
   margin: auto;
   color: white;
+}
+meter {
+  /* --background: #dadada; */
+  --optimum: rgb(96, 243, 96);
+  --sub-optimum: #b3d4fc;
+  --sub-sub-optimum: crimson;
+
+  /* The gray background in Firefox */
+  background: var(--background);
+  display: block;
+  margin-bottom: 0;
+  width: 100%;
+}
+
+/* The gray background in Chrome, etc. */
+meter::-webkit-meter-bar {
+  background: var(--background);
+}
+
+/* The green (optimum) bar in Firefox */
+meter:-moz-meter-optimum::-moz-meter-bar {
+  background: var(--optimum);
+}
+
+/* The green (optimum) bar in Chrome etc. */
+meter::-webkit-meter-optimum-value {
+  background: var(--optimum);
+}
+
+/* The yellow (sub-optimum) bar in Firefox */
+meter:-moz-meter-sub-optimum::-moz-meter-bar {
+  background: var(--sub-optimum);
+}
+
+/* The yellow (sub-optimum) bar in Chrome etc. */
+meter::-webkit-meter-suboptimum-value {
+  background: var(--sub-optimum);
+}
+
+/* The red (even less good) bar in Firefox */
+meter:-moz-meter-sub-sub-optimum::-moz-meter-bar {
+  background: var(--sub-sub-optimum);
+}
+
+/* The red (even less good) bar in Chrome etc. */
+meter::-webkit-meter-even-less-good-value {
+  background: var(--sub-sub-optimum);
 }
 </style>

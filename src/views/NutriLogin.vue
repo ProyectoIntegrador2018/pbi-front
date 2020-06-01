@@ -22,6 +22,7 @@
                     label="Contraseña "                    
                     solo
                     @click:append="show1 = !show1"
+                    v-on:keyup.enter="logIn(userLogin.email,userLogin.password)"
                   ></v-text-field>
                   <v-btn large block color="primary" @click="logIn(userLogin.email,userLogin.password)">Entrar</v-btn>
                   <v-row>

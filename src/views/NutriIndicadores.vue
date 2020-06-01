@@ -1,6 +1,6 @@
 <template>
   <div>
-    <adminheader title="Indicadores"></adminheader>
+    <nutriheader title="Indicadores"></nutriheader>
     <v-row align="center" justify="center">
       <v-col class="px-0 py-0" cols="5">            
         <span class="title"> Nutriologo: </span>
@@ -203,14 +203,14 @@
 </template>
 
 <script>
-import adminheader from "../components/adminheader.vue";
+import nutriheader from "../components/nutriheader.vue";
 const helper = require("../helper.js");
 import axios from "axios";
 
 
 export default {
   components: {
-    adminheader
+    nutriheader
   },
   data: () => ({
     nutritionistSelected: "",

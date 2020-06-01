@@ -365,6 +365,10 @@ export default {
         return mydate;
     },
     validNomina(nomina) {
+      if(nomina.length != 9)
+      {
+        return false
+      }
       var re = /^((N|L|A|n|l|a)[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9])/;
       return re.test(nomina);
     },

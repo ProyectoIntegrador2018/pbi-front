@@ -7,7 +7,7 @@
                     <v-row justify="center" class="mb-5">
                         
                         <v-col align="center" class="px-0 headline" cols="9">
-                            <p class="my-0">Tu número de casillero asignado es:</p>                
+                            <p class="my-0">Tu número de Locker asignado es:</p>                
                         </v-col>
 
                         <v-col cols="10" md="6">
@@ -34,7 +34,7 @@
                         
                         <v-col align="center" class="px-0" cols="12">
                             <v-row align="center" justify="center">
-                                <v-col align="center" class="px-0" cols="3">
+                                <v-col align="center" class="px-0" cols="7">
                                     <v-btn large block class="px-0" color="red lighten-1" dark @click="removeLockerReservation">
                                         <v-icon align="center" medium left>mdi-cancel</v-icon>Cancelar reservación
                                     </v-btn>  
@@ -70,8 +70,8 @@ export default {
     removeLockerReservation() 
     {
         this.$swal({
-        title:"Cancelar Reservación de Casillero",
-        text:"¿Estás seguro que deseas cancelar tu reservación de Casillero? Esta acción no se puede revertir y es posible que se agoten los lugares en un futuro",
+        title:"Cancelar Reservación de Locker",
+        text:"¿Estás seguro que deseas cancelar tu reservación de Locker? Esta acción no se puede revertir y es posible que se agoten los lugares en un futuro",
         type:"warning",
         showCancelButton:true,
         cancelButtonText:"No",

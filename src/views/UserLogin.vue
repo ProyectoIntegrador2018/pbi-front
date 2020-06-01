@@ -72,12 +72,28 @@
                   @change="this.validateEmail"
                 ></v-text-field>
                 <v-text-field
+                  v-model="userSignUp.confirmEmail"
+                  label="Confirmar Correo electrónico"
+                  single-line
+                  solo
+                  :errorMessages="this.errorMsg.confirmEmail"
+                  @change="this.validateConfirmEmail"
+                ></v-text-field>
+                <v-text-field
                   v-model="userSignUp.nomina"
                   label="Nómina (L0 o L00)"
                   single-line
                   solo
                   :errorMessages="this.errorMsg.nomina"
                   @change="this.validateNomina"
+                ></v-text-field>
+                <v-text-field
+                  v-model="userSignUp.confirmNomina"
+                  label="Nómina (L0 o L00)"
+                  single-line
+                  solo
+                  :errorMessages="this.errorMsg.confirmNomina"
+                  @change="this.validateConfirmNomina"
                 ></v-text-field>
                 <v-text-field
                   v-model="userSignUp.password"
@@ -127,17 +143,21 @@ export default {
         name: "",
         surname: "",
         email: "",
+        confirmEmail: "",
         password: "",
         pConfirm: "",
-        nomina: ""
+        nomina: "",
+        confirmNomina: "",
       },
       errorMsg: {
         name: "",
         surname: "",
         email: "",
+        confirmEmail: "",
         password: "",
         passwordC: "",
-        nomina: ""
+        nomina: "",
+        confirmNomina: "",
       },
       show1: false,
       rules: {
@@ -191,9 +211,11 @@ export default {
       this.validateName();
       this.validateSurname();
       this.validateEmail();
+      this.validateConfirmEmail();
       this.validatePass();
       this.validatePassConfirm();
       this.validateNomina();
+      this.validateConfirmNomina();
       if (this.isError) {
         return;
       }
@@ -242,6 +264,10 @@ export default {
         });
     },
     validNomina(nomina) {
+      if(nomina.length != 9)
+      {
+        return false
+      }
       var re = /^((N|L|A|n|l|a)[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9])/;
       return re.test(nomina);
     },
@@ -255,6 +281,17 @@ export default {
         this.errorMsg.email = "Correo inválido";
       } else {
         this.errorMsg.email = "";
+      }
+    },
+    validateConfirmEmail(){
+      if (!this.userSignUp["confirmEmail"]) {
+        this.isError = true;
+        this.errorMsg.confirmEmail = "Campo requerido";
+      } else if (this.userSignUp.email != this.userSignUp.confirmEmail) {
+        this.isError = true;
+        this.errorMsg.confirmEmail = "Los correos electrónicos deben coincidir";
+      } else {
+        this.errorMsg.confirmEmail = "";
       }
     },
     validateName() {
@@ -301,7 +338,18 @@ export default {
       } else {
         this.errorMsg.nomina = "";
       }
-    }
+    },
+    validateConfirmNomina(){
+      if (!this.userSignUp["confirmNomina"]) {
+        this.isError = true;
+        this.errorMsg.confirmNomina = "Campo requerido";
+      } else if (this.userSignUp.nomina != this.userSignUp.confirmNomina) {
+        this.isError = true;
+        this.errorMsg.confirmNomina = "Las nóminas deben coincidir";
+      } else {
+        this.errorMsg.confirmNomina = "";
+      }
+    },
   }
 };
 </script>

@@ -28,7 +28,7 @@
     <v-item-group class="fill-height" fluid>
       <v-container class="fill-height">
         <v-row align="center" justify="center">
-          <v-col cols="10" md="3">
+          <v-col cols="12" md="3">
             <v-card
               class="d-flex align-center"
               color="#73C9D0"

@@ -55,8 +55,9 @@
         </template>
 
         <p class="py-5 px-5 my-0 caption">
-          [AVISO DE PRIVACIDAD DE CASILLEROS TEMPORAL]Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec aliquet dapibus magna, eget suscipit enim hendrerit id. Praesent scelerisque mauris ut nisl ultrices pretium. Praesent at volutpat tellus. Sed posuere scelerisque odio, sit amet faucibus enim consequat id. Cras finibus eros id accumsan luctus. Suspendisse potenti. Nunc id diam quis tortor facilisis efficitur non quis ex.
-          Atentamente,
+          Ubicación: Vestidores del semisótano del Centro de Congresos 
+          Sugerencias de uso adecuado de Locker: Debes llevar tu candado y colocarlo lo antes posible, Evita dejar objetos de valor, No dejes tus pertenencias en las bancas, Verifica que hayas cerrado el candado, No guardes químicos y/o comida en el casillero.
+          El departamento de Bienestar Integral no se hace responsable por la pérdida o robo de los artículos dejados en el casillero. Atentamente,
           Coordinación del Programa de Bienestar Integral
         </p>
       </v-container>

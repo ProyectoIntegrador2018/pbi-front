@@ -23,15 +23,16 @@
       :search="searchPages"
       sort-by="number"
       class="elevation-1"
+      :loading="isLoading"
+      loading-text="Cargando... Favor de esperar"
       :footer-props="{
      'items-per-page-options': [200, 500]
-      }"
-      
+      }"      
     >
 
       <template v-slot:top>
         <v-toolbar flat color="white">
-          <v-toolbar-title>Lista de Casilleros</v-toolbar-title>
+          <v-toolbar-title>Lista de Lockers</v-toolbar-title>
           <v-spacer></v-spacer>
                      <v-text-field
               v-model="searchPages"
@@ -44,8 +45,20 @@
           
           <v-tooltip>
             <template v-slot:activator="{ on }">    
-              <v-btn color="primary" dark class="mb-2" v-on="on" @click="sendToLockerOffer">Modificar oferta de Casilleros</v-btn>
-            </template> 
+              <v-btn color="primary" dark class="mb-2" v-on="on" @click="sendToLockerOffer">Modificar oferta de Lockers</v-btn>
+            </template>             
+          </v-tooltip>  
+          <v-spacer></v-spacer>
+          <v-tooltip>
+            <template v-slot:activator="{ on }">    
+              <v-btn 
+              color="red darken-4" 
+              dark class="mb-2" v-on="on"               
+              @click="emptyAllLockers">
+                <v-icon color="white">mdi-eraser-variant</v-icon>
+                Vaciar Lockers
+              </v-btn>
+            </template>             
           </v-tooltip>  
           
           <v-spacer></v-spacer> 
@@ -53,7 +66,7 @@
           <v-dialog v-model="dialog" max-width="500px">         
             <v-card>
               <v-card-title>
-                <span class="headline">Editar Casillero</span>
+                <span class="headline">Editar Locker</span>
               </v-card-title>
               <v-card-text>
                 <v-form ref="form" v-model="valid" lazy-validation>
@@ -62,17 +75,12 @@
                       <v-col cols="12">
                         <v-text-field
                           v-model="editedLocker.nomina"
-                          label="Nómina"
+                          label="Nómina (L0 o L00)"
+                          @change="validateNomina"
+                          :errorMessages="errorMsg.nomina"
                           required
                         ></v-text-field>
-                      </v-col>
-                       <v-col cols="12">
-                        <v-text-field 
-                          v-model="editedLocker.status" 
-                          label="Estatus" 
-                          required
-                          ></v-text-field>
-                      </v-col>                      
+                      </v-col>                                       
                     </v-row>
                   </v-container>
                 </v-form>
@@ -80,40 +88,88 @@
                <v-card-actions>
                 <div class="flex-grow-1"></div>
                 <v-btn color="grey darken-1" text @click="close()">Cerrar</v-btn>
-                <v-btn :disabled="!valid" color="blue darken-1" text @click="submit()">Guardar</v-btn>
+                <v-btn :disabled="!valid || !editedLocker.nomina" color="blue darken-1" text @click="submit()">Guardar</v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
 
         </v-toolbar>
       </template>
+      <template v-slot:item.number="{ item }">
+        {{item.number}}
+        <v-chip
+          small
+          class="ma-2"
+          color="red darken-4"
+          text-color="white"
+          v-if="item.status==='Deshabilitado'"
+        >Deshabilitado</v-chip>
+      </template>
 
       <template v-slot:item.action="{ item }">
-        
         <v-tooltip top>
           <template v-slot:activator="{ on }">
-            <v-icon small class="mr-2" v-on="on" @click="editItem(item)">edit</v-icon>
+            <v-icon
+              medium
+              class="mr-2"
+              v-on="on" 
+              color="green"
+              v-if="item.status!='Deshabilitado'"
+              @click="disableLocker(item)">
+              mdi-toggle-switch
+            </v-icon>
+            <v-icon
+              medium
+              v-on="on" 
+              class="mr-2"
+              color="red darken-4"
+              @click="enableLocker(item)"
+              v-else
+            >mdi-toggle-switch-off</v-icon>
           </template>
-          <span>Editar</span>
+          <span>Habilitar/Deshabilitar Locker</span>
         </v-tooltip>
-        
+        <v-tooltip top>
+          <template v-slot:activator="{ on }">
+            <v-icon small class="mr-2" 
+              v-on="on" 
+              @click="editItem(item)"
+              :disabled="item.status!='Disponible'">
+              edit
+            </v-icon>
+          </template>
+          <span>Asignar</span>
+        </v-tooltip>
+        <v-tooltip top>
+          <template v-slot:activator="{ on }">
+            <v-icon
+              small
+              class="mr-2"
+              v-on="on"
+              @click="emptyLocker(item)"
+              color="red darken-4"
+              :disabled="item.status!='Asignado'"
+            >mdi-eraser-variant</v-icon>
+          </template>
+          <span>Vaciar</span>
+        </v-tooltip>
       </template>
 
       <template v-slot:no-data>
-        <v-btn color="primary" :disabled="true">No hay casilleros</v-btn>
+        <v-btn color="primary" :disabled="true">No hay Lockers</v-btn>
       </template>
     </v-data-table>
 
      <v-container fluid my-5 px-md-12>
-        <h2 align="center" class="display-1">Descargar Lista Casilleros</h2>
+        <h2 align="center" class="display-1">Descargar Lista Lockers</h2>
         <v-row>
             <v-col align="center" cols="12">
                 <v-btn color="secondary">
                     <download-excel
                         :data="lockers"
                         :fields="json_fields"
-                        :name= " 'AsignacionCasilleros' + this.currentDresser + '.xls'"
-                    >Descargar Lista Casilleros
+                        :name= " 'AsignacionLockers' + this.currentDresser + '.xls'"
+                    >Descargar Lista Lockers
                     </download-excel>
                 </v-btn>
             </v-col>
@@ -126,14 +182,15 @@
 <script>
 const helper = require("../helper.js");
 import axios from "axios";
+axios.defaults.headers.common["Authorization"] = "Bearer " + localStorage.getItem("token");
 
 
 export default {
   data: () => ({
     searchPages: "",
     headers: [
-      { text: "Número", align: "left", value: "number", width: "10%"},
-      { text: "Nómina", value: "nomina",width: "15%"},
+      { text: "Número", align: "left", value: "number", width: "13%"},
+      { text: "Nómina", value: "nomina",width: "12%"},
       { text: "Nombre", value: "name", width: "35%"},
       { text: "Correo", value: "email", width: "15%" },
       { text: "Estatus", value: "status", width: "15%" },
@@ -146,26 +203,21 @@ export default {
       Correo:"email",
       Estatus: "status"
     },
-    editedLocker: {
-      number: "",
-      name: "",
-      nomina: "",
-      email: "",
-      status: ""
+    editedLocker:{
+      id: "",
+      nomina: ""
     },
-    defaultItem: {
-      number: "",
-      name: "",
-      nomina: "",
-      email: "",
-      status: ""
+    errorMsg:{
+      nomina: ""
     },
     valid: true,
     dialog: false,
     editedIndex: -1,
     lockers: [],
     currentDresser: "Hombres",
-    dressers: ['Hombres','Mujeres']
+    currentDresserId: "",
+    dressers: ['Hombres','Mujeres'],
+    isLoading: true
 
   }),
   watch: {
@@ -183,70 +235,202 @@ export default {
       var route = "/lockeroffer/";
       window.open(route, "_self");
     },
-    editItem(item) {
-      this.editedIndex = this.lockers.indexOf(item);
+    emptyAllLockers(){
+      this.$swal({
+        title: "¿Vaciar todos los Lockers?",
+        text: "Se borrarán todos los lockers del vestidor de "+this.currentDresser+". Esta acción no se puede revertir.",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí, vaciar todos",
+        cancelButtonText: "Cancelar"
+      }).then(result => {
+        if (result.value) {
+          const URL = helper.baseURL + "/lockers/empty/"+this.currentDresserId;
+          axios
+            .put(URL)
+            .then(response => {       
+              this.$swal("Lockers vaciados", "Se han vaciado todos los lockers del vestidor de "+this.currentDresser, "success").
+              then(()=>{this.getLockers()})              
+            })
+            .catch(error => {
+              this.$swal("Error", error.response.data.error, "error");
+            });
+        }
+      });
+    },
+    emptyLocker(item){
+      this.$swal({
+        title: "¿Vaciar Locker "+item.number+"?",
+        text: "No se puede recuperar una vez eliminado, "+item.name+" perderá su Locker",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí, vaciar",
+        cancelButtonText: "Cancelar"
+      }).then(result => {
+        if (result.value) {
+          const URL = helper.baseURL + "/lockers/status/"+item._id;
+          axios
+            .put(URL)
+            .then(response => {       
+              this.$swal("Locker vaciado", "Se ha eliminado el locker", "success").
+              then(()=>{this.getLockers()})              
+            })
+            .catch(error => {
+              this.$swal("Error", error.response.data.error, "error");
+            });
+        }
+      });
+    },
+    disableLocker(item){
+      this.$swal({
+        title: "¿Deshabilitar Locker "+item.number+"?",
+        text: "Un Locker Deshabilitado no puede ser asignado a un colaborador",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí, Deshabilitar",
+        cancelButtonText: "Cancelar"
+      }).then(result => {
+        if (result.value) {
+          if(item.status==="Asignado"){          
+            const URL = helper.baseURL + "/lockers/status/"+item._id;
+            axios
+              .put(URL)
+              .then(response => {       
+                const URL = helper.baseURL + "/lockers/status/"+item._id;
+                axios
+                  .put(URL)
+                  .then(response => { 
+                    this.$swal("Locker Deshabilitado", "Se ha vaciado y deshabilitado el locker", "success").
+                    then(()=>{this.getLockers()}) 
+                })
+                .catch(error => {
+                  this.$swal("Error", error.response.data.error, "error");
+                });
+              })
+              .catch(error => {
+                this.$swal("Error", error.response.data.error, "error");
+              });
+          }
+          else if(item.status === "Disponible"){
+            const URL = helper.baseURL + "/lockers/status/"+item._id;
+            axios
+              .put(URL)
+              .then(response => {    
+                this.$swal("Locker Deshabilitado", "Se ha deshabilitado el locker", "success").
+                then(()=>{this.getLockers()})
+              })
+              .catch(error => {
+                this.$swal("Error", error.response.data.error, "error");
+              });
+          }
+        }
+      });
 
-      const json_item = {
-        number: item.number,
-        nomina: item.nomina,
-        name: item.name,
-        email:item.email,
-        status: item.status
-      };
-      this.editedLocker = Object.assign({}, json_item);
+    },
+    enableLocker(item){
+      this.$swal({
+        title: "¿Habilitar Locker "+item.number+"?",
+        text: "Un Locker habilitado podrá ser asignado a un locker",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí, Habilitar",
+        cancelButtonText: "Cancelar"
+      }).then(result => {
+        const URL = helper.baseURL + "/lockers/status/"+item._id;
+        axios
+          .put(URL)
+          .then(response => { 
+            this.$swal("Locker Habilitado", "Se ha habilitado el locker", "success").
+            then(()=>{this.getLockers()}) 
+        })
+        .catch(error => {
+          this.$swal("Error", error.response.data.error, "error");
+        });
+      });
+    },
+    editItem(item) {
+      this.editedLocker.id = item._id;
       this.dialog = true;
+    },
+    validNomina(nomina) {
+      if(nomina.length != 9)
+      {
+        return false
+      }
+      var re = /^((N|L|A|n|l|a)[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9])/;
+      return re.test(nomina);
+    },
+    validateNomina() {
+      this.editedLocker.nomina = this.editedLocker.nomina.toUpperCase();
+      if (!this.editedLocker.nomina) {
+        this.errorMsg.nomina = "Campo requerido";
+      } else if (!this.validNomina(this.editedLocker.nomina)) {
+        this.errorMsg.nomina = "Nómina inválida (LXXXXXXXXX, NXXXXXXXX)";
+      } else {
+        this.errorMsg.nomina = "";
+      }
     },
     close() {
       this.valid = true;
       this.dialog = false;
-      this.editedLocker = Object.assign({}, this.defaultItem);
+      this.editedLocker = Object.assign({}, this.defaultLocker);
       this.editedIndex = -1;
-      this.$refs.form.resetValidation();
+      this.$refs.form.resetValidation();      
     },
-    submit() {      
+    submit() {   
       this.snackbar = true;
-        const json_term = {
-            number: this.editedLocker.number,
-            name: this.editedLocker.name,
-            nomina: this.editedLocker.nomina,
-            email: this.editedLocker.email,
-            status: this.editedLocker.status
-        };
-      if (this.editedIndex > -1) {
-          this.updateLocker(this.lockers[this.editedIndex]._id, json_term);
-        this.close();
-      } else {
-        this.load_status = "No están todos los campos";
-      }
-    }, 
-    updateLocker(id, locker) {
+      this.updateLocker(this.editedLocker.nomina, this.editedLocker.id)
+      this.close();     
+    },    
+
+    updateLocker(newNomina, lockerId) {
+      const URL = helper.baseURL + "/lockers/assign/admin/"+lockerId;
+        axios
+          .put(URL,{id:newNomina})
+          .then(response => {
+            window.console.log(response.data)
+              this.$swal("Locker Asignado", "Se ha asigando el Locker # a "+newNomina, "success")
+              .then(()=>{this.getLockers()});              
+         }).catch(error => {
+          this.$swal("Error", error.response.data.error, "error");
+          });      
     },
     getLockers(){
+        this.isLoading = true
         this.lockers = []
         const URL = helper.baseURL + "/lockers/";
         axios
             .get(URL)
-            .then(response => {
+            .then(response => {              
                 response.data.forEach(element =>{
                     if(element.dresser == this.currentDresser)
                     {
+                      this.currentDresserId = element._id
                         element.lockers.forEach(locker =>{
                             var lockerInfo = {
                                 number: locker.number,
-                                nomina: "-",
-                                name: "-",
-                                email: "-",
+                                nomina: "",
+                                name: "",
+                                email: "",
                                 userId: "",
-                                status: locker.status
+                                status: locker.status,
+                                _id:locker._id
                             }
                             if(locker.status == "Asignado")
-                            {
-                                axios.defaults.headers.common["Authorization"] =
-                                    "Bearer " + localStorage.getItem("token");
+                            {                               
                                 const URL = helper.baseURL + "/users/" + locker.assignee;
                                 axios
                                     .get(URL)
                                     .then(response => {
+
                                         lockerInfo.name = response.data.name + " " + response.data.surname,
                                         lockerInfo.nomina = response.data.nomina,
                                         lockerInfo.email = response.data.email
@@ -262,9 +446,10 @@ export default {
 
                             }
                             
-                        })
+                        })                        
                     }
                 })
+                this.isLoading=false;
             })
 
     }

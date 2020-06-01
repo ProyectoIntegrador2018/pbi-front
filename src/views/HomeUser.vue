@@ -56,7 +56,7 @@
     <v-item-group class="fill-height" fluid>
       <v-container class="fill-height">
         <v-row align="center" justify="center">
-          <v-col cols="12" md="3">
+          <v-col cols="12" md="4">
             <v-card
               class="d-flex align-center"
               color="#73C9D0"
@@ -77,7 +77,7 @@
             </v-card>
           </v-col>
 
-          <v-col cols="12" md="3">
+          <v-col cols="12" md="4">
             <v-card
               class="d-flex align-center"
               color="light-green darken-1"
@@ -98,7 +98,7 @@
             </v-card>
           </v-col>
 
-          <v-col cols="12" md="3">
+          <v-col cols="12" md="4">
             <v-card
               class="d-flex align-center"
               color="orange"
@@ -119,7 +119,7 @@
             </v-card>
           </v-col>
 
-          <v-col cols="12" md="3">
+          <v-col cols="12" md="4">
             <v-card
               class="d-flex align-center"
               color="blue lighten-1"
@@ -140,7 +140,7 @@
             </v-card>
           </v-col>
 
-          <v-col cols="12" md="3">
+          <v-col cols="12" md="4">
             <v-card
               class="d-flex align-center"
               color="blue lighten-1"

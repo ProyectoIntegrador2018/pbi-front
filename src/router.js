@@ -248,7 +248,7 @@ const router = new Router({
             }
         },
         {
-            path: '/nutricion/login',
+            path: '/nutricion',
             name: 'NutriLogin',
             component: NutriLogin,
 

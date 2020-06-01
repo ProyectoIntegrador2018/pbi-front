@@ -10,7 +10,11 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 import JsonExcel from 'vue-json-excel'
  
 Vue.component('downloadExcel', JsonExcel)
-Vue.use(VueSweetalert2);
+
+const options = {
+  cancelButtonColor: '#ff7674',
+}
+Vue.use(VueSweetalert2, options);
 
 moment.locale('es');
 Vue.prototype.$moment = moment

@@ -6,7 +6,7 @@
           src="@/assets/LogotipoHorizontalTecBN.png" 
           max-width="200" 
           max-height='90%'
-          @click="redirectToHome">
+          >
         </v-img>
         <v-toolbar-title class="white--text">Programa de Bienestar Integral</v-toolbar-title>
         <div class="flex-grow-1"></div>
@@ -20,7 +20,7 @@
       <v-footer padless>        
         <v-col cols="12" class=" text-center caption px-0 py-0">
           Dudas y Apoyo:
-          <u>83 58 2000</u> ext. 3651 |
+          83 58 2000 ext. 3651 |
           <i>pbi.mty@servicios.itesm.mx</i>
         </v-col>
         <v-col class="text-center caption pt-0 px-0" cols="12">
@@ -43,10 +43,6 @@ export default {
     //
   }),
   methods:{
-    redirectToHome() {
-      var route = "/";
-      window.open(route, "_self");
-    },
     logOut(){
       const URL = helper.baseURL + "/logout";
       axios.defaults.headers.common['Authorization'] = "Bearer "+ localStorage.getItem("token");

@@ -17,6 +17,7 @@
                   label="Contraseña "
                   solo
                   @click:append="show1 = !show1"
+                  v-on:keyup.enter="logIn(userLogin.email.toLowerCase(),userLogin.password)"
                 ></v-text-field>
                 <h6 align="center" class="mb-2">
                   <a class="caption" href="/resetpassword">

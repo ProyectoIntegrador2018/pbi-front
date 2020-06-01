@@ -121,7 +121,7 @@ export default {
       return this.medRecord;
     },
     getStatusFlag(){
-      const URL = helper.baseURL + "/terms/status/"+ this.periodID;
+      const URL = helper.baseURL + "/terms/status/"+ this.periodID +"/false"
       axios
         .get(URL)
         .then(response => {

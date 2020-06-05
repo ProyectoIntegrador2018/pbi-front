@@ -121,6 +121,7 @@
                 <td>{{momentDatetime(item.date, 'LL')}}</td>
               </template>
               <template #item.matricula="{item}">{{item.record.matricula}}</template>
+               <template #item.gender="{item}">{{item.record.gender}}</template>
               <template #item.full_name="{item}">{{item.record.name}}  {{item.record.surname}}</template>
               <template #item.nutriinfo="{item}">{{item.nutritionist.name}}</template>
               <template v-slot:top>
@@ -141,7 +142,7 @@
       <h2 align="center" class="display-1">Descargar reporte</h2>
         <v-col align="center" cols="12">
           <v-btn color="secondary">
-            <download-excel :data="appointments" :fields="reporte_fields" name="ReportePacientes.xls">Descargar</download-excel>
+            <download-excel :data="appointments" :fields="reporte_fields" :name=" `ReportePacientes_${this.fechaA}_${this.fechaB}.xls`">Descargar</download-excel>
           </v-btn>
         </v-col>
     </v-container>
@@ -175,6 +176,10 @@ export default {
           { text: "Nombre", value: "full_name"},
           { text: "Altura", value: "height"},
           { text: "Peso", value: "weight"},
+          { text: "Masa Muscular", align: "left", value: "muscleMass"},
+          { text: "Masa de Grasa", align: "left", value: "fatMass"},
+          { text: "Porcentaje de grasa", align:" ", value: "fatMassPct"},
+          { text: "Género", align:"", value:"gender"},
           { text: "Nutriólog@", value: "nutriinfo"}
       ],
       reporte_fields: {
@@ -188,8 +193,12 @@ export default {
         Matrícula_Nómina: "record.matricula",
         Nombre: "record.name",
         Apellido: "record.surname",
+        "Género": "record.gender",
         Altura: "height",
         Peso: "weight",
+        "Masa Muscular": "muscleMass",
+        "Masa de Grasa": "fatMass",
+        "Porcentaje de grasa": "fatMassPct",
         "Nutriólog@": "nutritionist.name"
       }
   }),

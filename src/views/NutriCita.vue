@@ -1,8 +1,8 @@
 <template>
     <div>
-        <nutriheader title="Cita de seguimiento"></nutriheader>
+        <nutriheader title="Cita de seguimiento" :secondRoute="`/nutricion/pacientes/citas/${this.$route.params.id}`"></nutriheader>
 
-            <v-row justify="center">
+      <v-row justify="center">
       <!-- Desayuno -->
       <v-col cols="10">
         <v-card class="align-center" color="white">
@@ -16,7 +16,7 @@
                 <v-row justify="center" class="py-0">
                   <v-col cols="12" sm="6" class="py-0">
                     <span class="subtitle-2">
-                      Altura:
+                      Altura: <span class="red--text">*</span>
                     </span>
                     <v-text-field 
                       required
@@ -28,7 +28,7 @@
 
                   <v-col cols="12" sm="6" class="py-0">
                     <span class="subtitle-2">
-                      Peso:
+                      Peso: <span class="red--text">*</span>
                     </span>
                     <v-text-field required v-model="cita.peso" :rules="numFieldsRules"  single-line solo suffix="kg"></v-text-field>
                   </v-col>
@@ -36,14 +36,14 @@
                 <v-row justify="center" class="py-0">
                   <v-col cols="12" sm="6" class="py-0">
                     <span class="subtitle-2">
-                      IMC:
+                      IMC: <span class="red--text">*</span>
                     </span>
                     <v-text-field required v-model="cita.imc"  single-line solo disabled></v-text-field>
                   </v-col>
 
                   <v-col cols="12" sm="6" class="py-0">
                     <span class="subtitle-2">
-                      Diagnóstico IMC:
+                      Diagnóstico IMC:<span class="red--text">*</span>
                     </span>
                     <v-text-field required v-model="cita.diag_imc" single-line solo disabled></v-text-field>
                   </v-col>
@@ -62,23 +62,23 @@
                 <v-row justify="center" class="py-0">
                 <v-col cols="12" sm="4" class="py-0">
                   <span class="subtitle-2">
-                    Masa muscular:
+                    <u>Masa muscular:</u>
                   </span>
-                  <v-text-field required v-model="cita.masaMuscular" :rules="numFieldsRules"  single-line solo suffix="kg"></v-text-field>
+                  <v-text-field v-model="cita.masaMuscular"   single-line solo suffix="kg"></v-text-field>
                 </v-col>
 
                 <v-col cols="12" sm="4" class="py-0">
                   <span class="subtitle-2">
-                    Masa grasa:
+                    <u>Masa grasa:</u>
                   </span>
-                  <v-text-field required v-model="cita.masaGrasa" :rules="numFieldsRules"  single-line solo suffix="kg"></v-text-field>
+                  <v-text-field v-model="cita.masaGrasa"  single-line solo suffix="kg"></v-text-field>
                 </v-col>
 
                 <v-col cols="12" sm="4" class="py-0">
                   <span class="subtitle-2">
-                    % grasa corporal:
+                    <u>% grasa corporal:</u>
                   </span>
-                  <v-text-field v-model="cita.grasaCorporal" :rules="numFieldsRules"  single-line solo suffix="%"></v-text-field>
+                  <v-text-field v-model="cita.grasaCorporal"   single-line solo suffix="%"></v-text-field>
                 </v-col>
                 </v-row>
 

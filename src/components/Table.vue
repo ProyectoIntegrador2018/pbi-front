@@ -136,7 +136,7 @@
                       </v-col>
                       <!-- <v-col cols="12"> 
                         <input type="checkbox" id="checkbox" v-model="checked">
-                        <label for="checkbox"> Se requieren casilleros para el período</label>
+                        <label for="checkbox"> Se requieren lockers para el período</label>
                       </v-col v-if="checked"> -->
                     </v-row>
                     <template >

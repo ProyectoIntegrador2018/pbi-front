@@ -1,9 +1,9 @@
 <template>
-   <div class="fill-height">
-      <v-container class="fill-height">
+   <div>
+     <nutriheader title="Expediente Médico" :secondRoute="this.routePatientData"></nutriheader>
+      <v-container class="fill-height">        
         <v-row justify="center">
             <v-col cols="10">
-            <h1 align="center">Expediente Nutricional</h1>
             <v-card class="d-flex align-center" color="white">
                     <v-row justify="center" class="mb-5">
                         <v-col class="px-0" cols="10">
@@ -68,7 +68,7 @@
                                 <h2 align="left">Estilo de vida </h2>
                             </v-col>
                             <v-col class="px-0 py-0" cols="10">                                           
-                                <span class="subtitle-1"> Actividad Física: </span>
+                                <span class="subtitle-1"> Actividad Física: <span class="red--text">*</span></span>
                                 <v-textarea
                                     solo
                                     name="input-7-4"
@@ -81,7 +81,7 @@
                             <v-col class="py-0" cols="10">
                               <v-row>
                                 <v-col class="px-0 py-0" cols="6">
-                                    <span class="subtitle-1"> ¿Cuántos días a la semana?: </span>
+                                    <span class="subtitle-1"> ¿Cuántos días a la semana?: <span class="red--text">*</span></span>
                                      <v-text-field
                                       v-model="patient.activityFrequency"
                                       label="Frecuencia"
@@ -92,7 +92,7 @@
                                       ></v-text-field>
                                 </v-col>
                                 <v-col class="py-0" cols="6">
-                                    <span class="subtitle-1"> Duración: </span>
+                                    <span class="subtitle-1"> Duración: <span class="red--text">*</span></span>
                                     <v-row>
                                       <v-col class="pr-0 py-0" cols="5">
                                         <v-text-field
@@ -128,7 +128,7 @@
                             <v-col class="py-0" cols="10">
                               <v-row>
                                 <v-col class="px-0 py-0" cols="6">
-                                <span class="subtitle-1"> ¿Cuántas horas duermes?: </span>
+                                <span class="subtitle-1"> ¿Cuántas horas duermes?: <span class="red--text">*</span></span>
                                 <v-text-field
                                   v-model="patient.sleepQuantity"
                                   label="Cantidad"
@@ -142,7 +142,7 @@
                               <v-divider class="py-2"></v-divider> 
                             </v-col> 
                             <v-col class="px-0 pt-0" cols="10">  
-                                <span class="subtitle-1"> ¿Fumas? </span>   
+                                <span class="subtitle-1"> ¿Fumas? <span class="red--text">*</span></span>   
                                     <v-radio-group row v-model="patient.isSmoker">
                                       <v-radio label="No" :value="false"></v-radio>
                                       <v-radio label="Sí" :value="true"></v-radio>
@@ -152,7 +152,7 @@
                             <v-col class="py-0" cols="10">
                               <v-row>
                                 <v-col class="pl-0 py-0" cols="6">  
-                                    <span class="subtitle-1"> ¿Consumes bebidas alcohólicas? </span>   
+                                    <span class="subtitle-1"> ¿Consumes bebidas alcohólicas? <span class="red--text">*</span></span>   
                                         <v-radio-group v-model="patient.isDrinker" row>
                                           <v-radio label="No" :value="false"></v-radio>
                                           <v-radio label="Sí" :value="true"></v-radio>
@@ -160,7 +160,7 @@
                                 </v-col> 
                                 <template v-if="patient.isDrinker === true" >
                                   <v-col class="px-0 py-0" cols="6">
-                                      <span class="subtitle-1"> ¿Cuántas?: </span>
+                                      <span class="subtitle-1"> ¿Cuántas?: <span class="red--text">*</span></span>
                                       <v-text-field
                                       v-model="patient.drinksQuantity"
                                       label="Cantidad"
@@ -177,7 +177,7 @@
                               <v-col class="py-0" cols="10">
                                 <v-row>                               
                                   <v-col class="pl-0 py-0" cols="6">
-                                      <span class="subtitle-1"> ¿Con qué frecuencia?: </span>
+                                      <span class="subtitle-1"> ¿Con qué frecuencia?: <span class="red--text">*</span></span>
                                       <v-select
                                           :items="drinksFrequencyOptions"
                                           label="-Selecciona Frecuencia-"
@@ -188,7 +188,7 @@
                                       ></v-select>
                                   </v-col>  
                                   <v-col class="px-0 py-0 " cols="6">                                           
-                                    <span class="subtitle-1"> Tipo de bebidas </span>
+                                    <span class="subtitle-1"> Tipo de bebidas <span class="red--text">*</span></span>
                                     <v-textarea
                                         solo
                                         name="input-7-4"
@@ -208,7 +208,7 @@
                         <v-col class="py-0" cols="10">                          
                           <v-row>
                             <v-col class="pl-0 py-0" cols="6">  
-                                <span class="subtitle-1"> ¿Consume algun suplemento nutricional (vitaminas,minerales,proteína)? </span>   
+                                <span class="subtitle-1"> ¿Consume algun suplemento nutricional (vitaminas,minerales,proteína)? <span class="red--text">*</span></span>   
                                     <v-radio-group v-model="patient.supplement" row>
                                       <v-radio label="No" :value="false"></v-radio>
                                       <v-radio label="Sí" :value="true"></v-radio>
@@ -216,7 +216,7 @@
                             </v-col>                          
                             <template v-if="patient.supplement === true" >   
                               <v-col class="pl-0 py-0" cols="6">  
-                                  <span class="subtitle-1"> Nombre </span>                                   
+                                  <span class="subtitle-1"> Nombre <span class="red--text">*</span></span>                                   
                                     <v-text-field
                                     v-model="patient.supplementName"      
                                     @change="this.validateSupplementName"
@@ -283,16 +283,10 @@
                             </v-col>
                         <v-col cols="10" class="px-0 py-0" >
                             <v-row class="d-flex flex-row-reverse mx-6 my-0"> 
-                                <v-col cols="4">    
+                                <v-col cols="7">    
                                     <v-btn large block color="primary" @click="saveMyInfo">
                                     <v-icon align="center" medium color="white" >mdi-content-save-outline</v-icon>
-                                    Guardar
-                                    </v-btn>
-                                </v-col>
-                                <v-col cols="6">
-                                    <v-btn large block @click="redirectPersonalInfo"> 
-                                     <v-icon align="center" medium >mdi-arrow-left</v-icon>
-                                     Datos del Paciente
+                                    Guardar e ir a Recordatorio de 24 Hrs
                                     </v-btn>
                                 </v-col>
                             </v-row>
@@ -306,15 +300,19 @@
 </template>
 
 <script>
+import nutriheader from "../components/nutriheader.vue";
 const helper = require("../helper.js");
 import axios from "axios";
 
-export default {
-  name: "UserConfirm",
+export default {  
+  components: {
+    nutriheader
+  },
   data () {
       return {          
         isError: false,
         userId:"",
+        routePatientData:"",
         patient: {
             familyBackground:[],
             otherFamilyBackgroundChecked: "",
@@ -375,9 +373,6 @@ export default {
           'Colitis']
       }
     },
-  components: {
-    
-  },
   methods: {
     validateOtherFamilyBackground(){
       if(this.patient["otherFamilyBackgroundChecked"] === "Otro" && !this.patient.otherFamilyBackground){  
@@ -438,11 +433,7 @@ export default {
         }
     },
     validateDurationMinutes(){
-      if(!this.patient["durationMinutes"]){  
-          this.isError = true
-          this.errorPatient.durationMinutes = "Campo requerido"
-        }
-      else if(Number.isNaN(Number(this.patient["durationMinutes"]))){
+      if(Number.isNaN(Number(this.patient["durationMinutes"]))){
           this.isError = true
           this.errorPatient.durationMinutes = "Debe ser un número"
       }
@@ -591,7 +582,10 @@ export default {
           this.patient.personalBackground[this.patient.personalBackground.length-1]!=this.patient.otherPersonalBackground)
       {
         this.patient.personalBackground.push(this.patient.otherPersonalBackground);
-      }    
+      }   
+      if(!this.patient.durationMinutes){
+        this.patient.durationMinutes = 0
+      } 
       
       const URL = helper.baseURL + "/nutricion/records/history/"+this.userId;
       axios.defaults.headers.common['Authorization'] = "Bearer "+ localStorage.getItem("token");
@@ -636,6 +630,7 @@ export default {
     },
     loadInfo(){
       this.userId= this.getParameterByName("id", window.location);
+      this.routePatientData = "./informacionpersonal?id="+this.userId
 
       if(this.userId === null)
       {
@@ -714,10 +709,7 @@ export default {
       }).catch(error =>{
             this.$swal("Error",error.response.data.error,"error")
         })
-    },
-    redirectPersonalInfo(){
-      window.open("./informacionpersonal?id="+this.userId,"_self")
-    }
+    } 
   },
     created(){
       this.loadInfo()

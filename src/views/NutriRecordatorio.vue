@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nutriheader title="Recordatorio 24 hrs" secondRoute="/nutricion/pacientes/"></nutriheader>
+    <nutriheader title="Recordatorio 24 hrs" :secondRoute="this.routePatientMedicalRecord"></nutriheader>
     <v-row justify="center">
       <v-form ref="form" v-model="valid" lazy-validation>
       <!-- Desayuno -->
@@ -439,6 +439,7 @@ export default {
   },
   data: () => ({
     valid: true,
+    routePatientMedicalRecord: "",
     numberRules: [v => !Number.isNaN(Number(v)) || "Debe ser número"],
     hidratos: 0,
     totalCalorias: 0,
@@ -584,6 +585,7 @@ export default {
     },
     getRecordatorio(){
       //this.comidas = []
+      this.routePatientMedicalRecord = "/nutricion/expedientemedico?id="+this.$route.params.id
       const URL = helper.baseURL + '/nutricion/records/' + this.$route.params.id;
       axios
         .get(URL)

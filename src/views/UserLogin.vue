@@ -39,6 +39,24 @@
                   </v-col>
                 </v-row>
 
+              <v-row>
+                <v-col cols="12" md="6">
+                  <h6 align="center" class="mb-2">
+                    <a class="caption" href="/admin">
+                      <u>¿Eres Administrador?</u>
+                    </a>
+                  </h6>
+                </v-col>
+                <v-col cols="12" md="6">
+                  <h6 align="center" class="mb-2">
+                    <a class="caption" href="/nutricion">
+                      <u>¿Eres Nutriologo?</u>
+                    </a>
+                  </h6>
+                </v-col>
+              </v-row>
+
+
               </v-col>
               <v-col cols="12" md="6">
                 <h3 class="my-5">Regístrate</h3>
@@ -98,21 +116,25 @@
                 ></v-text-field>
                 <v-text-field
                   v-model="userSignUp.password"
-                  type="password"
                   name="passSignIn"
                   label="Contraseña"
                   :rules="[rules.min]"
-                  :errorMessages="this.errorMsg.password"
+                  :type="show2 ? 'text' : 'password'"
+                  :errorMessages="this.errorMsg.password"                  
+                  :append-icon="show2 ? 'visibility' : 'visibility_off'"
+                  @click:append="show2 = !show2"               
                   solo
                   @change="this.validatePass"
                 ></v-text-field>
                 <v-text-field
                   v-model="userSignUp.pConfirm"
-                  type="password"
+                  :type="show2 ? 'text' : 'password'"
                   name="passConfirm"
                   :rules="[rules.min]"
+                  :append-icon="show2 ? 'visibility' : 'visibility_off'"
                   label="Confirmar Contraseña"
                   :errorMessages="this.errorMsg.passwordC"
+                  @click:append="show2 = !show2"  
                   solo
                   @change="this.validatePassConfirm"
                 ></v-text-field>
@@ -161,6 +183,7 @@ export default {
         confirmNomina: "",
       },
       show1: false,
+      show2: false,
       rules: {
         required: value => !!value || "Required.",
         min: v => v.length >= 8 || "Min 8 characters",
@@ -212,14 +235,12 @@ export default {
       this.validateName();
       this.validateSurname();
       this.validateEmail();
-      this.validateConfirmEmail();
       this.validatePass();
-      this.validatePassConfirm();
       this.validateNomina();
-      this.validateConfirmNomina();
-      if (this.isError) {
+      if (this.isError) {        
         return;
       }
+
       var userSignUp = this.userSignUp;
       var email = userSignUp["email"].toLowerCase();
       var temp = {
@@ -240,8 +261,17 @@ export default {
             "Ya puedes iniciar sesión con tus credenciales",
             "success"
           );
-        }).catch((error)=>{
-          
+          this.userLogin.email = this.userSignUp.email
+          this.userLogin.password = this.userSignUp.password
+          this.userSignUp.name= ""
+          this.userSignUp.surname= ""
+          this.userSignUp.email= ""
+          this.userSignUp.confirmEmail= ""
+          this.userSignUp.password= ""
+          this.userSignUp.pConfirm= ""
+          this.userSignUp.nomina= ""
+          this.userSignUp.confirmNomina= ""
+        }).catch((error)=>{          
           this.$swal("No se pudo crear la cuenta",error.response.data.error,"error")
         })
       },
@@ -281,6 +311,7 @@ export default {
       } else {
         this.errorMsg.email = "";
       }
+      this.validateConfirmEmail()
     },
     validateConfirmEmail(){
       if (!this.userSignUp["confirmEmail"]) {
@@ -316,6 +347,7 @@ export default {
       } else {
         this.errorMsg.password = "";
       }
+      this.validatePassConfirm()
     },
     validatePassConfirm() {
       if (!this.userSignUp["pConfirm"]) {
@@ -331,12 +363,15 @@ export default {
     validateNomina() {
       this.userSignUp.nomina = this.userSignUp.nomina.toUpperCase();
       if (!this.userSignUp.nomina) {
+        this.isError = true;
         this.errorMsg.nomina = "Campo requerido";
       } else if (!this.validNomina(this.userSignUp.nomina)) {
+        this.isError = true;
         this.errorMsg.nomina = "Nómina inválida (LXXXXXXXXX, NXXXXXXXX)";
       } else {
         this.errorMsg.nomina = "";
       }
+      this.validateConfirmNomina()
     },
     validateConfirmNomina(){
       if (!this.userSignUp["confirmNomina"]) {

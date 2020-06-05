@@ -398,10 +398,21 @@ router.beforeEach((to, from, next) => {
                         }
                     }*/
                     else {
+                        
                         if (!autorizacionUsr) {
-                            next({
-                                path: '/404'
-                            })
+                            if(response.data.nutritionist){
+                                next({
+                                    path: '/nutricion/home'
+                                })
+                            }if(response.data.admin){
+                                next({
+                                    path: '/admin/home'
+                                })
+                            }else{
+                                next({
+                                    path: '/home'
+                                })
+                            }
                         } else {
                             next()
                         }

@@ -222,7 +222,7 @@ export default {
       axios
         .put(URL, json_nomina)
         .then(() => {
-          this.$swal("Yupi", "Usuario inscrito", "success");
+          this.$swal("Usuario Inscrito", "Se ha inscrito al usuario a la clase", "success");
           this.getCourse();
         })
         .catch(error => {

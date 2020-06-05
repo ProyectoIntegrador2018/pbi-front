@@ -112,7 +112,7 @@
           <download-excel
             :data="course.enrolled"
             :fields="json_fields"
-            name="ListaInscritos.xls"
+            :name="this.excelFileName"
           >Lista Inscritos</download-excel>
         </v-btn>
         </v-col>
@@ -121,7 +121,7 @@
           <download-excel
             :data="course.enrolled"
             :fields="inscritos_historial"
-            name="InscritosHistorialMedico.xls"
+            :name="this.excelFileNameMedical"
           >Inscritos (Historial Médico)</download-excel>
         </v-btn>
         </v-col>
@@ -142,6 +142,8 @@ export default {
   },
   data: () => ({
     isLoading: true,
+    excelFileName: "",
+    excelFileNameMedical: "",
     searchPages: "",
     dialog: false,
     valid: true,
@@ -191,6 +193,9 @@ export default {
         .then(response => {
           this.course = response.data;
           this.isLoading = false
+          this.excelFileName= this.course.name+"_"+this.course.instructor+"_"+this.course.startHour+"_"+this.course.endHour+".xls"
+          this.excelFileNameMedical= this.course.name+"_"+this.course.instructor+"_"+this.course.startHour+"_"+this.course.endHour+"_HistorialMedico.xls"
+        
         })
         .catch(error => {
           this.$swal({
@@ -208,7 +213,7 @@ export default {
       axios
         .put(URL, json_nomina)
         .then(() => {
-          this.$swal("Yupi", "Usuario inscrito", "success");
+          this.$swal("Usuario Inscrito", "Se ha inscrito al usuario a la clase", "success");
           this.getCourse();
         })
         .catch(error => {

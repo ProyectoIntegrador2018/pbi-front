@@ -6,7 +6,7 @@
           <h1
             class="display-2 font-weight-bold"
             align="center"
-          >Inscribir Casillero para {{this.Periodo}}</h1>
+          >Inscribir Locker para {{this.Periodo}}</h1>
         </v-row>
       </v-container>
       <v-container fluid my-0 px-md-12 py-0>
@@ -49,7 +49,7 @@
                   type="warning"
                   prominent
                   border="left"
-                >Inscripciones a casilleros permitidas del {{momentDatetime(this.start, 'LL')}} a las 12:00 AM al {{momentDatetime(this.close, 'LL')}} hasta las 11:59 PM.</v-alert>
+                >Inscripciones a lockers permitidas del {{momentDatetime(this.start, 'LL')}} a las 12:00 AM al {{momentDatetime(this.close, 'LL')}} hasta las 11:59 PM.</v-alert>
               </template>
           </template>
         </template>

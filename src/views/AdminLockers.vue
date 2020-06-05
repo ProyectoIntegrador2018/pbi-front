@@ -1,7 +1,7 @@
  <template>
   <div>
     <v-content>
-      <adminheader title="Asignación de Casilleros"></adminheader>
+      <adminheader title="Asignación de Lockers"></adminheader>
       <v-container fluid my-5 px-md-12>
         <LockerList></LockerList>
       </v-container>

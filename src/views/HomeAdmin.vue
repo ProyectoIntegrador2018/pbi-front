@@ -82,7 +82,7 @@
                   <v-icon align="center" x-large color="white">mdi-locker-multiple</v-icon>
                 </v-col>
                 <v-col cols="12">
-                  <h2 class="btn" align="center">Administrar Casilleros</h2>
+                  <h2 class="btn" align="center">Administrar Lockers</h2>
                 </v-col>
               </v-row>
             </v-card>

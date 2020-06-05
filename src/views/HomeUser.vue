@@ -244,7 +244,7 @@ export default {
       if(!this.userData){
         this.$swal({
         title: "Falta Información Personal",
-        text: "Es requisito para inscribir casillero",
+        text: "Es requisito para inscribir locker",
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
@@ -264,7 +264,7 @@ export default {
       else {        
         this.$swal({
         title: "Falta Historial médico",
-        text: "Es requisito para inscribir casillero",
+        text: "Es requisito para inscribir locker",
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",

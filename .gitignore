@@ -22,3 +22,4 @@ yarn-error.log*
 *.sln
 *.sw?
 frontend/dist/js/chunk-vendors.dfdb20d9.js
+.firebase/hosting.ZGlzdA.cache

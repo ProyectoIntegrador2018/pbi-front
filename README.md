@@ -65,7 +65,6 @@ Version 2.0
 You should ask for access to this tools if you don't have it already:
 
 * [Github repo](https://github.com/ProyectoIntegrador2018/pbi-front)
-* [Backlog]()
 * [Heroku](https://inscripcionespbi-backend.herokuapp.com) (API)
 * [Documentation](https://drive.google.com/drive/u/2/folders/1HxzSv_UqLsO1F6e_aaYM3d7Hoos28w91)
 
@@ -93,7 +92,7 @@ $ git clone git@github.com:ProyectoIntegrador2018/pbi-front.git
 $ npm install
 ```
 
-3. To completely setup this proyect is needed to setup the back-end ([pbi-api](https://github.com/ProyectoIntegrador2018/pbi-api)).
+3. To completely setup this project is needed to setup the back-end ([pbi-api](https://github.com/ProyectoIntegrador2018/pbi-api)).
 
 ### Running the stack for Development
 

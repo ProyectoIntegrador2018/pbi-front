@@ -28,8 +28,7 @@ Sistema de Inscripciones PBI (Sitio Web)
 
 ### Environment URLS
 
-* **Production** - [TBD](inscripcionespbitec.firebaseapp.com)
-* **Development** - [TBD](TBD)
+* **Production** - [https://inscripcionespbitec.firebaseapp.com/](inscripcionespbitec.firebaseapp.com)
 
 ### Team members
 
@@ -63,7 +62,7 @@ Version 2.0
 
 ### Management tools
 
-You should ask for access to this to        ols if you don't have it already:
+You should ask for access to this tools if you don't have it already:
 
 * [Github repo](https://github.com/ProyectoIntegrador2018/pbi-front)
 * [Backlog]()

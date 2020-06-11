@@ -199,7 +199,7 @@ export default {
           this.errorMsg.femaleCost = ""
         }
     },        
-    saveLockerInfo()
+    async saveLockerInfo()
     {        
         this.isError = false
         this.validateFemaleCost()
@@ -210,7 +210,7 @@ export default {
           return
         }
         
-        this.updateLockerCostFemale()
+        await this.updateLockerCostFemale()
 
         if(this.femaleDresser.count > this.femaleDresser.originalCount)
         {
@@ -269,34 +269,58 @@ export default {
           })
         }
 
-        if(this.maleDresser.originalCount == this.maleDresser.count && this.femaleDresser.originalCount == this.femaleDresser.count)
+        if(this.maleDresser.originalCount == this.maleDresser.count && this.femaleDresser.originalCount == this.femaleDresser.count
+          && this.maleDresser.originalCost==this.maleDresser.cost && this.femaleDresser.originalCost&&this.femaleDresser.cost)
         {
-          this.$swal("Sin cambios", "No hay cambios que realizar", "success");  
-        }
-        this.saveLockerInfoMale();
+          this.$swal("Sin cambios", "No hay cambios que realizar", "success").then(()=>{
+            var route = "/lockers/";
+            window.open(route, "_self");
+          });  
+        }else
+          this.saveLockerInfoMale();
 
     },
-    updateLockerCostFemale(){
-      const URL = helper.baseURL + "/lockers/cost/" + this.femaleDresser.id;
-      axios.defaults.headers.common['Authorization'] = "Bearer "+ localStorage.getItem("token");
-      axios
-      .put(URL,
-      {
-        cost: this.femaleDresser.cost
-      })
+    async updateLockerCostFemale(){
+      if(this.maleDresser.originalCost!=this.maleDresser.cost){
+        this.$swal({
+          title: 'Actualizando',
+          text: 'Se están modificando los costos de lockers de Mujeres, favor de esperar',
+          showCancelButton: false,
+          showConfirmButton: false,
+          type:"info"
+        })
+        const URL = helper.baseURL + "/lockers/cost/" + this.femaleDresser.id;
+        axios.defaults.headers.common['Authorization'] = "Bearer "+ localStorage.getItem("token");
+        var newCost = await axios
+        .put(URL,
+        {
+          cost: this.femaleDresser.cost
+        })
+        return await this.$swal("Completado","Se ha actualizado el costo de los casilleros de Mujeres","success")
+      }
     },
-    updateLockerCostMale(){
-      const URL = helper.baseURL + "/lockers/cost/" + this.maleDresser.id;
-      axios.defaults.headers.common['Authorization'] = "Bearer "+ localStorage.getItem("token");
-      axios
-      .put(URL,
-      {
-        cost: this.maleDresser.cost
-      })
+    async updateLockerCostMale(){
+      if(this.maleDresser.originalCost!=this.maleDresser.cost){
+        this.$swal({
+          title: 'Actualizando',
+          text: 'Se están modificando los costos de lockers de Hombres, favor de esperar',
+          showCancelButton: false,
+          showConfirmButton: false,
+          type:"info"
+        })
+        const URL = helper.baseURL + "/lockers/cost/" + this.maleDresser.id;
+        axios.defaults.headers.common['Authorization'] = "Bearer "+ localStorage.getItem("token");
+        var newCost = await axios
+        .put(URL,
+        {
+          cost: this.maleDresser.cost
+        })
+        return await  this.$swal("Completado","Se ha actualizado el costo de los casilleros de Hombres","success")
+      }
     },
-    saveLockerInfoMale()
+    async saveLockerInfoMale()
     {
-       this.updateLockerCostMale()
+       await this.updateLockerCostMale()
 
        //lockerS HOMBRES
         if(this.maleDresser.count > this.maleDresser.originalCount)
@@ -355,8 +379,7 @@ export default {
           })
         }
 
-         var route = "/lockers/";
-          window.open(route, "_self");
+         
 
     },
       getLockerInfo()

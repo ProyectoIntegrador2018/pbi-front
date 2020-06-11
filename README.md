@@ -126,7 +126,7 @@ This means the project is up and running.
 
 2. To completely setup this proyect is needed to setup the back-end ([pbi-api](https://github.com/ProyectoIntegrador2018/pbi-api)).
 
-### Building the proyect for production
+### Building the project for production
 
 1. Fire up a tarminal, go to the proyect directory and run:
 

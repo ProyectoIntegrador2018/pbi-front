@@ -62,21 +62,21 @@
                 <h3 class="my-5">Regístrate</h3>
                 <v-row>
                   <v-col cols="12" md="6" class="py-0">
-                    <v-text-field 
-                    v-model="userSignUp.name" 
-                    label="Nombre(s)" 
-                    single-line 
+                    <v-text-field
+                    v-model="userSignUp.name"
+                    label="Nombre(s)"
+                    single-line
                     solo
                     :errorMessages="this.errorMsg.name"
                     @change="this.validateName"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12" md="6" class="py-0">
-                    <v-text-field 
-                    v-model="userSignUp.surname" 
-                    label="Apellidos" 
-                    single-line 
-                    solo                    
+                    <v-text-field
+                    v-model="userSignUp.surname"
+                    label="Apellidos"
+                    single-line
+                    solo
                     :errorMessages="this.errorMsg.surname"
                     @change="this.validateSurname"
                     ></v-text-field>
@@ -120,9 +120,9 @@
                   label="Contraseña"
                   :rules="[rules.min]"
                   :type="show2 ? 'text' : 'password'"
-                  :errorMessages="this.errorMsg.password"                  
+                  :errorMessages="this.errorMsg.password"
                   :append-icon="show2 ? 'visibility' : 'visibility_off'"
-                  @click:append="show2 = !show2"               
+                  @click:append="show2 = !show2"
                   solo
                   @change="this.validatePass"
                 ></v-text-field>
@@ -134,7 +134,7 @@
                   :append-icon="show2 ? 'visibility' : 'visibility_off'"
                   label="Confirmar Contraseña"
                   :errorMessages="this.errorMsg.passwordC"
-                  @click:append="show2 = !show2"  
+                  @click:append="show2 = !show2"
                   solo
                   @change="this.validatePassConfirm"
                 ></v-text-field>
@@ -200,7 +200,7 @@ export default {
         .post(URL, temp)
         .then(response => {
           localStorage.token = response.data.token;
-          
+
           this.redirect();
         })
         .catch(error => {
@@ -230,14 +230,14 @@ export default {
         });
     },
     signUp() {
-      
+
       this.isError = false;
       this.validateName();
       this.validateSurname();
       this.validateEmail();
       this.validatePass();
       this.validateNomina();
-      if (this.isError) {        
+      if (this.isError) {
         return;
       }
 
@@ -251,11 +251,11 @@ export default {
         nomina: userSignUp["nomina"],
         dateBirth: "01-01-2000"
       };
-      
+
       const URL = helper.baseURL + "/accounts";
       axios
         .post(URL, temp)
-        .then(response => {
+        .then(() => {
           this.$swal(
             "Cuenta creada",
             "Ya puedes iniciar sesión con tus credenciales",
@@ -271,7 +271,7 @@ export default {
           this.userSignUp.pConfirm= ""
           this.userSignUp.nomina= ""
           this.userSignUp.confirmNomina= ""
-        }).catch((error)=>{          
+        }).catch((error)=>{
           this.$swal("No se pudo crear la cuenta",error.response.data.error,"error")
         })
       },
@@ -283,7 +283,7 @@ export default {
         const URL = helper.baseURL + "/confirm/retry";
         axios
         .post(URL,{"email": this.userLogin.email.toLowerCase()})
-        .then(response=>{
+        .then(() =>{
           this.$swal("Enviado", "Se ha enviado otro correo de confimación, verifica tu bandeja de entrada","warning")
         }).catch(error=>{
           this.$swal("Error",error.response.data.error,"error")
@@ -301,7 +301,7 @@ export default {
       return re.test(nomina);
     },
     validEmail(email) {
-      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);
     },
     validateEmail() {

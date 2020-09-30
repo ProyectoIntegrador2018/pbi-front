@@ -10,7 +10,7 @@
         my-5
       ></v-img>
     </v-col>
-      
+
     </v-container>
 
     <v-layout text-center wrap>
@@ -21,7 +21,7 @@
     <v-item-group class="fill-height" fluid>
       <v-container class="fill-height">
         <v-row align="center" justify="center">
-          <v-col cols="12" md="4">            
+          <v-col cols="12" md="4">
             <v-card class="d-flex align-center" color="light-green darken-1" height="200" @click="redirectToTerm()">
               <v-row>
                 <v-col cols="12" justify="center" align="center" class="py-0">
@@ -97,7 +97,7 @@
 <script>
 export default {
   components: {
-    
+
   },
   methods: {
     redirect() {

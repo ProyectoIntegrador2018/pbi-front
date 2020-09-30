@@ -4,7 +4,7 @@
       ref="table"
       :headers="headers"
       :items="enrolledCourses"
-      item-key="_id"  
+      item-key="_id"
       class="elevation-1"
       v-model="selected"
       :loading="isLoading"
@@ -16,8 +16,8 @@
         </v-toolbar>
       </template>
 
-      <template v-slot:header.data-table-select="{ on , props }" style = "display:none">
-      </template>
+      <!-- <template v-slot:header.data-table-select="{ on , props }" style = "display:none">
+      </template> -->
       <template v-slot:no-data>
         <v-btn color="primary" :disabled="true">No hay cursos</v-btn>
       </template>
@@ -37,7 +37,7 @@ export default {
     selectedTerm: "",
     flagAlertSecondClass: false,
     cantEnroll:true,
-    headers: [      
+    headers: [
       {align: "left", width: "5%" },
       { text: "Nombre", align: "left", value: "name", width: "25%"},
       { text: "Instructor", value: "instructor", width: "20%" },
@@ -61,7 +61,7 @@ export default {
     }).catch((error)=>{
       this.$swal("Error",error.response.data.error,"error")
     })
-   
+
   },
   mounted() {},
   methods: {
@@ -102,8 +102,8 @@ export default {
             if(periodo.flagCurrent){
                this.selectedTerm = periodo._id
             }
-          }) 
-          this.getCourses(this.selectedTerm);          
+          })
+          this.getCourses(this.selectedTerm);
         })
         .catch(() => {
           this.$swal("Error", "No se pudieron cargar", "error");

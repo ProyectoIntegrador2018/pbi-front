@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-content>
+    <v-main>
       <v-container fluid>
         <adminheader :title="user.name" :subtitle="user.surname" secondRoute="/users/" titleStyle='2'></adminheader>
         <h1 align="center" justify="center" class="subtitle-1">{{user.nomina}}</h1>
@@ -41,7 +41,7 @@
           </template>
         </v-data-table>
       </v-container>
-    </v-content>
+    </v-main>
   </div>
 </template>
 
@@ -96,22 +96,6 @@ export default {
             showConfirmButton: false
           });
         });
-    },
-    deleteItem(item) {
-      this.$swal({
-        title: "¿Estas seguro?",
-        text: "No se puede recuperar una vez eliminado",
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Si, eliminar",
-        cancelButtonText: "Cancelar"
-      }).then(result => {
-        if (result.value) {
-          this.disenrollUser(item._id);
-        }
-      });
     },
     seeCourseDetail(item){
       var route = '/courseDetail/';

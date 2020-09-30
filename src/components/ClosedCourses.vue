@@ -5,7 +5,7 @@
       :headers="headers"
       :items="closedCourses"
       item-key="_id"
-      class="elevation-1"      
+      class="elevation-1"
       :footer-props="{
      'items-per-page-options': [100, 500]
       }"
@@ -18,7 +18,7 @@
         </v-toolbar>
       </template>
 
-      <template v-slot:header.data-table-select="{ on , props }" style = "display:none"></template>
+      <!-- <template v-slot:header.data-table-select="{ on , props }" style = "display:none"></template> -->
 
       <template v-slot:no-data>
         <v-btn color="primary" :disabled="true">No hay cursos cerrados</v-btn>
@@ -35,7 +35,7 @@ export default {
   data: () => ({
     isLoading: true,
     selectedTerm: "",
-    headers: [      
+    headers: [
       {align: "left", width: "5%" },
       { text: "Nombre", align: "left", value: "name", width: "25%"},
       { text: "Instructor", value: "instructor", width: "20%" },
@@ -51,8 +51,8 @@ export default {
     this.getTerms();
   },
   mounted() {},
-  methods: {  
-   
+  methods: {
+
     getCourses(value) {
       if (value == undefined) {
         value = this.selectedTerm;
@@ -85,7 +85,7 @@ export default {
             if(periodo.flagCurrent){
                this.selectedTerm = periodo._id
             }
-          }) 
+          })
           this.getCourses(this.selectedTerm);
         })
         .catch(() => {

@@ -1,6 +1,6 @@
  <template>
   <div>
-    <v-content>
+    <v-main>
       <v-container fluid>
         <v-row align="center" justify="center">
           <h1
@@ -18,8 +18,8 @@
           </v-col>
         </div>
 
-        <template v-if="hasntLoaded">    
-          <v-row justify="center">    
+        <template v-if="hasntLoaded">
+          <v-row justify="center">
             <v-col cols="5" md="6">
               <v-card class="d-flex align-center" color="#BDBDBD">
                   <v-row>
@@ -27,23 +27,23 @@
                           <h3 class="btn" color= "white" align="center">Cargando</h3>
                       </v-col>
                       <v-col cols="12" justify="center" align="center" class="py-0">
-                            <v-icon align="center" c size="70" color="white" class="mdi-spin">mdi-loading</v-icon>                                        
-                      </v-col>                                    
+                            <v-icon align="center" c size="70" color="white" class="mdi-spin">mdi-loading</v-icon>
+                      </v-col>
                   </v-row>
               </v-card>
             </v-col>
           </v-row>
         </template>
-        
-        <template v-else>        
+
+        <template v-else>
           <template v-if="hasLocker">
             <MyLocker :showButton="showInscription"></MyLocker>
-          </template>          
+          </template>
           <template v-else>
               <template v-if="showInscription">
                 <WomenMaleLocker></WomenMaleLocker>
               </template>
-              <template v-else>        
+              <template v-else>
                 <v-alert
                   outlined
                   type="warning"
@@ -55,13 +55,13 @@
         </template>
 
         <p class="py-5 px-5 my-0 caption">
-          Ubicación: Vestidores del semisótano del Centro de Congresos 
+          Ubicación: Vestidores del semisótano del Centro de Congresos
           Sugerencias de uso adecuado de Locker: Debes llevar tu candado y colocarlo lo antes posible, Evita dejar objetos de valor, No dejes tus pertenencias en las bancas, Verifica que hayas cerrado el candado, No guardes químicos y/o comida en el casillero.
           El departamento de Bienestar Integral no se hace responsable por la pérdida o robo de los artículos dejados en el casillero. Atentamente,
           Coordinación del Programa de Bienestar Integral
         </p>
       </v-container>
-    </v-content>
+    </v-main>
   </div>
 </template>
 
@@ -132,7 +132,7 @@ export default {
           if (response.data.locker){
             this.hasLocker = true;
           }
-         
+
         })
         .catch(error => {
           this.$swal("Error", error.response.data.error, "error");
@@ -147,13 +147,14 @@ export default {
         .get(URL)
         .then(response => {
            this.showInscription = response.data.status
-           
+
            this.hasntLoaded = false;
-           
+
         })
-        .catch((error) => {
+        .catch(() => {
+          //console.error(error);
           this.$swal("Error", "No se pudo cargar periodo", "error");
-          
+
 
         });
     }

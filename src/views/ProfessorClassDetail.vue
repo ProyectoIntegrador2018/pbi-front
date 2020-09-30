@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-content>
+    <v-main>
       <v-container fluid>
        <h1
           class="display-3"
@@ -25,7 +25,7 @@
             </span>
             <h2>Horario: {{course.startHour}} a {{course.endHour}}</h2>
             <template v-for="item in course.frequency">
-              <v-chip class="ma-2" color="primary">{{item}}</v-chip>
+              <v-chip class="ma-2" color="primary" v-bind:key="item">{{item}}</v-chip>
             </template>
             <template v-if="course.instructor != ''">
               <h3>Instructor: {{course.instructor}}</h3>
@@ -107,7 +107,7 @@
             <template v-slot:no-data>
               <v-btn disabled color="primary">No hay usuarios</v-btn>
             </template>
-            <template v-slot:item.action="{ item }">
+            <template v-slot:[`item.action`]="{ item }">
               <v-btn class="ma-2" small color="" @click="showStudentData(item)">
                 <v-icon>mdi-eye</v-icon>&nbsp; Ver
               </v-btn>
@@ -139,7 +139,7 @@
         </v-col>
         </v-row>
       </v-container>
-    </v-content>
+    </v-main>
   </div>
 </template>
 
@@ -150,7 +150,7 @@ import axios from "axios";
 
 export default {
   components:{
-    
+
   },
   data: () => ({
     title:"",

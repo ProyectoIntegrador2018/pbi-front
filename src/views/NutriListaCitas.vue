@@ -1,27 +1,27 @@
  <template>
   <div>
-    <v-content>
+    <v-main>
       <v-container fluid>
         <v-row align="center" justify="center">
           <h1 class="display-2 font-weight-bold" align="center">Seguimiento del paciente: {{patient.name}} {{patient.surname}}</h1>
         </v-row>
       </v-container>
       <nutriheader title="" secondRoute="/nutricion/pacientes"></nutriheader>
-      
+
       <v-container fluid my-5 px-md-12>
           <div>
-            <v-data-table 
-              ref="table" 
-              :headers="headers" 
-              :items="appointments" 
-              sort-by="date" 
+            <v-data-table
+              ref="table"
+              :headers="headers"
+              :items="appointments"
+              sort-by="date"
               class="elevation-1"
               :loading="isLoading"
               :search="search"
               loading-text="Cargando... Favor de esperar"
             >
-              <template #item.formatDate="{item}">{{momentDatetime(item.date,"LL")}}</template>
-              <template #item.full_name="{item}">{{item.name}}  {{item.surname}}</template>
+              <template #[`item.formatDate`]="{item}">{{momentDatetime(item.date,"LL")}}</template>
+              <template #[`item.full_name`]="{item}">{{item.name}}  {{item.surname}}</template>
               <template v-slot:top>
                 <v-toolbar flat color="white">
                   <v-toolbar-title>Citas</v-toolbar-title>
@@ -38,31 +38,28 @@
                   <v-btn class="blue  darken-3 white--text"   @click="createAppoint()">Nueva cita</v-btn>
                 </v-toolbar>
               </template>
-              <template v-slot:item.weight="{ item }">
+              <template v-slot:[`item.weight`]="{ item }">
                {{item.weight}} kg
               </template>
-              <template v-slot:item.height="{ item }">
+              <template v-slot:[`item.height`]="{ item }">
                {{item.height}} mts
               </template>
-              <template v-slot:item.muscleMass="{ item }">
+              <template v-slot:[`item.muscleMass`]="{ item }">
                {{item.muscleMass}} Kg
               </template>
-              <template v-slot:item.fatMass="{ item }">
+              <template v-slot:[`item.fatMass`]="{ item }">
                {{item.fatMass}} Kg
               </template>
-              <template v-slot:item.muscleMass="{ item }">
-               {{item.muscleMass}} Kg
-              </template>
-              <template v-slot:item.totalWater="{ item }">
+              <template v-slot:[`item.totalWater`]="{ item }">
                {{item.totalWater}} Lt
               </template>
-              <template v-slot:item.fatMassPct="{ item }">
+              <template v-slot:[`item.fatMassPct`]="{ item }">
                {{item.fatMassPct}}%
               </template>
-              <template v-slot:item.record="{ item }">
+              <template v-slot:[`item.record`]="{ item }">
                 <v-tooltip top>
                   <template v-slot:activator="{ on }">
-                    <v-btn icon v-on="on">  
+                    <v-btn icon v-on="on">
                       <v-icon small @click="verCita(item)">search</v-icon>
                     </v-btn>
                   </template>
@@ -80,7 +77,7 @@
             </v-data-table>
           </div>
       </v-container>
-    </v-content>
+    </v-main>
   </div>
 </template>
 
@@ -171,17 +168,17 @@ export default {
       this.clases = []
       axios.defaults.headers.common['Authorization'] = "Bearer "+ localStorage.getItem("token");
       const URL = helper.baseURL + "/nutricion/appointments/"+this.$route.params.id;
-      
+
       axios
       .get(URL)
-      .then((Response)=>{   
+      .then((Response)=>{
         this.appointments = Response.data
         this.isLoading = false
       })
       .catch((error)=>{
         this.$swal("Error",error.response.data.error,"error")
       })
-      
+
     },
     verCita(item){
       var route = '/nutricion/'+this.$route.params.id+'/cita?cid=' +item._id
@@ -190,8 +187,8 @@ export default {
   },
   created(){
     this.getPatient();
-    
+
   }
-  
+
 };
 </script>

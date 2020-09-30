@@ -104,26 +104,26 @@
                     </v-col>
                 </v-row>
             </v-form>
-          </v-row>   
-          </v-container>    
+          </v-row>
+          </v-container>
           <v-container v-if="showTable">
-            <v-data-table 
-              ref="table" 
-              :headers="headers" 
-              :items="appointments" 
-              sort-by="name" 
+            <v-data-table
+              ref="table"
+              :headers="headers"
+              :items="appointments"
+              sort-by="name"
               class="elevation-1"
               :loading="isLoading"
               :search="search"
               loading-text="Cargando... Favor de esperar"
             >
-              <template v-slot:item.date="{ item }">
+              <template v-slot:[`item.date`]="{ item }">
                 <td>{{momentDatetime(item.date, 'LL')}}</td>
               </template>
-              <template #item.matricula="{item}">{{item.record.matricula}}</template>
-               <template #item.gender="{item}">{{item.record.gender}}</template>
-              <template #item.full_name="{item}">{{item.record.name}}  {{item.record.surname}}</template>
-              <template #item.nutriinfo="{item}">{{item.nutritionist.name}}</template>
+              <template #[`item.matricula`]="{item}">{{item.record.matricula}}</template>
+               <template #[`item.gender`]="{item}">{{item.record.gender}}</template>
+              <template #[`item.full_name`]="{item}">{{item.record.name}}  {{item.record.surname}}</template>
+              <template #[`item.nutriinfo`]="{item}">{{item.nutritionist.name}}</template>
               <template v-slot:top>
                 <v-toolbar flat color="white">
                     <v-text-field
@@ -210,7 +210,7 @@ export default {
         if(this.$refs.form.validate() && this.dateRange(this.fechaA,this.fechaB))
         {
             this.showTable = true
-            
+
                 this.appointments = []
                 axios.defaults.headers.common['Authorization'] = "Bearer "+ localStorage.getItem("token");
                 const URL = helper.baseURL  + '/nutricion/appointments/span'
@@ -218,22 +218,22 @@ export default {
                   startDate: this.fechaA,
                   endDate: this.fechaB
                 }
-                
+
                 axios
                 .put(URL,dates)
                 .then((response)=> {
                     this.appointments = response.data
-                    
+
                     this.isLoading = false
                 }).catch((error)=>{
                     this.$swal("Error",error.response.data.error.message,"error")
                 })
-            
+
         }else{
             this.$swal("Faltan fechas", "Revisa las fechas", "error");
         }
       },
-      dateRange(dateA, dateB, error) {
+      dateRange(dateA, dateB) {
       if (dateA == "" || dateB == "") {
         return null;
       }

@@ -31,7 +31,7 @@
       </v-col>
 
        <v-col class="px-0 pb-0 mx-0 my-0" cols="9">
-         <meter :value="progreso" 
+         <meter :value="progreso"
                 optimum="1"
                 low="0.99"
          style="
@@ -39,7 +39,7 @@
             height: 30px;"
             ></meter>
        </v-col>
-      
+
     </v-row>
     <v-row v-row align="center" justify="center">
        <v-col class="px-0 py-0 mx-0 my-0 text-center" cols="3">
@@ -160,7 +160,7 @@
               </v-row>
             </v-card>
           </v-col>
-          
+
         </v-row>
       </v-container>
     </v-item-group>
@@ -218,7 +218,7 @@ export default {
         var route = "/inscribirclase/";
         window.open(route, "_self");
       }
-      else {        
+      else {
         this.$swal({
         title: "Falta Historial médico",
         text: "Es requisito para realizar inscripción",
@@ -234,7 +234,7 @@ export default {
         }
       });
       }
-      
+
     },
     redirectToMedicalRecord() {
       var route = "/mymedicalrecord/";
@@ -261,7 +261,7 @@ export default {
         var route = "/selectlocker/";
         window.open(route, "_self");
       }
-      else {        
+      else {
         this.$swal({
         title: "Falta Historial médico",
         text: "Es requisito para inscribir locker",
@@ -318,7 +318,7 @@ export default {
               this.Periodo = periodo.name + " " + periodo.year;
               this.start = periodo.startInscriptions
               this.close = periodo.closeInscriptions
-             
+
             }
           });
         })

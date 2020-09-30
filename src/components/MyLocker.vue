@@ -5,9 +5,9 @@
             <v-col cols="10">
             <v-card class="d-flex align-center" color="white">
                     <v-row justify="center" class="mb-5">
-                        
+
                         <v-col align="center" class="px-0 headline" cols="9">
-                            <p class="my-0">Tu número de Locker asignado es:</p>                
+                            <p class="my-0">Tu número de Locker asignado es:</p>
                         </v-col>
 
                         <v-col cols="10" md="6">
@@ -17,7 +17,7 @@
                                         <h1 class="btn" color= "white" align="center">#{{this.lockerNumber}}</h1>
                                         <template v-if="lockerIcon == 'mdi-loading'">
                                           <v-icon align="center" c size="200" color="white" class="mdi-spin">{{this.lockerIcon}}</v-icon>
-                                        </template>                                        
+                                        </template>
                                         <template v-else>
                                           <v-icon align="center" c size="200" color="white">{{this.lockerIcon}}</v-icon>
                                         </template>
@@ -31,20 +31,20 @@
                                 </v-row>
                             </v-card>
                         </v-col>
-                        
+
                         <v-col align="center" class="px-0" cols="12" v-if="showButton">
                             <v-row align="center" justify="center">
                                 <v-col align="center" class="px-0" cols="7">
                                     <v-btn large block class="px-0" color="red lighten-1" dark @click="removeLockerReservation">
                                         <v-icon align="center" medium left>mdi-cancel</v-icon>Cancelar reservación
-                                    </v-btn>  
-                                </v-col> 
-                            </v-row>      
-                        </v-col>  
+                                    </v-btn>
+                                </v-col>
+                            </v-row>
+                        </v-col>
 
-                    </v-row>     
+                    </v-row>
                 </v-card>
-                </v-col>          
+                </v-col>
         </v-row>
       </v-container>
   </div>
@@ -67,8 +67,8 @@ export default {
     this.getUserInfo();
   },
   mounted() {},
-  methods: {  
-    removeLockerReservation() 
+  methods: {
+    removeLockerReservation()
     {
         this.$swal({
         title:"Cancelar Reservación de Locker",
@@ -93,9 +93,9 @@ export default {
                     window.location.reload()
                 })
               }) .catch(error => {
-                this.$swal("Error", error.response.data.error, "error");                 
-              });     
-            }            
+                this.$swal("Error", error.response.data.error, "error");
+              });
+            }
           })
     },
     getUserInfo() {
@@ -134,8 +134,8 @@ export default {
         .catch(error => {
           this.$swal("Error", error.response.data.error, "error");
         });
-    } 
-   
+    }
+
   }
 };
 </script>

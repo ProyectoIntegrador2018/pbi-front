@@ -9,26 +9,26 @@
                             <h1 align="center">Mi Información</h1>
                         </v-col>
                                 <v-col class="px-0 pt-0" cols="10">
-                                <span class="title"> Correo: </span>                     
+                                <span class="title"> Correo: </span>
                                 <i>{{this.userAccount.email}}</i>
-                        </v-col>      
-                        <v-col class="px-0 pt-0" cols="10">            
+                        </v-col>
+                        <v-col class="px-0 pt-0" cols="10">
                                 <span class="title"> Nómina: </span>
                                 <i>{{this.userAccount.nomina}}</i>
-                        </v-col>         
-                        <v-col class="px-0 py-0" cols="10">                                           
+                        </v-col>
+                        <v-col class="px-0 py-0" cols="10">
                                 <span class="title"> Nombre(s): </span>
                                 <v-text-field
-                                v-model="userAccount.name"                        
+                                v-model="userAccount.name"
                                 label="Nombre(s)"
                                 single-line
                                 solo
                                 @change="this.validateName"
                                 :errorMessages="this.errorMsg.name"
                                 ></v-text-field>
-                        </v-col>    
-                        <v-col class="px-0 py-0" cols="10">    
-                                <!-- {{this.userAccount.surname}}--->       
+                        </v-col>
+                        <v-col class="px-0 py-0" cols="10">
+                                <!-- {{this.userAccount.surname}}--->
                                 <span class="title"> Apellidos: </span>
                                 <v-text-field
                                 v-model="userAccount.surname"
@@ -38,74 +38,74 @@
                                 @change="this.validateSurname"
                                 :errorMessages="this.errorMsg.surname"
                                 ></v-text-field>
-                        </v-col>                                 
-                        <v-col class="px-0 py-0" cols="10">            
+                        </v-col>
+                        <v-col class="px-0 py-0" cols="10">
                                 <span class="title"> Departamento: </span>
                                 <v-text-field
-                                v-model="userAccount.department"       
+                                v-model="userAccount.department"
                                 label="Departamento"
                                 single-line
                                 solo
                                 @change="this.validateDeparment"
                                 :errorMessages="this.errorMsg.department"
                                 ></v-text-field>
-                        </v-col>     
-                        <v-col class="px-0 py-0" cols="10">            
+                        </v-col>
+                        <v-col class="px-0 py-0" cols="10">
                                 <span class="title"> Rectoría: </span>
                                 <v-select
                                     :items="rectoriasLista"
                                     label="-Selecciona Rectoría-"
-                                    v-model="userAccount.rectoria"     
+                                    v-model="userAccount.rectoria"
                                     solo
-                                    @change="rectoriaSelected" 
-                                    :errorMessages="this.errorMsg.rectoria"                                   
+                                    @change="rectoriaSelected"
+                                    :errorMessages="this.errorMsg.rectoria"
                                 ></v-select>
-                        </v-col>  
-                        <v-col class="px-0 py-0" cols="10" >       
+                        </v-col>
+                        <v-col class="px-0 py-0" cols="10" >
                                 <span class="title" :style = "rectoriasOtroIsHidden"> Otra Rectoría: </span>
                                 <v-text-field
-                                v-model="userAccount.otraRectoria"  
+                                v-model="userAccount.otraRectoria"
                                 label="Escribir Rectoria"
                                 single-line
-                                solo                  
-                                :style = "rectoriasOtroIsHidden"      
+                                solo
+                                :style = "rectoriasOtroIsHidden"
                                 @change="this.validateOtherRectoria"
-                                :errorMessages="this.errorMsg.otraRectoria"        
+                                :errorMessages="this.errorMsg.otraRectoria"
                                 ></v-text-field>
-                        </v-col>     
+                        </v-col>
                         <v-col cols="10" class="px-0 py-0">
                           <v-divider></v-divider>
                           <h2>Modificar Contraseña (OPCIONAL)</h2>
-                        </v-col>     
-                        <v-col class="px-0 py-0" cols="10">            
+                        </v-col>
+                        <v-col class="px-0 py-0" cols="10">
                                 <span class="title"> Nueva Contraseña: </span>
                                 <v-text-field
                                     label="Contraseña"
-                                    v-model="newPass"     
+                                    v-model="newPass"
                                     solo
-                                    @change="validatePass" 
-                                    :errorMessages="errorMsg.pass"                                   
+                                    @change="validatePass"
+                                    :errorMessages="errorMsg.pass"
                                 ></v-text-field>
-                        </v-col>  
-                        <v-col class="px-0 py-0" cols="10">            
+                        </v-col>
+                        <v-col class="px-0 py-0" cols="10">
                                 <span class="title"> Confirmar Nueva Contraseña: </span>
                                 <v-text-field
                                     label="Confirmar Contraseña"
-                                    v-model="newPassConf"     
+                                    v-model="newPassConf"
                                     solo
-                                    @change="validateConfirm" 
-                                    :errorMessages="errorMsg.confirm"                                   
+                                    @change="validateConfirm"
+                                    :errorMessages="errorMsg.confirm"
                                 ></v-text-field>
-                        </v-col>                   
+                        </v-col>
                         <v-col cols="10" class="px-0 py-0" >
-                            <v-row class="d-flex flex-row-reverse mx-6 my-0">                                    
+                            <v-row class="d-flex flex-row-reverse mx-6 my-0">
                                 <v-col cols="4">
                                     <v-btn large block href="/home">
                                      <v-icon align="center" medium >mdi-arrow-left</v-icon>
                                      Regresar
                                     </v-btn>
                                 </v-col>
-                                <v-col cols="4">                           
+                                <v-col cols="4">
                                     <v-btn large block color="primary" @click="saveMyInfo">
                                       <v-icon align="center" medium color="white">mdi-content-save-outline</v-icon>
                                       Guardar
@@ -113,9 +113,9 @@
                                 </v-col>
                             </v-row>
                         </v-col>
-                    </v-row>     
+                    </v-row>
                 </v-card>
-                </v-col>          
+                </v-col>
         </v-row>
       </v-container>
   </div>
@@ -141,7 +141,7 @@ export default {
           otraRectoria:"",
           rectoriaToUpload:"",
           nomina: ""
-        },        
+        },
         errorMsg:{
           name:"",
           surname:"",
@@ -169,7 +169,7 @@ export default {
       }
     },
   components: {
-    
+
   },
   methods: {
     validateName(){
@@ -238,7 +238,7 @@ export default {
             this.rectoriasOtroIsHidden = "display:none"
             this.userAccount.rectoriaToUpload = this.userAccount.rectoria
         }
-        this.validateRectoria      
+        this.validateRectoria
 
     },
     confirmar(){
@@ -251,8 +251,8 @@ export default {
             this.userAccount.email = response.data.email
             this.userAccount.nomina = response.data.nomina
             this.userAccount.name = response.data.name
-            this.userAccount.surname = response.data.surname            
-            this.userAccount.department = response.data.departamento   
+            this.userAccount.surname = response.data.surname
+            this.userAccount.department = response.data.departamento
             var rectoriaExistsInList = this.rectoriasLista.includes(response.data.rectoria);
             if(rectoriaExistsInList == true)
             {
@@ -280,11 +280,11 @@ export default {
         this.rectoriaSelected()
         this.validatePass()
         this.validateConfirm()
-      
+
         if(this.isError){
           return
         }
-  
+
         const token = this.$route.query.token
         const URL = helper.baseURL + "/user";
         var json_info = {

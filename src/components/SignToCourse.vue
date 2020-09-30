@@ -9,7 +9,7 @@
       show-select = ""
       class="elevation-1"
       v-model="selected"
-      @input="selectClasses"      
+      @input="selectClasses"
       :footer-props="{
      'items-per-page-options': [100, 500]
       }"
@@ -22,8 +22,8 @@
         </v-toolbar>
       </template>
 
-      <template v-slot:header.data-table-select="{ on , props }" style = "display:none">
-      </template>
+      <!-- <template v-slot:header.data-table-select="{ on , props }" style = "display:none">
+      </template> -->
       <template v-slot:no-data>
         <v-btn color="primary" :disabled="true">No hay cursos</v-btn>
       </template>
@@ -50,7 +50,7 @@ export default {
     selectedTerm: "",
     flagAlertSecondClass: false,
     cantEnroll:true,
-    headers: [      
+    headers: [
       { text: "Nombre", align: "left", value: "name", width: "25%"},
       { text: "Instructor", value: "instructor", width: "20%" },
       { text: "Frecuencia", value: "frequency", width: "10%" },
@@ -70,12 +70,12 @@ export default {
     axios
     .get(URL)
     .then((response)=>{
-        this.userID = response.data._id     
+        this.userID = response.data._id
         this.getTerms();
     }).catch((error)=>{
-      this.$swal("Error",errorr.response.data.error,"error")
+      this.$swal("Error",error.response.data.error,"error")
     })
-   
+
   },
   mounted() {},
   methods: {
@@ -112,9 +112,9 @@ export default {
             if(periodo.flagCurrent){
                this.selectedTerm = periodo._id
             }
-          }) 
-         
-          this.getCourses(this.selectedTerm);          
+          })
+
+          this.getCourses(this.selectedTerm);
         })
         .catch(() => {
           this.$swal("Error", "No se pudieron cargar", "error");
@@ -129,8 +129,8 @@ export default {
       if(this.selected.length == 2 && this.flagAlertSecondClass == false)
       {
           this.$swal("Segunda Clase ","Inscribir una segunda clase representa un costo extra según tu Departamento, para más información contactar a: 'pbi.mty@servicios.itesm.mx'","info")
-          this.flagAlertSecondClass = true 
-      }          
+          this.flagAlertSecondClass = true
+      }
     },
     confirmarInscripcion()
     {
@@ -139,7 +139,7 @@ export default {
         this.selected.forEach(function(course) {
           confirmationCourses = confirmationCourses.concat(course.name + " Instructor: " + course.instructor + " " + course.frequency + " " + course.startHour + " a " + course.endHour + " Salón: " + course.classroom+"<br>")
         });
-        
+
         this.$swal({
           title:"Confirmar Inscripción",
           type:"info",
@@ -149,7 +149,7 @@ export default {
           confirmButtonText:"Confirmar"}).then((result) => {
             if(result.value)
               this.inscribirClase(this.selected)
-          })  
+          })
     },
     inscribirClase(arrClases){
       if(arrClases.length==0){
@@ -169,7 +169,7 @@ export default {
           this.$swal("Inscrito","Te has inscrito a la clase "+ claseAInscribir.name ,"success").then(()=>{
             this.inscribirClase(arrClases)
           })
-        }).catch((error)=>{   
+        }).catch((error)=>{
           this.$swal("Error!",error.response.data.error,"error").then(()=>{
             this.inscribirClase(arrClases)
             this.isFailedInscription = true

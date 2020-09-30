@@ -22,16 +22,16 @@
                 </v-col>
                 <v-col align="center" cols="12" class="my-0">
                   <v-btn :style="isDisabledLog"
-                    @click="this.goToLogin" 
+                    @click="this.goToLogin"
                   >Iniciar Sesión</v-btn>
-                  <v-btn 
-                    :style="isDisabledResend" 
+                  <v-btn
+                    :style="isDisabledResend"
                     :disabled = "isDisabledButton"
                     :rules="[]"
                     @click="this.resendConfirm"
                       >Reenviar correo de confirmacion</v-btn>
                 </v-col >
-              </v-row>    
+              </v-row>
             </v-card>
           </v-col>
         </v-row>
@@ -56,7 +56,7 @@ export default {
       }
     },
   components: {
-    
+
   },
   methods: {
     confirmar(){
@@ -89,7 +89,7 @@ export default {
       }
     },
     validEmail(email) {
-      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);
     },
     resendConfirm(){
@@ -110,7 +110,7 @@ export default {
   created(){
     this.confirmar()
   }
-  
+
 };
 </script>
 

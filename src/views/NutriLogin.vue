@@ -13,26 +13,26 @@
                     single-line
                     solo
                   ></v-text-field>
-                  <v-text-field 
+                  <v-text-field
                     v-model="userLogin.password"
                     :append-icon="show1 ? 'visibility' : 'visibility_off'"
                     :rules="[rules.required]"
                     :type="show1 ? 'text' : 'password'"
                     name="passLogin"
-                    label="Contraseña "                    
+                    label="Contraseña "
                     solo
                     @click:append="show1 = !show1"
                     v-on:keyup.enter="logIn(userLogin.email,userLogin.password)"
                   ></v-text-field>
                   <v-btn large block color="primary" @click="logIn(userLogin.email,userLogin.password)">Entrar</v-btn>
                   <v-row>
-                </v-row>                
+                </v-row>
                 </v-col>
               </v-row>
             </v-card>
         </v-row>
       </v-container>
-    
+
   </div>
 </template>
 
@@ -54,17 +54,17 @@ import axios from "axios";
     },
     methods:{
 
-      logIn(correo,pass){   
-          
+      logIn(correo,pass){
+
           const URL = helper.baseURL + "/login";
           var temp = {"email":correo.toLowerCase(),"password":pass}
-          
+
           axios
           .post(URL, temp)
           .then(response => {
             localStorage.token = response.data.token
             this.redirect()
-          }).catch(error=>{  
+          }).catch(error=>{
             const mensaje = error.response.data.error
             const errorType = error.response.data.type
             var iconMessage = "error"
@@ -76,7 +76,7 @@ import axios from "axios";
         var route = "/nutricion/home/";
         window.open(route, "_self");
       }
-      
+
     }
   }
 </script>

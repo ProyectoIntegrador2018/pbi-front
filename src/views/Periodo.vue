@@ -1,12 +1,12 @@
  <template>
   <div>
-    <v-content>
+    <v-main>
     <adminheader title="Administrar Periodos"></adminheader>
 
       <v-container fluid my-5 px-md-12>
         <Table></Table>
       </v-container>
-    </v-content>
+    </v-main>
   </div>
 </template>
 

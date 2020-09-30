@@ -9,22 +9,22 @@
                             <h1 align="center">Oferta de Lockers</h1>
                         </v-col>
                         <v-col class="px-0 pt-0" cols="10">
-                                <span class="title"> Vestidor Hombres 
+                                <span class="title"> Vestidor Hombres
                                     <v-icon align="center" size="50" >mdi-human-male</v-icon>
-                                </span>   
+                                </span>
                         </v-col>
-                        <v-col class="px-0 py-0" cols="10">                                           
+                        <v-col class="px-0 py-0" cols="10">
                                 <span class="title"> Costo: </span>
                                 <v-text-field
-                                v-model="maleDresser.cost"                        
+                                v-model="maleDresser.cost"
                                 label="Costo de Lockers en Vestidor de Hombres"
                                 single-line
                                 solo
                                 @change="this.validateMaleCost"
                                 :errorMessages="this.errorMsg.maleCost"
                                 ></v-text-field>
-                        </v-col>    
-                        <v-col class="px-0 py-0" cols="10">       
+                        </v-col>
+                        <v-col class="px-0 py-0" cols="10">
                                 <span class="title"> Número de Lockers: </span>
                                 <v-text-field
                                 v-model="maleDresser.count"
@@ -34,25 +34,25 @@
                                 @change="this.validateMaleAmount"
                                 :errorMessages="this.errorMsg.maleAmount"
                                 ></v-text-field>
-                        </v-col>      
-                        
+                        </v-col>
+
                         <v-col class="px-0 pt-0" cols="10">
-                                <span class="title"> Vestidor Mujeres 
+                                <span class="title"> Vestidor Mujeres
                                     <v-icon align="center" size="50" >mdi-human-female</v-icon>
                                 </span>
-                        </v-col>   
-                        <v-col class="px-0 py-0" cols="10">                                           
+                        </v-col>
+                        <v-col class="px-0 py-0" cols="10">
                                 <span class="title"> Costo: </span>
                                 <v-text-field
-                                v-model="femaleDresser.cost"                        
+                                v-model="femaleDresser.cost"
                                 label="Costo de Lockers en Vestidor de Mujeres"
                                 single-line
                                 solo
                                 @change="this.validateFemaleCost"
                                 :errorMessages="this.errorMsg.femaleCost"
                                 ></v-text-field>
-                        </v-col>    
-                        <v-col class="px-0 py-0" cols="10">       
+                        </v-col>
+                        <v-col class="px-0 py-0" cols="10">
                                 <span class="title"> Número de Locker: </span>
                                 <v-text-field
                                 v-model="femaleDresser.count"
@@ -62,17 +62,17 @@
                                 @change="this.validateFemaleAmount"
                                 :errorMessages="this.errorMsg.femaleAmount"
                                 ></v-text-field>
-                        </v-col>                               
-                        
+                        </v-col>
+
                         <v-col cols="10" class="px-0 py-0" >
-                            <v-row class="d-flex flex-row-reverse mx-6 my-0">                                    
+                            <v-row class="d-flex flex-row-reverse mx-6 my-0">
                                 <v-col cols="4">
                                     <v-btn large block href="/lockers">
                                      <v-icon align="center" medium >mdi-arrow-left</v-icon>
                                      Regresar
                                     </v-btn>
                                 </v-col>
-                                <v-col cols="4">                           
+                                <v-col cols="4">
                                     <v-btn large block color="primary" @click="saveLockerInfo">
                                       <v-icon align="center" medium color="white">mdi-content-save-outline</v-icon>
                                       Guardar
@@ -80,9 +80,9 @@
                                 </v-col>
                             </v-row>
                         </v-col>
-                    </v-row>     
+                    </v-row>
                 </v-card>
-                </v-col>          
+                </v-col>
         </v-row>
       </v-container>
   </div>
@@ -102,14 +102,14 @@ export default {
           originalCount: "",
           originalCost: ""
 
-        },  
+        },
         maleDresser: {
           cost:"",
           count:"",
           originalCount: "",
           originalCost: "",
           id: "",
-        },      
+        },
         errorMsg:{
           femaleCost:"",
           femaleAmount:"",
@@ -120,7 +120,7 @@ export default {
       }
     },
   components: {
-    
+
   },
   methods: {
     validateFemaleAmount(){
@@ -160,7 +160,7 @@ export default {
         else{
           this.errorMsg.maleAmount = ""
         }
-    },   
+    },
     validateMaleCost(){
         if(!this.maleDresser["cost"]){
           this.isError = true
@@ -179,7 +179,7 @@ export default {
         else{
           this.errorMsg.maleCost = ""
         }
-    },  
+    },
     validateFemaleCost(){
         if(!this.femaleDresser["cost"]){
           this.isError = true
@@ -198,9 +198,9 @@ export default {
         else{
           this.errorMsg.femaleCost = ""
         }
-    },        
+    },
     async saveLockerInfo()
-    {        
+    {
         this.isError = false
         this.validateFemaleCost()
         this.validateMaleCost()
@@ -209,7 +209,7 @@ export default {
         if(this.isError){
           return
         }
-        
+
         await this.updateLockerCostFemale()
 
         if(this.femaleDresser.count > this.femaleDresser.originalCount)
@@ -224,11 +224,11 @@ export default {
             dresser:"Mujeres",
             add:this.femaleDresser.count - this.femaleDresser.originalCount
 
-          })    
+          })
           .then((response)=>{
-              this.$swal("lockers creados", `Se han agregado ${this.femaleDresser.count - this.femaleDresser.originalCount} lockers nuevos en el vestidor de Mujeres`, "success");  
-              this.femaleDresser.originalCount = this.femaleDresser.count 
-         })      
+              this.$swal("lockers creados", `Se han agregado ${this.femaleDresser.count - this.femaleDresser.originalCount} lockers nuevos en el vestidor de Mujeres`, "success");
+              this.femaleDresser.originalCount = this.femaleDresser.count
+         })
           .catch(error =>{
             this.$swal("Error",error.response.data.error,"error")
           })
@@ -246,12 +246,12 @@ export default {
               substract:this.femaleDresser.originalCount - this.femaleDresser.count
             })
             .then((response)=>{
-                this.$swal("lockers eliminados", `Se han eliminado ${this.femaleDresser.originalCount - this.femaleDresser.count} lockers del vestidor de Mujeres`, "success");  
-                this.femaleDresser.originalCount = this.femaleDresser.count 
+                this.$swal("lockers eliminados", `Se han eliminado ${this.femaleDresser.originalCount - this.femaleDresser.count} lockers del vestidor de Mujeres`, "success");
+                this.femaleDresser.originalCount = this.femaleDresser.count
             })
             .catch(error =>{
               this.$swal("Error",error.response.data.error,"error")
-            });           
+            });
         }
         else if(this.femaleDresser.originalCount == 0 && this.femaleDresser.count > 0)
         {
@@ -264,8 +264,8 @@ export default {
             count:this.femaleDresser.count
           })
           .then((response)=>{
-              this.$swal("lockers creados", `Se han creado ${this.femaleDresser.count} lockers nuevos en el vestidor de Mujeres`, "success");  
-              this.femaleDresser.originalCount = this.femaleDresser.count 
+              this.$swal("lockers creados", `Se han creado ${this.femaleDresser.count} lockers nuevos en el vestidor de Mujeres`, "success");
+              this.femaleDresser.originalCount = this.femaleDresser.count
           })
         }
 
@@ -275,7 +275,7 @@ export default {
           this.$swal("Sin cambios", "No hay cambios que realizar", "success").then(()=>{
             var route = "/lockers/";
             window.open(route, "_self");
-          });  
+          });
         }else
           this.saveLockerInfoMale();
 
@@ -334,16 +334,16 @@ export default {
             campus:"Monterrey",
             dresser:"Hombres",
             add:this.maleDresser.count - this.maleDresser.originalCount
-          })    
+          })
           .then((response)=>{
-              this.$swal("lockers creados", `Se han agregado ${this.maleDresser.count - this.maleDresser.originalCount} lockers nuevos en el vestidor de Hombres`, "success");  
-              this.maleDresser.originalCount = this.maleDresser.count 
-          })      
+              this.$swal("lockers creados", `Se han agregado ${this.maleDresser.count - this.maleDresser.originalCount} lockers nuevos en el vestidor de Hombres`, "success");
+              this.maleDresser.originalCount = this.maleDresser.count
+          })
           .catch(error =>{
             this.$swal("Error",error.response.data.error,"error")
           })
         }
-        else if(this.maleDresser.count < this.maleDresser.originalCount) 
+        else if(this.maleDresser.count < this.maleDresser.originalCount)
         {
             const URL = helper.baseURL + "/lockers/remove/" + this.maleDresser.id;
             axios.defaults.headers.common['Authorization'] = "Bearer "+ localStorage.getItem("token");
@@ -355,13 +355,13 @@ export default {
               substract:this.maleDresser.originalCount - this.maleDresser.count
             })
             .then((response)=>{
-                this.$swal("lockers eliminados", `Se han eliminado ${this.maleDresser.originalCount - this.maleDresser.count} lockers nuevos en el vestidor de Hombres`, "success");  
-                this.maleDresser.originalCount = this.maleDresser.count 
+                this.$swal("lockers eliminados", `Se han eliminado ${this.maleDresser.originalCount - this.maleDresser.count} lockers nuevos en el vestidor de Hombres`, "success");
+                this.maleDresser.originalCount = this.maleDresser.count
             })
             .catch(error =>{
               this.$swal("Error",error.response.data.error,"error")
-            });               
-                 
+            });
+
         }
         else if(this.maleDresser.originalCount == 0 && this.maleDresser.count > 0)
         {
@@ -374,12 +374,12 @@ export default {
             count:this.maleDresser.count
           })
           .then((response)=>{
-              this.$swal("lockers creados", `Se han creado ${this.maleDresser.count} lockers nuevos en el vestidor de Hombres`, "success");  
-              this.maleDresser.originalCount = this.maleDresser.count  
+              this.$swal("lockers creados", `Se han creado ${this.maleDresser.count} lockers nuevos en el vestidor de Hombres`, "success");
+              this.maleDresser.originalCount = this.maleDresser.count
           })
         }
 
-         
+
 
     },
       getLockerInfo()
@@ -407,7 +407,7 @@ export default {
         .get(URLM)
         .then(response => {
             this.femaleDresser.cost = response.data.cost
-            this.femaleDresser.count = response.data.count           
+            this.femaleDresser.count = response.data.count
             this.femaleDresser.originalCount = response.data.count
             this.femaleDresser.originalCost = response.data.cost
             this.femaleDresser.id = response.data._id

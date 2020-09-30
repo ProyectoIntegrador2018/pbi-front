@@ -104,14 +104,14 @@
                     </v-col>
                 </v-row>
             </v-form>
-          </v-row>   
-          </v-container>    
+          </v-row>
+          </v-container>
           <v-container v-if="showTable">
-            <v-data-table 
-              ref="table" 
-              :headers="headers" 
-              :items="appointments" 
-              sort-by="name" 
+            <v-data-table
+              ref="table"
+              :headers="headers"
+              :items="appointments"
+              sort-by="name"
               class="elevation-1"
               :loading="isLoading"
               :search="search"
@@ -210,7 +210,7 @@ export default {
         if(this.$refs.form.validate() && this.dateRange(this.fechaA,this.fechaB))
         {
             this.showTable = true
-            
+
                 this.appointments = []
                 axios.defaults.headers.common['Authorization'] = "Bearer "+ localStorage.getItem("token");
                 const URL = helper.baseURL  + '/nutricion/appointments/span'
@@ -218,22 +218,22 @@ export default {
                   startDate: this.fechaA,
                   endDate: this.fechaB
                 }
-                
+
                 axios
                 .put(URL,dates)
                 .then((response)=> {
                     this.appointments = response.data
-                    
+
                     this.isLoading = false
                 }).catch((error)=>{
                     this.$swal("Error",error.response.data.error.message,"error")
                 })
-            
+
         }else{
             this.$swal("Faltan fechas", "Revisa las fechas", "error");
         }
       },
-      dateRange(dateA, dateB, error) {
+      dateRange(dateA, dateB) {
       if (dateA == "" || dateB == "") {
         return null;
       }

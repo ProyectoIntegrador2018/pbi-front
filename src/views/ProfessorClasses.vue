@@ -1,21 +1,21 @@
  <template>
   <div>
-    <v-content>
+    <v-main>
       <v-container fluid>
         <v-row align="center" justify="center">
-          <h1 class="display-3 font-weight-bold" align="center">{{this.nombreProfesor}}</h1>  
+          <h1 class="display-3 font-weight-bold" align="center">{{this.nombreProfesor}}</h1>
           <h1 class="display-2 font-weight-bold" align="center">Mis clases {{this.Periodo}}</h1>
         </v-row>
       </v-container>
-      
+
       <v-container fluid my-5 px-md-12>
-        
+
           <div>
-            <v-data-table 
-              ref="table" 
-              :headers="headers" 
-              :items="clases" 
-              sort-by="name" 
+            <v-data-table
+              ref="table"
+              :headers="headers"
+              :items="clases"
+              sort-by="name"
               class="elevation-1"
               :loading="isLoading"
               loading-text="Cargando... Favor de esperar"
@@ -33,7 +33,7 @@
             </v-data-table>
           </div>
       </v-container>
-    </v-content>
+    </v-main>
   </div>
 </template>
 
@@ -63,7 +63,7 @@ export default {
     }
   },
   components: {
-    
+
   },
   methods: {
     getTerms() {
@@ -75,10 +75,10 @@ export default {
             if(periodo.flagCurrent){
               this.Periodo = periodo.name + " " + periodo.year
               this.periodID = periodo._id
-              this.getStatusFlag() 
-              this.isLoading = false   
+              this.getStatusFlag()
+              this.isLoading = false
             }
-          }) 
+          })
           if(this.Periodo == ""){
             this.$swal("Error","Actualmente no hay periodo de inscripciones","error")
           }
@@ -128,25 +128,26 @@ export default {
       //this.clases = []
       axios.defaults.headers.common['Authorization'] = "Bearer "+ localStorage.getItem("token");
       const URL = helper.baseURL + "/classes/user";
-      
+
       axios
       .get(URL)
       .then((Response)=>{
-        
+        //TODO: Arreglar esto?
+        console.log(Response);
         //this.clases = Response.data
         this.isLoading = false
       })
       .catch((error)=>{
         this.$swal("Error",error.response.data.error,"error")
       })
-      
+
     },
     getStatusFlag(){
       const URL = helper.baseURL + "/terms/status/"+ this.periodID +"/false"
       axios
         .get(URL)
         .then(response => {
-          this.show = !response.data.status          
+          this.show = !response.data.status
         })
         .catch(() => {
           this.$swal("Error", "No se pudo cargar periodo", "error");
@@ -157,6 +158,6 @@ export default {
     this.getTerms();
     this.getItems();
   }
-  
+
 };
 </script>

@@ -11,13 +11,13 @@
                         <v-col class="px-0 py-0" cols="10">
                                 <span class="title"> Correo: </span>
                                 <i>{{this.userAccount.email}}</i>
-                        </v-col>                        
-                        <v-col class="px-0 py-0" cols="10">            
+                        </v-col>
+                        <v-col class="px-0 py-0" cols="10">
                                 <span class="title"> Nómina: </span>
                                 <i>{{this.userAccount.nomina}}</i>
                         </v-col>
                         <v-col align="left" class="px-0" cols="10">
-                            <p class="my-0 font-weight-light">Introducir nueva contraseña</p>                
+                            <p class="my-0 font-weight-light">Introducir nueva contraseña</p>
                         </v-col>
                         <v-col cols="10" class="px-0 py-0">
                             <v-row justify="center">
@@ -49,9 +49,9 @@
                                     ></v-text-field>
                                 </v-col>
                             </v-row>
-                        </v-col>                        
+                        </v-col>
                         <v-col cols="12" class="px-0 py-0" >
-                            <v-row class="d-flex flex-row-reverse mx-6 my-0">                                    
+                            <v-row class="d-flex flex-row-reverse mx-6 my-0">
                                 <v-col cols="4">
                                     <v-btn large block href="/login">
                                         <v-icon align="center" medium >mdi-arrow-left</v-icon>
@@ -66,9 +66,9 @@
                                 </v-col>
                             </v-row>
                         </v-col>
-                    </v-row>     
-                </v-card>      
-            </v-col>    
+                    </v-row>
+                </v-card>
+            </v-col>
         </v-row>
       </v-container>
   </div>
@@ -95,10 +95,10 @@ export default {
         show1: false,
         show2: false,
       }
-      
+
     },
   components: {
-    
+
   },
   methods: {
       changePassword(){
@@ -130,8 +130,8 @@ export default {
         }).catch(error =>{
             this.$swal("Error",error.response.data.error,"error")
         })
-      }    
-    
+      }
+
   },
     created(){
     this.confirmar()

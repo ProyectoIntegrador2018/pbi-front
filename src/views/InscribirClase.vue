@@ -1,6 +1,6 @@
  <template>
   <div>
-    <v-content>
+    <v-main>
       <v-container fluid>
         <v-row align="center" justify="center">
           <h1
@@ -43,7 +43,7 @@
           Coordinación del Programa de Bienestar Integral
         </p>
       </v-container>
-    </v-content>
+    </v-main>
   </div>
 </template>
 
@@ -94,7 +94,7 @@ export default {
         })
         .catch(() => {
           this.$swal("Error", "No se pudieron cargar", "error");
-          
+
         });
     },
     getUserInfo() {

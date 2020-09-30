@@ -1,6 +1,6 @@
  <template>
   <div>
-    <v-content>
+    <v-main>
     <adminheader title="Administrar Usuarios"></adminheader>
 
       <v-container fluid my-5 px-md-12>
@@ -10,7 +10,7 @@
           </v-col>
         </v-row>
       </v-container>
-    </v-content>
+    </v-main>
   </div>
 </template>
 

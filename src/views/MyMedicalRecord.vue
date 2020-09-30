@@ -3,8 +3,8 @@
       <v-container class="fill-height">
         <v-row justify="center">
             <v-col cols="10">
-            <p class="py-5 px-5 my-0 caption">Antes de que inicie su inscripción a las clases es necesario que complete su historial clínico. 
-                La información que se solicita, será almacenada y resguardada por el Departamento de Bienestar Integral, con el objetivo de 
+            <p class="py-5 px-5 my-0 caption">Antes de que inicie su inscripción a las clases es necesario que complete su historial clínico.
+                La información que se solicita, será almacenada y resguardada por el Departamento de Bienestar Integral, con el objetivo de
                 ser empleada únicamente con fines de Identificación plena, para seguridad y beneficio exclusivo de los miembros del programa.
             </p>
             <v-card class="d-flex align-center" color="white">
@@ -13,81 +13,81 @@
                             <h1 align="center">Mi Historial Clínico</h1>
                         </v-col>
                                 <v-col class="px-0 pt-0" cols="10">
-                                <span class="title"> Edad: <span class="red--text">*</span> </span>    
+                                <span class="title"> Edad: <span class="red--text">*</span> </span>
                                 <v-text-field
-                                v-model="userAccount.age"       
+                                v-model="userAccount.age"
                                 label="Edad"
                                 single-line
                                 solo
                                 @change="this.validateAge"
                                 :errorMessages="this.errorMsg.age"
                                 ></v-text-field>
-                        </v-col>      
-                        <v-col class="px-0 pt-0" cols="10">            
+                        </v-col>
+                        <v-col class="px-0 pt-0" cols="10">
                                 <span class="title"> Compañía de Seguro: <span class="red--text">*</span></span>
                                 <v-text-field
-                                v-model="userAccount.insuranceCompany"       
+                                v-model="userAccount.insuranceCompany"
                                 label="Compañía de Seguro"
                                 single-line
                                 solo
                                 @change="this.validateinsuranceCompany"
                                 :errorMessages="this.errorMsg.insuranceCompany"
                                 ></v-text-field>
-                        </v-col>       
-                        <v-col class="px-0 pt-0" cols="10">            
+                        </v-col>
+                        <v-col class="px-0 pt-0" cols="10">
                                 <span class="title"> No. Póliza o No.IMSS: <span class="red--text">*</span></span>
                                 <v-text-field
-                                v-model="userAccount.securityNumber"       
+                                v-model="userAccount.securityNumber"
                                 label="No. Póliza o No.IMSS"
                                 single-line
                                 solo
                                 @change="this.validatesecurityNumber"
                                 :errorMessages="this.errorMsg.securityNumber"
                                 ></v-text-field>
-                        </v-col>    
-                        <v-col class="px-0 pt-0" cols="10">            
+                        </v-col>
+                        <v-col class="px-0 pt-0" cols="10">
                                 <span class="title"> Institución médica a donde dirigirlo en caso de requerirse: </span>
                                 <v-text-field
-                                v-model="userAccount.hospital"       
+                                v-model="userAccount.hospital"
                                 label="Institución médica"
                                 single-line
                                 solo
                                 ></v-text-field>
-                        </v-col>  
-                        <v-col class="px-0 pt-0" cols="10">            
+                        </v-col>
+                        <v-col class="px-0 pt-0" cols="10">
                                 <span class="title"> Nombre de la persona a contactar en caso de urgencia: <span class="red--text">*</span></span>
                                 <v-text-field
-                                v-model="userAccount.contactName"       
+                                v-model="userAccount.contactName"
                                 label="Nombre de contacto"
                                 single-line
                                 solo
                                 @change="this.validateContactName"
                                 :errorMessages="this.errorMsg.contactName"
                                 ></v-text-field>
-                        </v-col>   
-                        <v-col class="px-0 pt-0" cols="10">            
+                        </v-col>
+                        <v-col class="px-0 pt-0" cols="10">
                                 <span class="title"> Teléfono del contacto: <span class="red--text">*</span></span>
                                 <v-text-field
-                                v-model="userAccount.contactPhone"       
+                                v-model="userAccount.contactPhone"
                                 label="Teléfono de Contacto"
                                 single-line
                                 solo
                                 @change="this.validateContactPhone"
                                 :errorMessages="this.errorMsg.contactPhone"
                                 ></v-text-field>
-                        </v-col>   
-                        <v-col class="px-0 pt-0" cols="10">            
+                        </v-col>
+                        <v-col class="px-0 pt-0" cols="10">
                                 <span class="title"> Parentesco del contacto: <span class="red--text">*</span></span>
                                 <v-text-field
-                                v-model="userAccount.contactRelationship"       
+                                v-model="userAccount.contactRelationship"
                                 label="Parentesco del contacto"
                                 single-line
                                 solo
                                 @change="this.validateContactRelationship"
                                 :errorMessages="this.errorMsg.contactRelationship"
                                 ></v-text-field>
-                        </v-col>   
-                        <v-col class="px-0 pt-0" cols="10">  
+                        </v-col>
+                        <v-col class="px-0 pt-0" cols="10">
                             <span class="title"> Selecciona cualquier enfermedad que padezca o haya padecido, en caso de que aplique: </span>
                             <v-container fluid>
                                 <v-checkbox class ="my-0" v-model=illnesses label="Enfermedades del corazón y/o arterias" value="Enfermedades del corazón y/o arterias"></v-checkbox>
@@ -102,22 +102,22 @@
                                 <v-checkbox class ="my-0" v-model=otherIllnessChecked label="Otra" value="Otro"></v-checkbox>
                                 <template v-if="otherIllnessChecked[0] === 'Otro'">
                                      <v-text-field
-                                    v-model="otherIllnessValue"                                    
+                                    v-model="otherIllnessValue"
                                     label="Otra Enfermedad"
                                     single-line
-                                    solo             
+                                    solo
                                     >
                                     </v-text-field>
                                 </template>
                             </v-container>
-   
-                        </v-col>               
-                        <v-col class="px-0 py-0" cols="10">     
+
+                        </v-col>
+                        <v-col class="px-0 py-0" cols="10">
                             <span class="title"> ¿Ha tenido alguna lesión en los últimos 2 años? <span class="red--text">*</span></span>
-                            <v-radio-group 
-                            v-model="userAccount.flagRecentInjury" 
+                            <v-radio-group
+                            v-model="userAccount.flagRecentInjury"
                             :mandatory="true"
-                            :errorMessages="this.errorMsg.flagRecentInjury"  
+                            :errorMessages="this.errorMsg.flagRecentInjury"
                             @click="this.validateflagRecentInjury">
                                 <v-radio value="Sí">
                                     <template v-slot:label>
@@ -130,25 +130,25 @@
                                     </template>
                                 </v-radio>
                             </v-radio-group>
-                        </v-col>   
+                        </v-col>
                         <template v-if="this.userAccount.flagRecentInjury === 'Sí'">
-                            <v-col class="px-0 pt-0" cols="10">            
+                            <v-col class="px-0 pt-0" cols="10">
                                 <span class="title"> Si su respuesta anterior fue afirmativa, mencione las indicaciones que el médico le hizo en cuanto a la práctica de la actividad física. </span>
                                 <v-text-field
-                                v-model="userAccount.injuryIndication"       
+                                v-model="userAccount.injuryIndication"
                                 label="Indicaciones"
                                 single-line
                                 solo
                                 :errorMessages="this.errorMsg.injuryIndication"
                                 ></v-text-field>
-                            </v-col> 
+                            </v-col>
                         </template>
-                        <v-col class="px-0 py-0" cols="10">     
+                        <v-col class="px-0 py-0" cols="10">
                             <span class="title"> ¿Actualmente toma algún medicamento? <span class="red--text">*</span></span>
-                            <v-radio-group 
-                            v-model="userAccount.flagMedicine" 
+                            <v-radio-group
+                            v-model="userAccount.flagMedicine"
                             :mandatory="true"
-                            :errorMessages="this.errorMsg.flagMedicine"  
+                            :errorMessages="this.errorMsg.flagMedicine"
                             @click="this.validateflagMedicine">
                                 <v-radio value="Sí">
                                     <template v-slot:label>
@@ -163,23 +163,23 @@
                             </v-radio-group>
                         </v-col>
                         <template v-if="this.userAccount.flagMedicine === 'Sí'">
-                            <v-col class="px-0 pt-0" cols="10">            
+                            <v-col class="px-0 pt-0" cols="10">
                                 <span class="title"> Si su respuesta anterior fue afirmativa, indique el nombre del medicamento, dosis y razón por la que lo toma. </span>
                                 <v-text-field
-                                v-model="userAccount.medicineIndication"       
+                                v-model="userAccount.medicineIndication"
                                 label="Indicaciones"
                                 single-line
                                 solo
                                 :errorMessages="this.errorMsg.medicineIndication"
                                 ></v-text-field>
-                            </v-col> 
+                            </v-col>
                         </template>
-                        <v-col class="px-0 py-0" cols="10">     
+                        <v-col class="px-0 py-0" cols="10">
                             <span class="title"> ¿Cuál es la mejor forma en que describe su nivel de condición física en las últimas 4 semanas? <span class="red--text">*</span></span>
-                            <v-radio-group 
-                            v-model="userAccount.physicalCondition" 
+                            <v-radio-group
+                            v-model="userAccount.physicalCondition"
                             :mandatory="true"
-                            :errorMessages="this.errorMsg.physicalCondition"  
+                            :errorMessages="this.errorMsg.physicalCondition"
                             @click="this.validatePhysicalCondition">
                                 <v-radio value="Inactiva: no realiza ningún tipo de actividad física.">
                                     <template v-slot:label>
@@ -205,14 +205,14 @@
                         </v-col>
 
                         <v-col cols="10" class="px-0 py-0" >
-                            <v-row class="d-flex flex-row-reverse mx-6 my-0">                                    
+                            <v-row class="d-flex flex-row-reverse mx-6 my-0">
                                 <v-col cols="4">
                                     <v-btn large block href="/home">
                                      <v-icon align="center" medium >mdi-arrow-left</v-icon>
                                      Regresar
                                     </v-btn>
                                 </v-col>
-                                <v-col cols="4">                           
+                                <v-col cols="4">
                                     <v-btn large block color="primary" @click="saveMyInfo">
                                       <v-icon align="center" medium color="white">mdi-content-save-outline</v-icon>
                                       Guardar
@@ -221,11 +221,11 @@
                             </v-row>
                         </v-col>
 
-                    </v-row>  
-                </v-card>                
-            </v-col>          
+                    </v-row>
+                </v-card>
+            </v-col>
         </v-row>
-        
+
       </v-container>
   </div>
 </template>
@@ -237,11 +237,11 @@ import axios from "axios";
 export default {
   name: "UserConfirm",
   data () {
-      return {        
-        isError: false,        
-        otherIllnessChecked: [],    
-        otherIllnessValue: "", 
-        illnesses:[],        
+      return {
+        isError: false,
+        otherIllnessChecked: [],
+        otherIllnessValue: "",
+        illnesses:[],
         userAccount: {
           age:"",
           insuranceCompany:"",
@@ -254,8 +254,8 @@ export default {
           injuryIndication:"",
           flagMedicine:"",
           medicineIndication:"",
-          physicalCondition:"" 
-        },        
+          physicalCondition:""
+        },
         errorMsg:{
           age:"",
           insuranceCompany:"",
@@ -280,7 +280,7 @@ export default {
       }
     },
   components: {
-    
+
   },
   methods: {
     validateAge(){
@@ -348,9 +348,9 @@ export default {
     addOtherIllness(){
         if(this.otherIllnessChecked && this.otherIllnessValue)
         {
-            this.illnesses.push(this.otherIllnessValue)  
-            
-        }              
+            this.illnesses.push(this.otherIllnessValue)
+
+        }
     },
     validateflagRecentInjury(){
         if(!this.userAccount["flagRecentInjury"])
@@ -372,7 +372,7 @@ export default {
         else{
             this.errorMsg.flagMedicine = ""
         }
-    },    
+    },
     validatePhysicalCondition()
     {
         if(!this.userAccount["physicalCondition"])
@@ -391,9 +391,9 @@ export default {
         axios
         .get(URL)
         .then(response => {
-            
+
             const medicalR = response.data.medicalRecord
-            
+
             if(medicalR.age == 0)
             {
                 this.userAccount.age = ""
@@ -403,7 +403,7 @@ export default {
             }
             this.userAccount.insuranceCompany = medicalR.insuranceCompany
             this.userAccount.securityNumber = medicalR.securityNumber
-            this.userAccount.hospital = medicalR.hospital       
+            this.userAccount.hospital = medicalR.hospital
             this.userAccount.contactName = medicalR.contactName
             if(medicalR.contactPhone == 0)
             {
@@ -413,20 +413,20 @@ export default {
                 this.userAccount.contactPhone = medicalR.contactPhone
             }
 
-            this.userAccount.contactRelationship = medicalR.contactRelationship      
-            
+            this.userAccount.contactRelationship = medicalR.contactRelationship
+
             for(var iK=0; iK<medicalR.illnesses.length; iK++)
             {
                 if(this.illnessList.includes(medicalR.illnesses[iK]))
                 {
-                    this.illnesses.push(medicalR.illnesses[iK])                    
+                    this.illnesses.push(medicalR.illnesses[iK])
                 }
                 else
-                {                    
+                {
                     this.otherIllnessChecked.push("Otro")
                     this.otherIllnessValue = medicalR.illnesses[iK]
                 }
-            }            
+            }
 
             if(medicalR.flagRecentInjury == true)
             {
@@ -434,18 +434,18 @@ export default {
             }
             else{
                 this.userAccount.flagRecentInjury = "No"
-            } 
+            }
 
-            this.userAccount.injuryIndication = medicalR.injuryIndication        
+            this.userAccount.injuryIndication = medicalR.injuryIndication
             if(medicalR.flagMedicine == true)
             {
                 this.userAccount.flagMedicine = "Sí"
             }
             else{
                 this.userAccount.flagMedicine = "No"
-            }           
-            this.userAccount.medicineIndication = medicalR.medicineIndication           
-            this.userAccount.physicalCondition = medicalR.physicalCondition         
+            }
+            this.userAccount.medicineIndication = medicalR.medicineIndication
+            this.userAccount.physicalCondition = medicalR.physicalCondition
 
         }).catch(error =>{
             this.$swal("Error",error.response.data.error,"error")
@@ -459,14 +459,14 @@ export default {
         this.validatesecurityNumber()
         this.validateContactName()
         this.validateContactPhone()
-        this.validateContactRelationship()     
+        this.validateContactRelationship()
         this.validateflagRecentInjury()
         this.validateflagMedicine()
         this.validatePhysicalCondition()
 
         if(this.isError){
           this.$swal("Error","Favor de verificar todos los campos","error")
-          return          
+          return
         }
 
         if(this.otherIllnessChecked[0] == "Otro" && this.otherIllnessValue)
@@ -474,33 +474,27 @@ export default {
             this.addOtherIllness()
         }
 
-
+        var flagMedicineToUpload = false
+        var medicineIndicationToUpload = ""
         if(this.userAccount.flagMedicine == "Sí")
         {
-            var flagMedicineToUpload = true
-            var medicineIndicationToUpload = this.userAccount.medicineIndication        
+            flagMedicineToUpload = true
+            medicineIndicationToUpload = this.userAccount.medicineIndication
         }
-        else
-        {
-            var flagMedicineToUpload = false
-            var medicineIndicationToUpload = ""
-            
-        }
+
+        var flagRecentInjuryToUpload = false
+        var injuryIndicationToUpload = ""
         if(this.userAccount.flagRecentInjury == "Sí")
         {
-            var flagRecentInjuryToUpload = true
-            var injuryIndicationToUpload = this.userAccount.injuryIndication            
-        }
-        else{
-            var flagRecentInjuryToUpload = false
-            var injuryIndicationToUpload = ""
+            flagRecentInjuryToUpload = true
+            injuryIndicationToUpload = this.userAccount.injuryIndication
         }
 
         const token = this.$route.query.token
         const URL = helper.baseURL + "/users/medicalRecord";
         axios.defaults.headers.common['Authorization'] = "Bearer "+ localStorage.getItem("token");
         axios
-        .put(URL,{               
+        .put(URL,{
             age:this.userAccount.age,
             securityNumber: this.userAccount.securityNumber,
             insuranceCompany: this.userAccount.insuranceCompany,

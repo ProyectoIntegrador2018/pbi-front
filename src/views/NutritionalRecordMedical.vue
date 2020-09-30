@@ -1,7 +1,7 @@
 <template>
    <div>
      <nutriheader title="Expediente Médico" :secondRoute="this.routePatientData"></nutriheader>
-      <v-container class="fill-height">        
+      <v-container class="fill-height">
         <v-row justify="center">
             <v-col cols="10">
             <v-card class="d-flex align-center" color="white">
@@ -9,7 +9,7 @@
                         <v-col class="px-0" cols="10">
                             <h2 align="left">Antecedentes Médicos</h2>
                         </v-col>
-                            <v-col class="px-0 pt-0" cols="10">  
+                            <v-col class="px-0 pt-0" cols="10">
                                 <span class="subtitle-1"> Antecedentes patológicos familiares </span>
                                 <v-row>
                                     <v-col cols="4" >
@@ -23,21 +23,21 @@
                                         <v-checkbox class ="my-0" v-model=patient.otherFamilyBackgroundChecked label="Otro" value="Otro"></v-checkbox>
                                         <template v-if="patient.otherFamilyBackgroundChecked === 'Otro'" >
                                             <v-text-field
-                                            v-model="patient.otherFamilyBackground"                                    
+                                            v-model="patient.otherFamilyBackground"
                                             label="Otro Antecedente"
                                             @change="this.validateOtherFamilyBackground"
                                             :errorMessages="this.errorPatient.otherFamilyBackground"
                                             single-line
-                                            solo             
+                                            solo
                                             >
                                             </v-text-field>
                                         </template>
                                     </v-col>
-                                </v-row>  
-                                <v-divider class="py-2"></v-divider>      
-                            </v-col>  
-                            
-                            <v-col class="px-0 pt-0" cols="10">  
+                                </v-row>
+                                <v-divider class="py-2"></v-divider>
+                            </v-col>
+
+                            <v-col class="px-0 pt-0" cols="10">
                                 <span class="subtitle-1"> Antecedentes patológicos personales </span>
                                 <v-row>
                                     <v-col cols="4">
@@ -51,32 +51,32 @@
                                         <v-checkbox class ="my-0" v-model=patient.otherPersonalBackgroundChecked label="Otro" value="Otro"></v-checkbox>
                                         <template v-if="patient.otherPersonalBackgroundChecked === 'Otro'" >
                                             <v-text-field
-                                            v-model="patient.otherPersonalBackground"                                    
-                                            label="Otro Antecedente"                                            
+                                            v-model="patient.otherPersonalBackground"
+                                            label="Otro Antecedente"
                                             @change="this.validateOtherPersonalBackground"
                                             :errorMessages="this.errorPatient.otherPersonalBackground"
                                             single-line
-                                            solo             
+                                            solo
                                             >
                                             </v-text-field>
                                         </template>
                                     </v-col>
-                                </v-row>  
-                                <v-divider class="py-2"></v-divider>      
-                            </v-col> 
+                                </v-row>
+                                <v-divider class="py-2"></v-divider>
+                            </v-col>
                             <v-col class="px-0" cols="10">
                                 <h2 align="left">Estilo de vida </h2>
                             </v-col>
-                            <v-col class="px-0 py-0" cols="10">                                           
+                            <v-col class="px-0 py-0" cols="10">
                                 <span class="subtitle-1"> Actividad Física: <span class="red--text">*</span></span>
                                 <v-textarea
                                     solo
                                     name="input-7-4"
                                     label="Actividad Física"
-                                    v-model="patient.physicalActivity"  
+                                    v-model="patient.physicalActivity"
                                     @change="this.validatePhysicalActivity"
-                                    :errorMessages="this.errorPatient.physicalActivity" 
-                                ></v-textarea>                                        
+                                    :errorMessages="this.errorPatient.physicalActivity"
+                                ></v-textarea>
                             </v-col>
                             <v-col class="py-0" cols="10">
                               <v-row>
@@ -102,12 +102,12 @@
                                         solo
                                         @change="this.validateDurationHours"
                                         :errorMessages="this.errorPatient.durationHours"
-                                        ></v-text-field>                                           
+                                        ></v-text-field>
                                       </v-col>
                                       <v-col class="py-0 caption" align="center" cols="1">
-                                        :                                      
-                                      </v-col>                                      
-                                      <v-col class="pl-0 py-0" cols="5">                             
+                                        :
+                                      </v-col>
+                                      <v-col class="pl-0 py-0" cols="5">
                                         <v-text-field
                                         v-model="patient.durationMinutes"
                                         label="Minutos"
@@ -118,7 +118,7 @@
                                         ></v-text-field>
                                       </v-col>
                                       <v-col class="px-0 py-0 caption" align="center" cols="1">
-                                        Hrs                                  
+                                        Hrs
                                       </v-col>
                                     </v-row>
                                 </v-col>
@@ -139,25 +139,25 @@
                                   ></v-text-field>
                                 </v-col>
                               </v-row>
-                              <v-divider class="py-2"></v-divider> 
-                            </v-col> 
-                            <v-col class="px-0 pt-0" cols="10">  
-                                <span class="subtitle-1"> ¿Fumas? <span class="red--text">*</span></span>   
+                              <v-divider class="py-2"></v-divider>
+                            </v-col>
+                            <v-col class="px-0 pt-0" cols="10">
+                                <span class="subtitle-1"> ¿Fumas? <span class="red--text">*</span></span>
                                     <v-radio-group row v-model="patient.isSmoker">
                                       <v-radio label="No" :value="false"></v-radio>
                                       <v-radio label="Sí" :value="true"></v-radio>
-                                    </v-radio-group>    
-                                    <v-divider class="py-2"></v-divider>     
-                            </v-col> 
+                                    </v-radio-group>
+                                    <v-divider class="py-2"></v-divider>
+                            </v-col>
                             <v-col class="py-0" cols="10">
                               <v-row>
-                                <v-col class="pl-0 py-0" cols="6">  
-                                    <span class="subtitle-1"> ¿Consumes bebidas alcohólicas? <span class="red--text">*</span></span>   
+                                <v-col class="pl-0 py-0" cols="6">
+                                    <span class="subtitle-1"> ¿Consumes bebidas alcohólicas? <span class="red--text">*</span></span>
                                         <v-radio-group v-model="patient.isDrinker" row>
                                           <v-radio label="No" :value="false"></v-radio>
                                           <v-radio label="Sí" :value="true"></v-radio>
-                                        </v-radio-group>        
-                                </v-col> 
+                                        </v-radio-group>
+                                </v-col>
                                 <template v-if="patient.isDrinker === true" >
                                   <v-col class="px-0 py-0" cols="6">
                                       <span class="subtitle-1"> ¿Cuántas?: <span class="red--text">*</span></span>
@@ -169,68 +169,68 @@
                                       @change="this.validateDrinksQuantity"
                                       :errorMessages="this.errorPatient.drinksQuantity"
                                       ></v-text-field>
-                                  </v-col>   
-                                </template>                                 
+                                  </v-col>
+                                </template>
                               </v-row>
-                            </v-col>      
-                            <template v-if="patient.isDrinker === true" >  
+                            </v-col>
+                            <template v-if="patient.isDrinker === true" >
                               <v-col class="py-0" cols="10">
-                                <v-row>                               
+                                <v-row>
                                   <v-col class="pl-0 py-0" cols="6">
                                       <span class="subtitle-1"> ¿Con qué frecuencia?: <span class="red--text">*</span></span>
                                       <v-select
                                           :items="drinksFrequencyOptions"
                                           label="-Selecciona Frecuencia-"
-                                          v-model="patient.drinksFrequency"     
+                                          v-model="patient.drinksFrequency"
                                           solo
-                                          @change="this.validateDrinksFrequency" 
-                                          :errorMessages="this.errorPatient.drinksFrequency"                                   
+                                          @change="this.validateDrinksFrequency"
+                                          :errorMessages="this.errorPatient.drinksFrequency"
                                       ></v-select>
-                                  </v-col>  
-                                  <v-col class="px-0 py-0 " cols="6">                                           
+                                  </v-col>
+                                  <v-col class="px-0 py-0 " cols="6">
                                     <span class="subtitle-1"> Tipo de bebidas <span class="red--text">*</span></span>
                                     <v-textarea
                                         solo
                                         name="input-7-4"
-                                        v-model="patient.drinksType"  
+                                        v-model="patient.drinksType"
                                         label="Tipo de bebidas alcohólicas"
                                         @change="this.validateDrinksType"
-                                        :errorMessages="this.errorPatient.drinksType"  
-                                    ></v-textarea>                                        
-                                  </v-col>  
+                                        :errorMessages="this.errorPatient.drinksType"
+                                    ></v-textarea>
+                                  </v-col>
                                 </v-row>
-                              </v-col>   
+                              </v-col>
                             </template>
                         <v-col class="px-0" cols="10">
                           <v-divider class="py-2"></v-divider>
                             <h2 align="left">Datos Dietéticos</h2>
-                        </v-col>              
-                        <v-col class="py-0" cols="10">                          
+                        </v-col>
+                        <v-col class="py-0" cols="10">
                           <v-row>
-                            <v-col class="pl-0 py-0" cols="6">  
-                                <span class="subtitle-1"> ¿Consume algun suplemento nutricional (vitaminas,minerales,proteína)? <span class="red--text">*</span></span>   
+                            <v-col class="pl-0 py-0" cols="6">
+                                <span class="subtitle-1"> ¿Consume algun suplemento nutricional (vitaminas,minerales,proteína)? <span class="red--text">*</span></span>
                                     <v-radio-group v-model="patient.supplement" row>
                                       <v-radio label="No" :value="false"></v-radio>
                                       <v-radio label="Sí" :value="true"></v-radio>
-                                    </v-radio-group>                                        
-                            </v-col>                          
-                            <template v-if="patient.supplement === true" >   
-                              <v-col class="pl-0 py-0" cols="6">  
-                                  <span class="subtitle-1"> Nombre <span class="red--text">*</span></span>                                   
+                                    </v-radio-group>
+                            </v-col>
+                            <template v-if="patient.supplement === true" >
+                              <v-col class="pl-0 py-0" cols="6">
+                                  <span class="subtitle-1"> Nombre <span class="red--text">*</span></span>
                                     <v-text-field
-                                    v-model="patient.supplementName"      
+                                    v-model="patient.supplementName"
                                     @change="this.validateSupplementName"
-                                    :errorMessages="this.errorPatient.supplementName"                              
+                                    :errorMessages="this.errorPatient.supplementName"
                                     label="Nombre de Suplemento"
                                     single-line
-                                    solo             
+                                    solo
                                     >
-                                    </v-text-field>                                
-                              </v-col> 
+                                    </v-text-field>
+                              </v-col>
                             </template>
                           </v-row>
-                          <v-divider class="py-2"></v-divider>     
-                        </v-col> 
+                          <v-divider class="py-2"></v-divider>
+                        </v-col>
                         <v-col class="px-0" cols="10">
                             <h2 align="left">Datos Bioquímicos</h2>
                         </v-col>
@@ -245,7 +245,7 @@
                               solo
                               @change="this.validateCholesterol"
                               :errorMessages="this.errorPatient.cholesterol"
-                              ></v-text-field>                                           
+                              ></v-text-field>
                             </v-col>
                             <v-col class="py-0" cols="4">
                               <span class="subtitle-1"> Triglicéridos (menor a 220 mg/dl) </span>
@@ -256,7 +256,7 @@
                               solo
                               @change="this.validateTriglycerides"
                               :errorMessages="this.errorPatient.triglycerides"
-                              ></v-text-field>                                           
+                              ></v-text-field>
                             </v-col>
                             <v-col class="pr-0 py-0" cols="4">
                               <span class="subtitle-1"> Glucosa (60-110 mg/dl) </span>
@@ -267,33 +267,33 @@
                               solo
                               @change="this.validateGlucose"
                               :errorMessages="this.errorPatient.glucose"
-                              ></v-text-field>                                           
+                              ></v-text-field>
                             </v-col>
                           </v-row>
                         </v-col>
 
-                        <v-col class="px-0 py-0" cols="10">                                           
+                        <v-col class="px-0 py-0" cols="10">
                                 <span class="subtitle-1"> Comentarios: </span>
                                 <v-textarea
                                     solo
                                     name="input-7-4"
-                                    v-model="patient.comments"                   
+                                    v-model="patient.comments"
                                 label="Comentarios"
-                                ></v-textarea>                                        
+                                ></v-textarea>
                             </v-col>
                         <v-col cols="10" class="px-0 py-0" >
-                            <v-row class="d-flex flex-row-reverse mx-6 my-0"> 
-                                <v-col cols="7">    
+                            <v-row class="d-flex flex-row-reverse mx-6 my-0">
+                                <v-col cols="7">
                                     <v-btn large block color="primary" @click="saveMyInfo">
                                     <v-icon align="center" medium color="white" >mdi-content-save-outline</v-icon>
                                     Guardar e ir a Recordatorio de 24 Hrs
                                     </v-btn>
                                 </v-col>
                             </v-row>
-                        </v-col>                        
-                    </v-row>     
+                        </v-col>
+                    </v-row>
                 </v-card>
-                </v-col>          
+                </v-col>
         </v-row>
       </v-container>
   </div>
@@ -304,12 +304,12 @@ import nutriheader from "../components/nutriheader.vue";
 const helper = require("../helper.js");
 import axios from "axios";
 
-export default {  
+export default {
   components: {
     nutriheader
   },
   data () {
-      return {          
+      return {
         isError: false,
         userId:"",
         routePatientData:"",
@@ -319,7 +319,7 @@ export default {
             otherFamilyBackground:"",
             personalBackground:[],
             otherPersonalBackgroundChecked: "",
-            otherPersonalBackground:"", 
+            otherPersonalBackground:"",
             physicalActivity:"",
             activityFrequency:"",
             durationHours:"",
@@ -327,16 +327,16 @@ export default {
             sleepQuantity:"",
             isSmoker: false,
             isDrinker: false,
-            drinksQuantity:"",            
+            drinksQuantity:"",
             drinksFrequency:"",
-            drinksType:"",    
+            drinksType:"",
             supplement: false,
             supplementName:"",
             cholesterol:"",
             triglycerides:"",
             glucose:"",
-            comments:"" 
-        },        
+            comments:""
+        },
         errorPatient:{
             otherFamilyBackground:"",
             otherPersonalBackground:"",
@@ -345,21 +345,21 @@ export default {
             durationHours:"",
             durationMinutes:"",
             sleepQuantity:"",
-            drinksQuantity:"",            
+            drinksQuantity:"",
             drinksFrequency:"",
             drinksType:"",
-            supplementName:"",            
+            supplementName:"",
             cholesterol:"",
             triglycerides:"",
             glucose:"",
             comments:""
         },
         drinksFrequencyOptions: [
-          'Semanal', 
-          'Quincenal', 
-          'Fines de semana', 
-          'Mensual', 
-          'Anual'], 
+          'Semanal',
+          'Quincenal',
+          'Fines de semana',
+          'Mensual',
+          'Anual'],
         BackgroundListCol1 : [
           'Hipertensión Arterial',
           'Diabetes',
@@ -375,7 +375,7 @@ export default {
     },
   methods: {
     validateOtherFamilyBackground(){
-      if(this.patient["otherFamilyBackgroundChecked"] === "Otro" && !this.patient.otherFamilyBackground){  
+      if(this.patient["otherFamilyBackgroundChecked"] === "Otro" && !this.patient.otherFamilyBackground){
           this.isError = true
           this.errorPatient.otherFamilyBackground = "Campo requerido"
         }else{
@@ -383,7 +383,7 @@ export default {
         }
     },
     validateOtherPersonalBackground(){
-      if(this.patient["otherPersonalBackgroundChecked"] === "Otro" && !this.patient["otherPersonalBackground"]){  
+      if(this.patient["otherPersonalBackgroundChecked"] === "Otro" && !this.patient["otherPersonalBackground"]){
           this.isError = true
           this.errorPatient.otherPersonalBackground = "Campo requerido"
         }else{
@@ -391,7 +391,7 @@ export default {
         }
     },
     validatePhysicalActivity(){
-       if(!this.patient["physicalActivity"]){  
+       if(!this.patient["physicalActivity"]){
           this.isError = true
           this.errorPatient.physicalActivity = "Campo requerido"
         }else{
@@ -399,7 +399,7 @@ export default {
         }
     },
     validateActivityFrequency(){
-      if(!this.patient["activityFrequency"]){  
+      if(!this.patient["activityFrequency"]){
           this.isError = true
           this.errorPatient.activityFrequency = "Campo requerido"
         }
@@ -416,7 +416,7 @@ export default {
       }
     },
     validateDurationHours(){
-      if(!this.patient["durationHours"]){  
+      if(!this.patient["durationHours"]){
           this.isError = true
           this.errorPatient.durationHours = "Campo requerido"
         }
@@ -446,7 +446,7 @@ export default {
         }
     },
     validateSleepQuantity(){
-      if(!this.patient["sleepQuantity"]){  
+      if(!this.patient["sleepQuantity"]){
           this.isError = true
           this.errorPatient.sleepQuantity = "Campo requerido"
         }
@@ -463,7 +463,7 @@ export default {
         }
     },
     validateDrinksQuantity(){
-      if(this.patient["isDrinker"] === true && !this.patient["drinksQuantity"]){  
+      if(this.patient["isDrinker"] === true && !this.patient["drinksQuantity"]){
           this.isError = true
           this.errorPatient.drinksQuantity = "Campo requerido"
         }
@@ -479,8 +479,8 @@ export default {
           this.errorPatient.drinksQuantity = ""
       }
     },
-    validateDrinksFrequency(){      
-      if(this.patient["isDrinker"] === true && !this.patient["drinksFrequency"]){  
+    validateDrinksFrequency(){
+      if(this.patient["isDrinker"] === true && !this.patient["drinksFrequency"]){
           this.isError = true
           this.errorPatient.drinksFrequency = "Campo requerido"
         }else{
@@ -488,21 +488,21 @@ export default {
         }
     },
     validateDrinksType(){
-      if(this.patient["isDrinker"] === true && !this.patient["drinksType"]){  
+      if(this.patient["isDrinker"] === true && !this.patient["drinksType"]){
           this.isError = true
           this.errorPatient.drinksType = "Campo requerido"
         }else{
           this.errorPatient.drinksType = ""
         }
     },
-    validateSupplementName(){      
-      if(this.patient["supplement"] === true && !this.patient["supplementName"]){  
+    validateSupplementName(){
+      if(this.patient["supplement"] === true && !this.patient["supplementName"]){
           this.isError = true
           this.errorPatient.supplementName = "Campo requerido"
         }else{
           this.errorPatient.supplementName = ""
         }
-    },    
+    },
     validateCholesterol(){
       if(Number.isNaN(Number(this.patient["cholesterol"]))){
           this.isError = true
@@ -544,7 +544,7 @@ export default {
     },
     getParameterByName(name, url) {
       if (!url) url = window.location.href;
-      name = name.replace(/[\[\]]/g, '\\$&');
+      name = name.replace(/[[\]]/g, '\\$&');
       var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
           results = regex.exec(url);
       if (!results) return null;
@@ -567,7 +567,7 @@ export default {
       this.validateCholesterol()
       this.validateTriglycerides()
       this.validateGlucose()
-      
+
       if(this.isError){
         this.$swal("Error","Favor de verificar todos los campos","error")
         return
@@ -582,11 +582,11 @@ export default {
           this.patient.personalBackground[this.patient.personalBackground.length-1]!=this.patient.otherPersonalBackground)
       {
         this.patient.personalBackground.push(this.patient.otherPersonalBackground);
-      }   
+      }
       if(!this.patient.durationMinutes){
         this.patient.durationMinutes = 0
-      } 
-      
+      }
+
       const URL = helper.baseURL + "/nutricion/records/history/"+this.userId;
       axios.defaults.headers.common['Authorization'] = "Bearer "+ localStorage.getItem("token");
       axios
@@ -609,7 +609,7 @@ export default {
             supplementConsumer: this.patient.supplement,
             supplementName: this.patient.supplementName,
             controlledMethod: "" //QUITAR DESPUES DE QUE SE ACTUALICE LA BASE DE DATOS
-          },      
+          },
           comments: this.patient.comments,
           biochemical:{
             cholesterol: this.patient.cholesterol,
@@ -635,7 +635,7 @@ export default {
       if(this.userId === null)
       {
         this.$swal("Error","El usuario no existe","error")
-        window.open("./informacionpersonal","_self")        
+        window.open("./informacionpersonal","_self")
       }
 
       const token = this.$route.query.token
@@ -652,26 +652,26 @@ export default {
                 this.BackgroundListCol2.includes(history.familyBackground[iK]) ||
                 this.BackgroundListCol3.includes(history.familyBackground[iK]))
               {
-                  this.patient.familyBackground.push(history.familyBackground[iK])                    
+                  this.patient.familyBackground.push(history.familyBackground[iK])
               }
               else
-              {                
-                  this.patient.otherFamilyBackgroundChecked = "Otro"  
+              {
+                  this.patient.otherFamilyBackgroundChecked = "Otro"
                   this.patient.otherFamilyBackground = history.familyBackground[iK]
               }
           }
-          for(var iK=0; iK<history.personalBackground.length; iK++)
+          for(var iP=0; iP<history.personalBackground.length; iP++)
           {
-              if(this.BackgroundListCol1.includes(history.personalBackground[iK]) ||
-                this.BackgroundListCol2.includes(history.personalBackground[iK]) ||
-                this.BackgroundListCol3.includes(history.personalBackground[iK]))
+              if(this.BackgroundListCol1.includes(history.personalBackground[iP]) ||
+                this.BackgroundListCol2.includes(history.personalBackground[iP]) ||
+                this.BackgroundListCol3.includes(history.personalBackground[iP]))
               {
-                  this.patient.personalBackground.push(history.personalBackground[iK])                    
+                  this.patient.personalBackground.push(history.personalBackground[iP])
               }
               else
-              {                
-                  this.patient.otherPersonalBackgroundChecked = "Otro"  
-                  this.patient.otherPersonalBackground = history.personalBackground[iK]
+              {
+                  this.patient.otherPersonalBackgroundChecked = "Otro"
+                  this.patient.otherPersonalBackground = history.personalBackground[iP]
               }
           }
           this.patient.physicalActivity = history.lifestyle.physicalActivity
@@ -700,16 +700,16 @@ export default {
             this.patient.supplement = true
           }else{
             this.patient.supplement = false
-          }     
-          this.patient.supplementName = history.diet.supplementName        
+          }
+          this.patient.supplementName = history.diet.supplementName
           this.patient.cholesterol = history.biochemical.cholesterol
           this.patient.triglycerides = history.biochemical.triglycerides
           this.patient.glucose = history.biochemical.glucose
-          this.patient.comments = history.comments    
+          this.patient.comments = history.comments
       }).catch(error =>{
             this.$swal("Error",error.response.data.error,"error")
         })
-    } 
+    }
   },
     created(){
       this.loadInfo()

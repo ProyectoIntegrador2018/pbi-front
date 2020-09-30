@@ -1,21 +1,21 @@
  <template>
   <div>
-    <v-content>
+    <v-main>
       <nutriheader title="Pacientes"></nutriheader>
       <v-container fluid my-5 px-md-12>
-        
+
           <div>
-            <v-data-table 
-              ref="table" 
-              :headers="headers" 
-              :items="records" 
-              sort-by="name" 
+            <v-data-table
+              ref="table"
+              :headers="headers"
+              :items="records"
+              sort-by="name"
               class="elevation-1"
               :loading="isLoading"
               :search="search"
               loading-text="Cargando... Favor de esperar"
             >
-              
+
               <template #item.full_name="{item}">{{item.name}}  {{item.surname}}</template>
               <template v-slot:top>
                 <v-toolbar flat color="white">
@@ -50,12 +50,12 @@
                   </template>
                   <span>Ver lista de Seguimiento</span>
                 </v-tooltip>
-                
+
               </template>
               <template v-slot:item.record="{ item }">
                 <v-tooltip top>
                   <template v-slot:activator="{ on }">
-                    <v-btn icon v-on="on">  
+                    <v-btn icon v-on="on">
                       <v-icon small @click="showReport(item)">search</v-icon>
                     </v-btn>
                   </template>
@@ -64,7 +64,7 @@
                 <v-tooltip top>
                   <template v-slot:activator="{ on }">
                     <v-btn icon v-on="on">
-                      <v-icon small @click="deleteItem(item)">delete</v-icon></v-icon>
+                      <v-icon small @click="deleteItem(item)">delete</v-icon>
                     </v-btn>
                   </template>
                   <span>Eliminar Expediente</span>
@@ -80,7 +80,7 @@
           </v-btn>
         </v-col>
     </v-container>
-    </v-content>
+    </v-main>
   </div>
 </template>
 
@@ -162,22 +162,22 @@ export default {
       this.clases = []
       axios.defaults.headers.common['Authorization'] = "Bearer "+ localStorage.getItem("token");
       const URL = helper.baseURL + "/nutricion/records";
-      
+
       axios
       .get(URL)
-      .then((Response)=>{   
+      .then((Response)=>{
         this.records = Response.data
         this.isLoading = false
       })
       .catch((error)=>{
         this.$swal("Error",error.response.data.error,"error")
       })
-      
+
     }
   },
   created(){
     this.getItems();
   }
-  
+
 };
 </script>

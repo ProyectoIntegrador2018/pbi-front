@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-content>
+    <v-main>
       <v-container fluid>
         <adminheader :title="course.name" titleStyle='3' secondRoute="/clases/"></adminheader>
         <v-row>
@@ -21,7 +21,7 @@
             </span>
             <h2>Horario: {{course.startHour}} a {{course.endHour}}</h2>
             <template v-for="item in course.frequency">
-              <v-chip class="ma-2" color="primary">{{item}}</v-chip>
+              <v-chip class="ma-2" color="primary" v-bind:key="item">{{item}}</v-chip>
             </template>
             <template v-if="course.instructor != ''">
               <h3>Instructor: {{course.instructor}}</h3>
@@ -127,7 +127,7 @@
         </v-col>
         </v-row>
       </v-container>
-    </v-content>
+    </v-main>
   </div>
 </template>
 

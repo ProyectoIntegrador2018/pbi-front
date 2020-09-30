@@ -1,20 +1,20 @@
  <template>
   <div>
-    <v-content>
+    <v-main>
       <v-container fluid>
         <v-row align="center" justify="center">
           <h1 class="display-2 font-weight-bold" align="center">Seguimiento del paciente: {{patient.name}} {{patient.surname}}</h1>
         </v-row>
       </v-container>
       <nutriheader title="" secondRoute="/nutricion/pacientes"></nutriheader>
-      
+
       <v-container fluid my-5 px-md-12>
           <div>
-            <v-data-table 
-              ref="table" 
-              :headers="headers" 
-              :items="appointments" 
-              sort-by="date" 
+            <v-data-table
+              ref="table"
+              :headers="headers"
+              :items="appointments"
+              sort-by="date"
               class="elevation-1"
               :loading="isLoading"
               :search="search"
@@ -62,7 +62,7 @@
               <template v-slot:item.record="{ item }">
                 <v-tooltip top>
                   <template v-slot:activator="{ on }">
-                    <v-btn icon v-on="on">  
+                    <v-btn icon v-on="on">
                       <v-icon small @click="verCita(item)">search</v-icon>
                     </v-btn>
                   </template>
@@ -80,7 +80,7 @@
             </v-data-table>
           </div>
       </v-container>
-    </v-content>
+    </v-main>
   </div>
 </template>
 
@@ -171,17 +171,17 @@ export default {
       this.clases = []
       axios.defaults.headers.common['Authorization'] = "Bearer "+ localStorage.getItem("token");
       const URL = helper.baseURL + "/nutricion/appointments/"+this.$route.params.id;
-      
+
       axios
       .get(URL)
-      .then((Response)=>{   
+      .then((Response)=>{
         this.appointments = Response.data
         this.isLoading = false
       })
       .catch((error)=>{
         this.$swal("Error",error.response.data.error,"error")
       })
-      
+
     },
     verCita(item){
       var route = '/nutricion/'+this.$route.params.id+'/cita?cid=' +item._id
@@ -190,8 +190,8 @@ export default {
   },
   created(){
     this.getPatient();
-    
+
   }
-  
+
 };
 </script>

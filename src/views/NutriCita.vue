@@ -18,9 +18,9 @@
                     <span class="subtitle-2">
                       Altura: <span class="red--text">*</span>
                     </span>
-                    <v-text-field 
+                    <v-text-field
                       required
-                      v-model="cita.altura" 
+                      v-model="cita.altura"
                       :rules="numFieldsRules"
                        single-line solo suffix="mts">
                     </v-text-field>
@@ -47,7 +47,7 @@
                     </span>
                     <v-text-field required v-model="cita.diag_imc" single-line solo disabled></v-text-field>
                   </v-col>
-                </v-row>   
+                </v-row>
                 <v-row class="py-0">
                   <v-col cols="12" class="pt-0">
                     <v-btn large block color="primary" @click="calcularIMC">
@@ -156,20 +156,20 @@
           </v-card-text>
 
           <v-card-actions>
-                    <v-row>                                    
+                    <v-row>
                         <v-col cols="12" sm="6" class="py-0">
                             <v-btn large block @click="irListaCitas">
                              <v-icon align="center" medium >mdi-arrow-left</v-icon>
                              Regresar
                             </v-btn>
                         </v-col>
-                        <v-col cols="12" sm="6" class="py-0">                           
+                        <v-col cols="12" sm="6" class="py-0">
                             <v-btn :disabled="!valid" large block color="primary" @click="save">
                               <v-icon align="center" medium color="white">mdi-content-save-outline</v-icon>
                               Guardar
                             </v-btn>
                         </v-col>
-                    </v-row>        
+                    </v-row>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -212,7 +212,7 @@ export default {
         cadera:  0,
         nota: ""
       }
-      
+
   }),
   methods: {
       save(){
@@ -222,7 +222,7 @@ export default {
         }else {
           this.postNuevaCita()
         }
-        
+
       },
       postNuevaCita(){
        if(this.$refs.form.validate()){
@@ -336,7 +336,7 @@ export default {
         } catch (error) {
           this.$swal("Error",error,"error")
         }
-        
+
       },
       irListaCitas(){
         var route = '/nutricion/pacientes/citas/'+ this.$route.params.id
@@ -344,7 +344,7 @@ export default {
       },
       getParameterByName(name, url) {
         if (!url) url = window.location.href;
-        name = name.replace(/[\[\]]/g, '\\$&');
+        name = name.replace(/[[\]]/g, '\\$&');
         var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
             results = regex.exec(url);
         if (!results) return null;
@@ -356,7 +356,7 @@ export default {
           if(this.getParameterByName("cid",window.location)===null)
           {
             this.willUpdate = false
-          }else 
+          }else
           {
             this.willUpdate = true
             this.loadData()
@@ -366,7 +366,7 @@ export default {
         const token = this.$route.query.token
         axios.defaults.headers.common['Authorization'] = "Bearer "+ localStorage.getItem("token");
         const URL = helper.baseURL + "/nutricion/appointment/"+this.citaID;
-        
+
         axios
         .get(URL)
         .then(response => {
@@ -391,7 +391,7 @@ export default {
           this.$swal("Error",error.response.data.error,"error")
         })
       }
-  },  
+  },
   created(){
     this.updateView()
   }

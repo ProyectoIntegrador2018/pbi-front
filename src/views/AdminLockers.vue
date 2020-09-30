@@ -1,11 +1,11 @@
  <template>
   <div>
-    <v-content>
+    <v-main>
       <adminheader title="Asignación de Lockers"></adminheader>
       <v-container fluid my-5 px-md-12>
         <LockerList></LockerList>
       </v-container>
-    </v-content>
+    </v-main>
   </div>
 </template>
 

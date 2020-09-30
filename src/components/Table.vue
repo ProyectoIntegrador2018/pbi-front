@@ -1,9 +1,9 @@
 <template>
   <div>
-    <v-data-table ref="table" 
-      :headers="headers" 
-      :items="terms" 
-      sort-by="name" 
+    <v-data-table ref="table"
+      :headers="headers"
+      :items="terms"
+      sort-by="name"
       class="elevation-1"
       :loading="isLoading"
       loading-text="Cargando... Favor de esperar">
@@ -134,7 +134,7 @@
                           align="center"
                         >La fecha de cierre debe ser después que la de inicio</span>
                       </v-col>
-                      <!-- <v-col cols="12"> 
+                      <!-- <v-col cols="12">
                         <input type="checkbox" id="checkbox" v-model="checked">
                         <label for="checkbox"> Se requieren lockers para el período</label>
                       </v-col v-if="checked"> -->
@@ -246,7 +246,7 @@
           </v-dialog>
         </v-toolbar>
       </template>
-      <template v-slot:item.name="{ item }">
+      <template v-slot:[`item.name`]="{ item }">
         {{item.name}}
         <v-chip
           small
@@ -257,19 +257,19 @@
         >Activo</v-chip>
       </template>
 
-      <template v-slot:item.startInscriptions="{ item }">
+      <template v-slot:[`item.startInscriptions`]="{ item }">
         <td>{{momentDatetime(item.startInscriptions, 'LL')}}</td>
       </template>
-      <template v-slot:item.closeInscriptions="{ item }">
+      <template v-slot:[`item.closeInscriptions`]="{ item }">
         <td>{{momentDatetime(item.closeInscriptions, 'LL')}}</td>
       </template>
-      <template v-slot:item.startLockerReservations="{ item }">
+      <template v-slot:[`item.startLockerReservations`]="{ item }">
         <td>{{momentDatetime(item.startLockerReservations, 'LL')}}</td>
       </template>
-      <template v-slot:item.closeLockerReservations="{ item }">
+      <template v-slot:[`item.closeLockerReservations`]="{ item }">
         <td>{{momentDatetime(item.closeLockerReservations, 'LL')}}</td>
       </template>
-      <template v-slot:item.action="{ item }">
+      <template v-slot:[`item.action`]="{ item }">
         <v-tooltip top>
           <template v-slot:activator="{ on }">
             <v-icon
@@ -500,7 +500,7 @@ export default {
             this.editedItem.closeLockerReservations + "T23:59:59.000Z"
 
         };
-        
+
         if (this.editedIndex > -1) {
           //Edit term
           this.updateTerm(this.terms[this.editedIndex]._id, json_term);

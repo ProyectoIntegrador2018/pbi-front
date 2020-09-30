@@ -107,7 +107,7 @@
           </v-dialog>
         </v-toolbar>
       </template>
-      <template v-slot:item.action="{ item }">
+      <template v-slot:[`item.action`]="{ item }">
         <v-tooltip top>
           <template v-slot:activator="{ on }">
             <v-icon Medium class="mr-2" v-on="on" @click="clasesInscritas(item)">mdi-clipboard-check</v-icon>

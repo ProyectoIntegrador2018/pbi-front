@@ -16,7 +16,7 @@
               loading-text="Cargando... Favor de esperar"
             >
 
-              <template #item.full_name="{item}">{{item.name}}  {{item.surname}}</template>
+              <template #[`item.full_name`]="{item}">{{item.name}}  {{item.surname}}</template>
               <template v-slot:top>
                 <v-toolbar flat color="white">
                   <v-toolbar-title>Mis pacientes</v-toolbar-title>
@@ -33,7 +33,7 @@
                    <v-btn class="blue  darken-3 white--text" href="/nutricion/informacionpersonal" >Nuevo Expediente</v-btn>
                 </v-toolbar>
               </template>
-              <template v-slot:item.appoint="{ item }">
+              <template v-slot:[`item.appoint`]="{ item }">
                 <v-tooltip top>
                   <template v-slot:activator="{ on }">
                     <v-btn icon v-on="on">
@@ -52,7 +52,7 @@
                 </v-tooltip>
 
               </template>
-              <template v-slot:item.record="{ item }">
+              <template v-slot:[`item.record`]="{ item }">
                 <v-tooltip top>
                   <template v-slot:activator="{ on }">
                     <v-btn icon v-on="on">

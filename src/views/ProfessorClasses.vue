@@ -27,7 +27,7 @@
                   <v-spacer></v-spacer>
                 </v-toolbar>
               </template>
-              <template v-slot:item.action="{ item }">
+              <template v-slot:[`item.action`]="{ item }">
                 <v-icon small @click="showClass(item)">mdi-clipboard-list-outline</v-icon>
               </template>
             </v-data-table>
@@ -131,10 +131,11 @@ export default {
 
       axios
       .get(URL)
-      .then((Response)=>{
-        //TODO: Arreglar esto?
-        console.log(Response);
-        //this.clases = Response.data
+      .then(()=>{
+        //  (Response) => {
+        // TODO: Arreglar esto?
+        // console.log(Response);
+        // this.clases = Response.data
         this.isLoading = false
       })
       .catch((error)=>{

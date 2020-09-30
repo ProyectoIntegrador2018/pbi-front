@@ -20,8 +20,8 @@
               :search="search"
               loading-text="Cargando... Favor de esperar"
             >
-              <template #item.formatDate="{item}">{{momentDatetime(item.date,"LL")}}</template>
-              <template #item.full_name="{item}">{{item.name}}  {{item.surname}}</template>
+              <template #[`item.formatDate`]="{item}">{{momentDatetime(item.date,"LL")}}</template>
+              <template #[`item.full_name`]="{item}">{{item.name}}  {{item.surname}}</template>
               <template v-slot:top>
                 <v-toolbar flat color="white">
                   <v-toolbar-title>Citas</v-toolbar-title>
@@ -38,28 +38,25 @@
                   <v-btn class="blue  darken-3 white--text"   @click="createAppoint()">Nueva cita</v-btn>
                 </v-toolbar>
               </template>
-              <template v-slot:item.weight="{ item }">
+              <template v-slot:[`item.weight`]="{ item }">
                {{item.weight}} kg
               </template>
-              <template v-slot:item.height="{ item }">
+              <template v-slot:[`item.height`]="{ item }">
                {{item.height}} mts
               </template>
-              <template v-slot:item.muscleMass="{ item }">
+              <template v-slot:[`item.muscleMass`]="{ item }">
                {{item.muscleMass}} Kg
               </template>
-              <template v-slot:item.fatMass="{ item }">
+              <template v-slot:[`item.fatMass`]="{ item }">
                {{item.fatMass}} Kg
               </template>
-              <template v-slot:item.muscleMass="{ item }">
-               {{item.muscleMass}} Kg
-              </template>
-              <template v-slot:item.totalWater="{ item }">
+              <template v-slot:[`item.totalWater`]="{ item }">
                {{item.totalWater}} Lt
               </template>
-              <template v-slot:item.fatMassPct="{ item }">
+              <template v-slot:[`item.fatMassPct`]="{ item }">
                {{item.fatMassPct}}%
               </template>
-              <template v-slot:item.record="{ item }">
+              <template v-slot:[`item.record`]="{ item }">
                 <v-tooltip top>
                   <template v-slot:activator="{ on }">
                     <v-btn icon v-on="on">

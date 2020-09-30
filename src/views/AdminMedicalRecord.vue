@@ -518,8 +518,7 @@ export default {
             medicineIndication: medicineIndicationToUpload,
             physicalCondition: this.userAccount.physicalCondition
             })
-        .then(response => {
-            console.log(response); //unused response
+        .then( () => {
             this.$swal("Información Guardada","Se ha actualizado tu Historial Clínico","success")
             .then(() => {
                 window.open("/users","_self")

@@ -80,7 +80,7 @@ const router = new Router({
         },
         {
             path: '/',
-            name: 'UserLogin',
+            name: 'UserLoginFallback',
             component: UserLogin,
         },
         {
@@ -398,7 +398,7 @@ router.beforeEach((to, from, next) => {
                         }
                     }*/
                     else {
-                        
+
                         if (!autorizacionUsr) {
                             if(response.data.nutritionist){
                                 next({

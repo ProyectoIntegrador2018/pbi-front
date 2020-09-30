@@ -107,7 +107,7 @@
             <template v-slot:no-data>
               <v-btn disabled color="primary">No hay usuarios</v-btn>
             </template>
-            <template v-slot:item.action="{ item }">
+            <template v-slot:[`item.action`]="{ item }">
               <v-btn class="ma-2" small color="" @click="showStudentData(item)">
                 <v-icon>mdi-eye</v-icon>&nbsp; Ver
               </v-btn>

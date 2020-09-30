@@ -22,14 +22,14 @@ function verifyFrequency(userInput){
 	return bVerified;
 }
 
-const excelToJson = 
+const excelToJson =
 async function(file)
 {
 	var arrClases = []
 	const reader = new FileReader()
 	var workbookInput = new Excel.Workbook();
 	reader.readAsArrayBuffer(file)
-	
+
 	//Lee un excel
 	//'EJEMPLO_Formato_Inscripciones_PBI.xlsx'
 	return new Promise(function(resolve,reject){
@@ -47,12 +47,12 @@ async function(file)
 			if(!worksheet)
 			{
 					isError = true;
-					sErrorMessage += "Error: Favor de utilizar la hoja de calculo con nombre 'Formato' segun el ejemplo dado<br>"; 
+					sErrorMessage += "Error: Favor de utilizar la hoja de calculo con nombre 'Formato' segun el ejemplo dado<br>";
 			}
 			else
 			{
 				//Función que lee renglon por renglon la información de las clases
-				worksheet.eachRow({ includeEmpty: false }, function(row, rowNumber) 
+				worksheet.eachRow({ includeEmpty: false }, function(row, rowNumber)
 				{
 					var sClase = "";
 					var sName = "";
@@ -65,14 +65,14 @@ async function(file)
 					var sInstructor = "";
 					var iCupo = 0;
 					//Se omite el renglón 1 porque contiene los títulos de las columnas
-					if (rowNumber != 1) 
+					if (rowNumber != 1)
 					{
 						//NOMBRE DEL CURSO, obligatoria
 						//Si es undefined marca error y sale
-						if(!row.values[1]){    
+						if(!row.values[1]){
 							isError = true;
 							sErrorMessage += ("Linea " + rowNumber + ": El campo Nombre esta vacio<br>");
-							
+
 						}else{
 							sName = (row.values[1]);
 						}
@@ -82,10 +82,10 @@ async function(file)
 						freqRegExpr = new RegExp("(3)(SESIONES)(POR)(SEMANA)|(PERSONALIZADO)");
 
 						//Si es undefined marca error y sale
-						if(!row.values[2]){    
+						if(!row.values[2]){
 							isError = true;
 							sErrorMessage += ("Linea " + rowNumber + ": El campo Frecuencia esta vacio<br>");
-									
+
 						}
 						else
 						{
@@ -100,7 +100,7 @@ async function(file)
 							if(!verifyFrequency(inputFrequencyArr) && (!freqRegExpr.test(inputFrequencyNoSpaces)))
 							{
 								isError = true;
-								sErrorMessage += ("Linea " + rowNumber + ": Formato de Frecuencia incorrecto");      		
+								sErrorMessage += ("Linea " + rowNumber + ": Formato de Frecuencia incorrecto");
 							}
 							else
 							{
@@ -108,29 +108,29 @@ async function(file)
 								sTempFreq = inputFrequencyArr;
 								//Checa con la expresión regular  (freqRegExpr) si la frecuencia empieza con números (Ej. 4 CITAS, 12 SESIONES POR SEMESTRE...)
 								//Si sí, guarda el string completo como un solo valor dentro del arreglo
-								if(freqRegExpr.test(inputFrequencyNoSpaces)){      			
+								if(freqRegExpr.test(inputFrequencyNoSpaces)){
 									sFrequency = inputFrequencyUpperCase;
 								}
 								else //Si el formato es LU JU, guarda cada día como un elemento del arreglo
 								{
-									sFrequency = sTempFreq;      					
+									sFrequency = sTempFreq;
 								}
 							}
 						}
 						////////////////////////////////////////////////////////////////////////
 						//HORA INICIO, Obligatoria
-						if(!row.values[3]){    
+						if(!row.values[3]){
 							isError = true;
 							sErrorMessage += ("Linea " + rowNumber + ": El campo Hora Inicio esta vacio<br>");
-							
-						}else{      		
+
+						}else{
 							dTimeTemp = new Date (row.values[3]);
 							//Si no es formato fecha marca error y se sale
 							if(isNaN(dTimeTemp.getTime()))
 							{
 								isError = true;
 								sErrorMessage +=("Linea " + rowNumber + ": El campo Hora Inicio no es una hora valida<br>");
-								
+
 							}
 							else{
 								//Guarda la hora como string (Ej. "06:15" "23:05")
@@ -138,14 +138,14 @@ async function(file)
 								iMinutes = dTimeTemp.getUTCMinutes();
 								iStartHour = iHour + (iMinutes/100); //Hora como formato número para fines de comparación de horas (Formato "6.15 = 6:15, 23.45 = 23:45")
 								sStartHour = ((iHour < 10 ? '0' : '')+iHour) + ":" +  ((iMinutes < 10 ? '0' : '') + iMinutes); //Guarda la hora como string, este valor es el que se dara de alta
-							}      		 
+							}
 						}
 						////////////////////////////////////////////////////////////////////////
 						//HORA FIN, Obligatoria
-						if(!row.values[4]){    
+						if(!row.values[4]){
 							isError = true;
 							sErrorMessage += ("Linea " + rowNumber + ": El campo Hora Final esta vacio<br>");
-							
+
 						}else
 						{
 							dTimeTemp = new Date (row.values[4]);
@@ -154,7 +154,7 @@ async function(file)
 							{
 								isError = true;
 								sErrorMessage += ("Linea " + rowNumber + ": El campo Hora Final no es una hora valida<br>");
-								
+
 							}
 							else{
 								//Guarda la hora como un double (Ej. 6.15 = 06:15, 23.05 = 23:05)
@@ -168,8 +168,8 @@ async function(file)
 							{
 								isError = true;
 								sErrorMessage += ("Linea " + rowNumber + ": La Hora Inicial no puede ser mayor o igual a la hora inicial<br>");
-									
-							}      		
+
+							}
 						}
 						//Lugar, Opcional,
 						sClassroom = (row.values[5]);
@@ -177,11 +177,11 @@ async function(file)
 						sInstructor = (row.values[6]);
 
 						//Cupo Obligatorio
-						if(!row.values[7]){    
+						if(!row.values[7]){
 							isError = true;
-							sErrorMessage += ("Linea " + rowNumber + ": El campo Cupo esta vacio<br>");		      		
+							sErrorMessage += ("Linea " + rowNumber + ": El campo Cupo esta vacio<br>");
 						}else{
-							if (isNaN(row.values[7])) 
+							if (isNaN(row.values[7]))
 							{
 								isError = true;
 								sErrorMessage += ("Linea " + rowNumber + ": El campo Cupo debe ser un numero<br>");
@@ -195,30 +195,30 @@ async function(file)
 
 						//genera una key con todos los valores y lo mete al arreglo de clases arrClases
 						sClase = {name: sName, frequency: sFrequency, startHour: sStartHour, endHour: sEndHour, classroom:sClassroom, instructor: sInstructor,quota:iCupo};
-						arrClases.push(sClase); 
-					}      
+						arrClases.push(sClase);
+					}
 					});
 				}
 				//Si se pudo leer todo el archivo sin errores se guarda en la base de datos
 				if(isError)
 				{
-					reject(sErrorMessage)					
+					reject(sErrorMessage)
 				}
 				else{
 					resolve(arrClases)
 
 				}
 			})
-		}	
+		}
 	})
 }
 
 ////////////ESCRIBIR UN EXCEL A PARTI DE UN JSON
-const jsonToExcel = 
+const jsonToExcel =
 function (arrClass,strPeriodo){
 
 	var outputName = "";
-	//Crea el workbook  
+	//Crea el workbook
 	var workbookOutput = new Excel.Workbook();
 	//Crea la worksheet llamada Formato
 	var worksheet = workbookOutput.addWorksheet('Formato');
@@ -280,15 +280,15 @@ function (arrClass,strPeriodo){
 		var instructor = arrClass[i]['instructor']
 		var cupo = arrClass[i]['quota']
 
-		//Si la frequency es tipo objeto (Ej. "LU MA VI") porque este formato guarda cada día como un arreglo 
+		//Si la frequency es tipo objeto (Ej. "LU MA VI") porque este formato guarda cada día como un arreglo
 		if(typeof frequency == 'object')
 		{
 			var tempNewFreq = ""
 			frequency.forEach(function(f){ //Guardar todos los elementos del arreglo como un string separado por un espacio
 				tempNewFreq = tempNewFreq + f + ' '
 			})
-			frequency = tempNewFreq.substring(0, tempNewFreq.length-1); //Se borra el último espacio del string 
-		}  	
+			frequency = tempNewFreq.substring(0, tempNewFreq.length-1); //Se borra el último espacio del string
+		}
 
 		dTimeStart = new Date(); //Se define un tipo fecha para la fecha inicial
 		dTimeStart.setUTCHours(parseInt(startHour.substring(0,2))); //Se le asignan la hora
@@ -299,7 +299,7 @@ function (arrClass,strPeriodo){
 		dTimeEnd.setUTCMinutes(parseInt(endHour.substring(3,5))); //Se le asigna los minutos
 
 		//Se imprimen todos los datos al renglón
-		worksheet.getRow(j).values = [nombre,frequency,dTimeStart,dTimeEnd,classroom,instructor,cupo] 
+		worksheet.getRow(j).values = [nombre,frequency,dTimeStart,dTimeEnd,classroom,instructor,cupo]
 		worksheet.getRow(j).alignment = { wrapText: true, vertical: 'middle'};
 	}
 

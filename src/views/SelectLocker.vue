@@ -151,8 +151,8 @@ export default {
            this.hasntLoaded = false;
 
         })
-        .catch((error) => {
-          console.error(error);
+        .catch(() => {
+          //console.error(error);
           this.$swal("Error", "No se pudo cargar periodo", "error");
 
 

@@ -117,13 +117,13 @@
               :search="search"
               loading-text="Cargando... Favor de esperar"
             >
-              <template v-slot:item.date="{ item }">
+              <template v-slot:[`item.date`]="{ item }">
                 <td>{{momentDatetime(item.date, 'LL')}}</td>
               </template>
-              <template #item.matricula="{item}">{{item.record.matricula}}</template>
-               <template #item.gender="{item}">{{item.record.gender}}</template>
-              <template #item.full_name="{item}">{{item.record.name}}  {{item.record.surname}}</template>
-              <template #item.nutriinfo="{item}">{{item.nutritionist.name}}</template>
+              <template #[`item.matricula`]="{item}">{{item.record.matricula}}</template>
+               <template #[`item.gender`]="{item}">{{item.record.gender}}</template>
+              <template #[`item.full_name`]="{item}">{{item.record.name}}  {{item.record.surname}}</template>
+              <template #[`item.nutriinfo`]="{item}">{{item.nutritionist.name}}</template>
               <template v-slot:top>
                 <v-toolbar flat color="white">
                     <v-text-field

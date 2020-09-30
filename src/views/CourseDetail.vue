@@ -95,7 +95,7 @@
             <template v-slot:no-data>
               <v-btn disabled color="primary">No hay usuarios</v-btn>
             </template>
-            <template v-slot:item.action="{ item }">
+            <template v-slot:[`item.action`]="{ item }">
               <v-btn class="ma-2" small color="error" @click="deleteItem(item)">
                 <v-icon>delete</v-icon>Desinscribir
               </v-btn>

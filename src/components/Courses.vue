@@ -10,7 +10,7 @@
             item-text="display"
             item-value="_id"
             label="Periodo"
-            @change="getCourses"            
+            @change="getCourses"
           ></v-select>
         </v-col>
       </v-row>
@@ -40,24 +40,24 @@
               single-line
               hide-details
             ></v-text-field>
-          <v-spacer></v-spacer> 
+          <v-spacer></v-spacer>
 
           <v-tooltip top>
             <template v-slot:activator="{ on }">
              <v-btn outlined color="primary" v-on="on" dark class="mb-2 mr-3" @click="downloadXls ">
                 <v-icon align="center" medium >mdi-file-excel-outline</v-icon>
-                <v-icon align="center" medium >mdi-download</v-icon>                  
+                <v-icon align="center" medium >mdi-download</v-icon>
             </v-btn>
             </template>
             <span>Descargar Lista de Clases en Excel</span>
-          </v-tooltip>  
+          </v-tooltip>
 
-          <v-dialog v-model="uploadDialog" max-width="500px">       
-               
-            <template v-slot:activator="{ on }">                  
+          <v-dialog v-model="uploadDialog" max-width="500px">
+
+            <template v-slot:activator="{ on }">
               <v-btn outlined color="primary"  v-on="on" class="mb-2 mr-3" @click="uploadXls">
                   <v-icon align="center" medium >mdi-file-excel-outline</v-icon>
-                  <v-icon align="center" medium >mdi-upload</v-icon>                  
+                  <v-icon align="center" medium >mdi-upload</v-icon>
               </v-btn>
             </template>
             <v-card>
@@ -73,10 +73,10 @@
                         <input type="file" id="file" ref="file"/>
                       </label>
                         <button :style= "excelButtonStyle"
-                                :disabled = "excelSubmissionIsLoading"                                            
+                                :disabled = "excelSubmissionIsLoading"
                                 v-on:click="submitFile()">{{excelButtonText}}</button>
                     </div>
-                  </div>                  
+                  </div>
                   <p class="pt-5 pb-0 px-5 my-0 caption">Formato de Excel para subir clases:</p>
                   <a class="py-0 px-5 my-0" href="https://drive.google.com/uc?export=download&id=1MCGOzwxftuFGaEcBNBzdkGsryQXlIYbl">Formato_Inscripciones_PBI.xlsx</a>
                   <p class="py-5 px-5 my-0 caption">La siguiente acción adjuntará la lista de clases encontradas al Excel a las clases actuales del Periodo
@@ -91,8 +91,8 @@
             </v-card>
           </v-dialog>
 
-          <v-dialog v-model="dialog" max-width="500px">           
-            <template v-slot:activator="{ on }">    
+          <v-dialog v-model="dialog" max-width="500px">
+            <template v-slot:activator="{ on }">
               <v-btn color="primary" dark class="mb-2" v-on="on">Crear clase</v-btn>
             </template>
             <v-card>
@@ -113,9 +113,9 @@
                         ></v-text-field>
                       </v-col>
                        <v-col cols="12">
-                        <v-text-field 
-                          v-model="editedItem.quota" 
-                          label="Cupo" 
+                        <v-text-field
+                          v-model="editedItem.quota"
+                          label="Cupo"
                           :rules="quotaRules"
                           required
                           ></v-text-field>
@@ -228,7 +228,7 @@
           </v-dialog>
         </v-toolbar>
       </template>
-      <template v-slot:item.action="{ item }">
+      <template v-slot:[`item.action`]="{ item }">
         <v-tooltip top>
           <template v-slot:activator="{ on }">
             <v-icon medium class="mr-2" v-on="on" @click="seeCourseDetail(item)">remove_red_eye</v-icon>
@@ -248,8 +248,8 @@
           <span>Borrar</span>
         </v-tooltip>
       </template>
-      <template v-slot:item.name="{ item }">
-        {{item.name}} 
+      <template v-slot:[`item.name`]="{ item }">
+        {{item.name}}
         <v-chip small class="ma-2" color="red" text-color="white" v-if="item.numEnrolled==item.quota">Cerrada</v-chip>
       </template>
 
@@ -279,7 +279,7 @@ export default {
     excelSubmissionIsLoading: false,
     excelButtonText: "Subir",
     activeButtonStyle: "background-color:#2B81D6; color:white; border:rounded; padding: 5px 5px; text-align: center; display: inline-block;",
-    excelButtonStyle: "",    
+    excelButtonStyle: "",
     rulesFrequency:  [
       (v) => !!v || "Frecuencia requerido",
       (v) => (v && v.length >= 1) || "Frecuencia de mínimo 1 día"
@@ -475,7 +475,7 @@ export default {
                 this.getCourses(this.selectedTerm);
             }
           })
-          
+
         })
         .catch(() => {
           this.$swal("Error", "No se pudieron cargar", "error");
@@ -495,15 +495,15 @@ export default {
           this.$swal("Error", "No se pudo eliminar", "error");
         });
     },
-    downloadXls(){      
+    downloadXls(){
       excelConversiones.jsonToExcel(this.courses,"Lista de clases")
     },
-    uploadXls(){      
+    uploadXls(){
       this.uploadDialog = true;
     },
     closeUpload(){
       this.uploadDialog = false;
-    },    
+    },
     updateCourse(id, course) {
       const URL = helper.baseURL + "/classes/" + id;
       axios.defaults.headers.common['Authorization'] = "Bearer "+ localStorage.getItem("token");
@@ -525,7 +525,7 @@ export default {
 
     },
     submitFile(){
-      
+
       this.excelSubmissionIsLoading = true
       this.excelButtonText= "Cargando"
       this.excelButtonStyle = "background-color:#808080; color:#D3D3D3; border:rounded; padding: 5px 5px; text-align: center;  display: inline-block;"
@@ -538,7 +538,7 @@ export default {
         })
           this.excelSubmissionIsLoading = false
           this.excelButtonText= "Subir"
-          this.excelButtonStyle = this.activeButtonStyle        
+          this.excelButtonStyle = this.activeButtonStyle
       }).catch((error)=>{
         this.$swal("Error",error,"error")
         this.excelButtonText= "Subir"

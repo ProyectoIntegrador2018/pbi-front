@@ -13,13 +13,13 @@
                     single-line
                     solo
                   ></v-text-field>
-                  <v-text-field 
+                  <v-text-field
                     v-model="userLogin.password"
                     :append-icon="show1 ? 'visibility' : 'visibility_off'"
                     :rules="[rules.required]"
                     :type="show1 ? 'text' : 'password'"
                     name="passLogin"
-                    label="Contraseña "                    
+                    label="Contraseña "
                     solo
                     @click:append="show1 = !show1"
                   ></v-text-field>
@@ -28,13 +28,13 @@
                   <v-col cols="12">
                     <iframe width="100%" height="100%" frameBorder="0" src="https://drive.google.com/file/d/1RaK1u8n79yWg1RD-rLu2BIcL8vqdAkIu/preview" allowfullscreen></iframe>
                   </v-col>
-                </v-row>                
+                </v-row>
                 </v-col>
               </v-row>
             </v-card>
         </v-row>
       </v-container>
-    
+
   </div>
 </template>
 
@@ -57,7 +57,7 @@ import axios from "axios";
     props: ["userType","redirectRoute"],
     methods:{
 
-      logIn(correo,pass){   
+      logIn(correo,pass){
           if(this.userType == "Administrador"){
             const URL = helper.baseURL + "/login";
           }
@@ -65,13 +65,13 @@ import axios from "axios";
             const URL = helper.baseURL + "/nutricion/login";
           }
           var temp = {"email":correo.toLowerCase(),"password":pass}
-          
+
           axios
           .post(URL, temp)
           .then(response => {
             localStorage.token = response.data.token
             this.redirect()
-          }).catch(error=>{  
+          }).catch(error=>{
             const mensaje = error.response.data.error
             const errorType = error.response.data.type
             var iconMessage = "error"
@@ -82,7 +82,7 @@ import axios from "axios";
       redirect() {
         window.open(this.redirectRoute, "_self");
       }
-      
+
     }
   }
 </script>

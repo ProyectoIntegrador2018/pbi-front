@@ -10,10 +10,10 @@
                                     <v-col cols="10" md="5">
                                         <v-card
                                         class="d-flex align-center"
-                                        color="#FFAE5C"                                   
+                                        color="#FFAE5C"
                                         @click="maleLockerReservation"
                                         >
-                                        <v-row>                                            
+                                        <v-row>
                                             <v-col cols="12" justify="center" align="center" class="py-0">
                                               <v-icon align="center" size="200" color="white">mdi-human-male</v-icon>
                                             </v-col>
@@ -34,7 +34,7 @@
                                         @click="femaleLockerReservation"
                                         >
                                         <v-row>
-                                            
+
                                             <v-col cols="12" justify="center" align="center" class="py-0">
                                               <v-icon align="center" size="200" color="white">mdi-human-female</v-icon>
                                             </v-col>
@@ -49,9 +49,9 @@
                                     </v-col>
                                 </v-row>
                             </v-container>
-                    </v-row>     
+                    </v-row>
                 </v-card>
-                </v-col>          
+                </v-col>
         </v-row>
       </v-container>
   </div>
@@ -76,7 +76,7 @@ export default {
       .get(URLH)
       .then(response => {
         this.maleDresserId = response.data._id
-        this.maleLockerCost = response.data.cost 
+        this.maleLockerCost = response.data.cost
       })
       .catch(error => {
       this.$swal("Error", error.response.data.error, "error");
@@ -96,8 +96,8 @@ export default {
 
   },
   mounted() {},
-  methods: {  
-    lockerReservation(lockersId,vestidor) 
+  methods: {
+    lockerReservation(lockersId,vestidor)
     {
         this.$swal({
           title:"Confirmar Reservación",
@@ -127,10 +127,10 @@ export default {
                 })
                 .catch(error => {
                 this.$swal("Error", error.response.data.error, "error");
-                //AQUI SE PREGUNTA SI QUIERE ENTRAR A LA LISTA DE ESPERA 
-                });      
-            }   
-            
+                //AQUI SE PREGUNTA SI QUIERE ENTRAR A LA LISTA DE ESPERA
+                });
+            }
+
           })
     },
     maleLockerReservation() {
@@ -139,7 +139,7 @@ export default {
     femaleLockerReservation() {
       this.lockerReservation(this.femaleDresserId,'MUJERES')
     }
-   
+
   }
 };
 </script>

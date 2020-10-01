@@ -80,8 +80,26 @@
             </v-data-table>
           </div>
       </v-container>
+
+      <v-container> 
+        <v-btn
+              elevation="2"
+        >
+            <vue-excel-xlsx
+              :data="appointments"
+              :columns="columns"
+              :filename="patient.name + ' ' +patient.surname"
+              :sheetname="'sheetname'"
+              >
+              Download Excel
+            </vue-excel-xlsx>
+        </v-btn>
+      {{appointments}}
+      {{nutritionistName}}
+      </v-container>
     </v-content>
   </div>
+
 </template>
 
 <script>
@@ -89,6 +107,11 @@ const helper = require("../helper.js");
 
 import axios from "axios";
 import nutriheader from "../components/nutriheader.vue";
+import VueExcelXlsx from "vue-excel-xlsx";
+import Vue from "vue";
+
+Vue.use(VueExcelXlsx);
+
 export default {
   name: "UserClasses",
   data(){
@@ -100,6 +123,7 @@ export default {
       periodID: "",
       show: true,
       appointments : [],
+      nutritionistName : "",
       headers: [
         { text: "Fecha", value:"formatDate"},
         { text: "Peso", value: "weight" },
@@ -112,12 +136,52 @@ export default {
         { text: "Atendió", value:"nutritionist.name"},
         { text: "Acciones", align: "center", value: "record"}
       ],
+      columns : [
+        {
+            label: "Fecha",
+            field: "date",
+        },
+        {
+            label: "Peso",
+            field: "weight",
+        },
+        {
+            label: "Altura",
+            field: "height",
+        },
+        {
+            label: "IMC",
+            field: "IMC",
+        },
+        {
+            label: "Masa Muscular",
+            field: "muscleMass",
+        },
+        {
+            label: "Masa de grasa",
+            field: "fatMass",
+        },
+        {
+            label: "Porcentaje de grasa",
+            field: "fatMassPct",
+        },
+        {
+            label: "Agua Corporal",
+            field: "totalWater",
+        },
+        {
+            label: "Atendio",
+            field: "nutritionist['name']",
+        },
+      ]
     }
   },
   components: {
     nutriheader
   },
-
+  updated: function() {
+    this.nutritionistName = this.appointments[0].nutritionist.name
+  },
   methods: {
     momentDatetime(datetime, datetime_format) {
       return this.$moment.utc(datetime).format(datetime_format);

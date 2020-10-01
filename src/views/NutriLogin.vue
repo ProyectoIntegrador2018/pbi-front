@@ -11,7 +11,6 @@
                     :rules="[rules.required]"
                     label="Correo electrónico"
                     single-line
-                    solo
                   ></v-text-field>
                   <v-text-field 
                     v-model="userLogin.password"
@@ -19,10 +18,25 @@
                     :rules="[rules.required]"
                     :type="show1 ? 'text' : 'password'"
                     name="passLogin"
-                    label="Contraseña "                    
-                    solo
+                    label="Contraseña "
                     @click:append="show1 = !show1"
                     v-on:keyup.enter="logIn(userLogin.email,userLogin.password)"
+                  ></v-text-field>
+                  <v-btn
+                    elevation="2"
+                    x-small
+                    @click="activation = !activation"
+                  >Activar usuario</v-btn>
+                  <v-text-field
+                    v-if="activation"
+                    v-model="userLogin.token"
+                    :append-icon="show1 ? 'visibility' : 'visibility_off'"
+                    :rules="[rules.required]"
+                    :type="show2 ? 'text' : 'password'"
+                    name="initToken"
+                    label="Código de activación"
+                    @click:append="show2 = !show2"
+                    v-on:keyup.enter="logIn(userLogin.email,userLogin.password,userLogin.token)"
                   ></v-text-field>
                   <v-btn large block color="primary" @click="logIn(userLogin.email,userLogin.password)">Entrar</v-btn>
                   <v-row>
@@ -45,19 +59,22 @@ import axios from "axios";
     data () {
       return {
         isError: false,
-        userLogin: {email:"",password:""},
+        userLogin: {email:"",password:"", token: ""},
         show1: false,
+        show2: false,
+        activation: false,
         rules: {
           required: value => !!value || 'Required.',
         },
       }
     },
     methods:{
-
-      logIn(correo,pass){   
-          
-          const URL = helper.baseURL + "/login";
-          var temp = {"email":correo.toLowerCase(),"password":pass}
+      logIn(){
+        const email = this.userLogin.email.toLowerCase(),
+          pass = this.userLogin.password,
+          token = this.userLogin.token;
+          const URL = helper.baseURL + "/nutricion/login";
+          var temp = { email,"password":pass,token}
           
           axios
           .post(URL, temp)
@@ -65,8 +82,9 @@ import axios from "axios";
             localStorage.token = response.data.token
             this.redirect()
           }).catch(error=>{  
+            console.log(error);
             const mensaje = error.response.data.error
-            const errorType = error.response.data.type
+            // const errorType = error.response.data.type
             var iconMessage = "error"
             var errorTitle = "Error"
             this.$swal(errorTitle,mensaje, iconMessage)

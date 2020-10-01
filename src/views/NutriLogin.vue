@@ -24,6 +24,22 @@
                     @click:append="show1 = !show1"
                     v-on:keyup.enter="logIn(userLogin.email,userLogin.password)"
                   ></v-text-field>
+                  <v-btn
+                    elevation="2"
+                    x-small
+                    @click="activation = !activation"
+                  >Activar usuario</v-btn>
+                  <v-text-field
+                    v-if="activation"
+                    v-model="userLogin.token"
+                    :append-icon="show1 ? 'visibility' : 'visibility_off'"
+                    :rules="[rules.required]"
+                    :type="show2 ? 'text' : 'password'"
+                    name="initToken"
+                    label="Código de activación"
+                    @click:append="show2 = !show2"
+                    v-on:keyup.enter="logIn(userLogin.email,userLogin.password)"
+                  ></v-text-field>
                   <v-btn large block color="primary" @click="logIn(userLogin.email,userLogin.password)">Entrar</v-btn>
                   <v-row>
                 </v-row>                
@@ -45,8 +61,10 @@ import axios from "axios";
     data () {
       return {
         isError: false,
-        userLogin: {email:"",password:""},
+        userLogin: {email:"",password:"", token: ""},
         show1: false,
+        show2: false,
+        activation: false,
         rules: {
           required: value => !!value || 'Required.',
         },
@@ -56,8 +74,9 @@ import axios from "axios";
 
       logIn(correo,pass){   
           
-          const URL = helper.baseURL + "/login";
-          var temp = {"email":correo.toLowerCase(),"password":pass}
+          const URL = helper.baseURL + "/nutricion/login";
+          var token = this.userLogin.token;
+          var temp = {"email":correo.toLowerCase(),"password":pass, token}
           
           axios
           .post(URL, temp)

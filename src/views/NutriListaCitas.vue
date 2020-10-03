@@ -82,21 +82,26 @@
       </v-container>
 
       <v-container> 
-        <v-btn
-              elevation="2"
-        >
-            <vue-excel-xlsx
-              :data="appointments"
-              :columns="columns"
-              :filename="patient.name + ' ' +patient.surname"
-              :sheetname="'sheetname'"
-              >
-              Download Excel
-            </vue-excel-xlsx>
-        </v-btn>
-      {{appointments}}
-      {{nutritionistName}}
+        <v-col cols="12" class=" text-center caption px-0 py-0">
+                <v-btn
+                      elevation="2"
+                      large class="blue  darken-3 white--text"
+                >
+                    <vue-excel-xlsx
+                      :data="appointments"
+                      :columns="columns"
+                      :filename="patient.name + ' ' +patient.surname"
+                      :sheetname="'sheetname'"
+                      >
+                      Download Excel
+                    </vue-excel-xlsx>
+                </v-btn>
+          </v-col>
       </v-container>
+
+
+ 
+
     </v-content>
   </div>
 
@@ -171,7 +176,7 @@ export default {
         },
         {
             label: "Atendio",
-            field: "nutritionist['name']",
+            field: "nutritionistName",
         },
       ]
     }
@@ -241,6 +246,10 @@ export default {
       .then((Response)=>{   
         this.appointments = Response.data
         this.isLoading = false
+        
+        for (var i = 0; i < this.appointments.length; i++) {
+            this.appointments[i].nutritionistName = this.appointments[i].nutritionist['name']
+        }
       })
       .catch((error)=>{
         this.$swal("Error",error.response.data.error,"error")

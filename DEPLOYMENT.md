@@ -1,6 +1,6 @@
 # PBI Front-End: Deployment
 
-In this document we specify how to create a single-view app of the project. 
+In this document we specify how to create a single-view app of the project.
 
 ## Table of contents
 
@@ -14,13 +14,13 @@ In this document we specify how to create a single-view app of the project.
 ### Technology Stack
 | Technology      | Version      |
 | --------------- | ------------ |
-| Vue             | 2.6.11       |
-| Vue/CLI         | 4.2.3        |
-| Vuetify         | 2.0.5        |
-| Axios           | 0.19.2       |
-| Exceljs         | 3.4.0        |
-| sweetalert2     | 9.3.13       |
-| moment-timezone | 0.5.27       |
+| Vue             | 2.6.12       |
+| Vue/CLI         | 4.5.6        |
+| Vuetify         | 2.3.10       |
+| Axios           | 0.20.0       |
+| Exceljs         | 4.1.1        |
+| sweetalert2     | 10.3.5       |
+| moment-timezone | 0.5.31       |
 
 
 ### Preconditions

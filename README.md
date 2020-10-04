@@ -23,7 +23,7 @@ Sistema de Inscripciones PBI (Sitio Web)
 | Name                         | Email             | Role                                                                               |
 | ---------------------------- | ----------------- | ---------------------------------------------------------------------------------- |
 | Patricia Magdalena González  | patygzz@tec.mx    | Directora en Dirección de Bienestar y Consejería ITESM Campus Mty.                 |
-| Sandra Nohemí Ramos Hernández| snrh@tec.mx       | Especialista de bienestar en Dirección de Bienestar y Consejería ITESM Campus Mty. | 
+| Sandra Nohemí Ramos Hernández| snrh@tec.mx       | Especialista de bienestar en Dirección de Bienestar y Consejería ITESM Campus Mty. |
 
 
 ### Environment URLS
@@ -52,13 +52,13 @@ Version 2.0
 ### Technology Stack
 | Technology      | Version      |
 | --------------- | ------------ |
-| Vue             | 2.6.11       |
-| Vue/CLI         | 4.2.3        |
-| Vuetify         | 2.0.5        |
-| Axios           | 0.19.2       |
-| Exceljs         | 3.4.0        |
-| sweetalert2     | 9.3.13       |
-| moment-timezone | 0.5.27       |
+| Vue             | 2.6.12       |
+| Vue/CLI         | 4.5.6        |
+| Vuetify         | 2.3.10       |
+| Axios           | 0.20.0       |
+| Exceljs         | 4.1.1        |
+| sweetalert2     | 10.3.5       |
+| moment-timezone | 0.5.31       |
 
 ### Management tools
 
@@ -96,16 +96,16 @@ $ npm install
 
 ### Running the stack for Development
 
-1. Fire up a terminal and run: 
+1. Fire up a terminal and run:
 
 ```
 npm run serve
 ```
 
-That command will creat a local instance of the site at `localhost:8080` 
+That command will creat a local instance of the site at `localhost:8080`
 
 
-It may take a while before you see anything. 
+It may take a while before you see anything.
 
 Once you see an output like this:
 

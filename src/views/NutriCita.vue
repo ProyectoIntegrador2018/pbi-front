@@ -298,7 +298,8 @@ export default {
              waist: this.cita.cintura,
              umbilical: this.cita.umbilical,
              hip: this.cita.cadera,
-             notes: this.cita.nota
+             notes: this.cita.nota,
+             diet: this.diet,
            }
 
            const URL = helper.baseURL + '/nutricion/appointment/' + this.$route.params.id
@@ -343,7 +344,8 @@ export default {
              waist: this.cita.cintura,
              umbilical: this.cita.umbilical,
              hip: this.cita.cadera,
-             notes: this.cita.nota
+             notes: this.cita.nota,
+             diet: this.diet,
            }
 
            const URL = helper.baseURL + '/nutricion/appointment/' + this.citaID
@@ -418,7 +420,6 @@ export default {
           }
       },
       loadData(){
-        const token = this.$route.query.token
         axios.defaults.headers.common['Authorization'] = "Bearer "+ localStorage.getItem("token");
         const URL = helper.baseURL + "/nutricion/appointment/"+this.citaID;
         
@@ -442,10 +443,11 @@ export default {
           this.cita.umbilical =  infoCita.umbilical,
           this.cita.cadera =  infoCita.hip,
           this.cita.nota =  infoCita.notes
+          this.diet = infoCita.diet
         }).catch(error => {
           this.$swal("Error",error.response.data.error,"error")
         })
-      }
+      },
   },  
   created(){
     this.updateView()

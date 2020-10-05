@@ -412,6 +412,7 @@ export default {
       updateView(){
           if(this.getParameterByName("cid",window.location)===null)
           {
+            this.loadLatestAppointmentData();
             this.willUpdate = false
           }else 
           {
@@ -447,6 +448,19 @@ export default {
         }).catch(error => {
           this.$swal("Error",error.response.data.error,"error")
         })
+      },
+      loadLatestAppointmentData() {
+        axios.defaults.headers.common['Authorization'] = "Bearer " + localStorage.getItem("token");
+        const URL = helper.baseURL + "/nutricion/latestAppointment/"+this.$route.params.id;
+
+        axios
+          .get(URL)
+          .then(response => {
+            console.log(response);
+            this.diet = response.data.diet;
+          }).catch(error => {
+            console.log(error);
+          });
       },
   },  
   created(){

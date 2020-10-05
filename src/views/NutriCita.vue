@@ -38,26 +38,16 @@
                     <span class="subtitle-2">
                       IMC: <span class="red--text">*</span>
                     </span>
-                    <v-text-field required v-model.number="cita.imc"  single-line solo disabled></v-text-field>
+                    <v-text-field required v-model.number="imc" :rules="numeroRules" single-line solo disabled></v-text-field>
                   </v-col>
 
                   <v-col cols="12" sm="6" class="py-0">
                     <span class="subtitle-2">
                       Diagnóstico IMC:<span class="red--text">*</span>
                     </span>
-                    <v-text-field required v-model="cita.diag_imc" single-line solo disabled></v-text-field>
+                    <v-text-field required v-model="diagnosis" single-line solo disabled></v-text-field>
                   </v-col>
                 </v-row>   
-                <v-row class="py-0">
-                  <v-col cols="12" class="pt-0">
-                    <v-btn large block color="primary" @click="calcularIMC">
-                     <v-icon align="center" medium >mdi-calculator</v-icon>
-                     Calcular
-                    </v-btn>
-                  </v-col>
-
-
-                </v-row>
 
                 <v-row justify="center" class="py-0">
                 <v-col cols="12" sm="4" class="py-0">
@@ -360,8 +350,6 @@ export default {
       cita: {
         altura:  0,
         peso:  0,
-        imc:  0,
-        diag_imc:  0,
         masaMuscular:  0,
         masaGrasa:  0,
         grasaCorporal:  0,
@@ -425,10 +413,37 @@ export default {
     fatProportion: function() {
       return this.zeroIfNan(this.caloriesFat / this.totalCalories * 100);
     },
+    imc: function() {
+      let calculatedImc = this.cita.peso / (this.cita.altura * this.cita.altura);
+      if (isNaN(calculatedImc)) {
+        return "No determinado";
+      }
+      return calculatedImc.toFixed(2);
+    },
+    diagnosis: function() {
+      if (isNaN(this.imc)) {
+        return "No determinado";
+      }
+      if (this.imc < 18.5) {
+        return "Bajo peso";
+      }
+      if (this.imc >= 18.5 && this.imc <= 24.9) {
+        return "Peso Normal";
+      }
+      if (this.imc >= 25 && this.imc <= 29.9) {
+        return "Sobrepeso";
+      }
+      if (this.imc >= 30 && this.imc <= 34.9) {
+        return "Obesidad grado I";
+      }
+      if (this.imc >= 35 && this.imc <= 39.9) {
+        return "Obesidad grado II";
+      }
+      return "Obesidad grado III";
+    },
   },
   methods: {
       save(){
-        this.calcularIMC()
         if(this.willUpdate){
           this.editCita()
         }else {
@@ -448,8 +463,8 @@ export default {
              date: new Date(),
              height: this.cita.altura,
              weight: this.cita.peso,
-             IMC: this.cita.imc,
-             IMCDiagnostic: this.cita.diag_imc,
+             IMC: this.imc,
+             IMCDiagnostic: this.diagnosis,
              muscleMass: this.cita.masaMuscular,
              fatMass: this.cita.masaGrasa,
              fatMassPct: this.cita.grasaCorporal,
@@ -494,8 +509,8 @@ export default {
           var json_cita = {
              height: this.cita.altura,
              weight: this.cita.peso,
-             IMC: this.cita.imc,
-             IMCDiagnostic: this.cita.diag_imc,
+             IMC: this.imc,
+             IMCDiagnostic: this.diagnosis,
              muscleMass: this.cita.masaMuscular,
              fatMass: this.cita.masaGrasa,
              fatMassPct: this.cita.grasaCorporal,
@@ -535,29 +550,6 @@ export default {
           this.load_status = "No están todos los campos";
         }
       },
-      calcularIMC(){
-        try {
-           this.cita.imc = this.cita.peso / (this.cita.altura * this.cita.altura)
-
-          if(this.cita.imc < 18.5){
-            this.cita.diag_imc = "Bajo peso"
-          }else if(this.cita.imc >= 18.5 && this.cita.imc <= 24.9){
-            this.cita.diag_imc = "Peso Normal"
-          }else if(this.cita.imc >= 25 && this.cita.imc <= 29.9){
-            this.cita.diag_imc = "Sobrepeso"
-          }else if(this.cita.imc >= 30 && this.cita.imc <= 34.9){
-            this.cita.diag_imc = "Obesidad grado I"
-          }else if(this.cita.imc >= 35 && this.cita.imc <= 39.9){
-            this.cita.diag_imc = "Obesidad grado II"
-          }else{
-            this.cita.diag_imc = "Obesidad grado III"
-          }
-           this.cita.imc = this.cita.imc.toFixed(2)
-        } catch (error) {
-          this.$swal("Error",error,"error")
-        }
-        
-      },
       irListaCitas(){
         var route = '/nutricion/pacientes/citas/'+ this.$route.params.id
         window.open(route, "_self");
@@ -593,8 +585,6 @@ export default {
           const infoCita = response.data
           this.cita.altura= infoCita.height,
           this.cita.peso= infoCita.weight,
-          this.cita.imc= infoCita.IMC,
-          this.cita.diag_imc =  infoCita.IMCDiagnostic,
           this.cita.masaMuscular =  infoCita.muscleMass,
           this.cita.masaGrasa =  infoCita.fatMass,
           this.cita.grasaCorporal =  infoCita.fatMassPct,

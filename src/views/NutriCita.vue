@@ -20,7 +20,7 @@
                     </span>
                     <v-text-field 
                       required
-                      v-model="cita.altura" 
+                      v-model.number="cita.altura" 
                       :rules="numFieldsRules"
                        single-line solo suffix="mts">
                     </v-text-field>
@@ -30,7 +30,7 @@
                     <span class="subtitle-2">
                       Peso: <span class="red--text">*</span>
                     </span>
-                    <v-text-field required v-model="cita.peso" :rules="numFieldsRules"  single-line solo suffix="kg"></v-text-field>
+                    <v-text-field required v-model.number="cita.peso" :rules="numFieldsRules"  single-line solo suffix="kg"></v-text-field>
                   </v-col>
                 </v-row>
                 <v-row justify="center" class="py-0">
@@ -38,7 +38,7 @@
                     <span class="subtitle-2">
                       IMC: <span class="red--text">*</span>
                     </span>
-                    <v-text-field required v-model="cita.imc"  single-line solo disabled></v-text-field>
+                    <v-text-field required v-model.number="cita.imc"  single-line solo disabled></v-text-field>
                   </v-col>
 
                   <v-col cols="12" sm="6" class="py-0">
@@ -64,21 +64,21 @@
                   <span class="subtitle-2">
                     <u>Masa muscular:</u>
                   </span>
-                  <v-text-field v-model="cita.masaMuscular"   single-line solo suffix="kg"></v-text-field>
+                  <v-text-field v-model.number="cita.masaMuscular"   single-line solo suffix="kg"></v-text-field>
                 </v-col>
 
                 <v-col cols="12" sm="4" class="py-0">
                   <span class="subtitle-2">
                     <u>Masa grasa:</u>
                   </span>
-                  <v-text-field v-model="cita.masaGrasa"  single-line solo suffix="kg"></v-text-field>
+                  <v-text-field v-model.number="cita.masaGrasa"  single-line solo suffix="kg"></v-text-field>
                 </v-col>
 
                 <v-col cols="12" sm="4" class="py-0">
                   <span class="subtitle-2">
                     <u>% grasa corporal:</u>
                   </span>
-                  <v-text-field v-model="cita.grasaCorporal"   single-line solo suffix="%"></v-text-field>
+                  <v-text-field v-model.number="cita.grasaCorporal"   single-line solo suffix="%"></v-text-field>
                 </v-col>
                 </v-row>
 
@@ -87,21 +87,21 @@
                     <span class="subtitle-2">
                       Agua corporal total:
                     </span>
-                    <v-text-field v-model="cita.aguaCorporal"  :rules="numeroRules" single-line solo suffix="Lt."></v-text-field>
+                    <v-text-field v-model.number="cita.aguaCorporal"  :rules="numeroRules" single-line solo suffix="Lt."></v-text-field>
                   </v-col>
 
                   <v-col cols="12" sm="4" class="py-0">
                     <span class="subtitle-2">
                       Agua intracelular:
                     </span>
-                    <v-text-field v-model="cita.aguaIntracelular" :rules="numeroRules" single-line solo suffix="Lt."></v-text-field>
+                    <v-text-field v-model.number="cita.aguaIntracelular" :rules="numeroRules" single-line solo suffix="Lt."></v-text-field>
                   </v-col>
 
                   <v-col cols="12" sm="4" class="py-0">
                     <span class="subtitle-2">
                       Agua extracelular:
                     </span>
-                    <v-text-field v-model="cita.aguaExtracelular" :rules="numeroRules" single-line solo suffix="Lt."></v-text-field>
+                    <v-text-field v-model.number="cita.aguaExtracelular" :rules="numeroRules" single-line solo suffix="Lt."></v-text-field>
                   </v-col>
                 </v-row>
 
@@ -110,14 +110,14 @@
                     <span class="subtitle-2">
                       Tasa metabolica basal:
                     </span>
-                    <v-text-field v-model="cita.tasaMetabolica"  :rules="numeroRules" single-line solo suffix="Kcal"></v-text-field>
+                    <v-text-field v-model.number="cita.tasaMetabolica"  :rules="numeroRules" single-line solo suffix="Kcal"></v-text-field>
                   </v-col>
 
                   <v-col cols="12" sm="6" class="py-0">
                     <span class="subtitle-2">
                       Grasa visceral:
                     </span>
-                    <v-text-field v-model="cita.grasaVisceral" :rules="numeroRules"  single-line solo></v-text-field>
+                    <v-text-field v-model.number="cita.grasaVisceral" :rules="numeroRules"  single-line solo></v-text-field>
                   </v-col>
                 </v-row>
 
@@ -126,21 +126,21 @@
                     <span class="subtitle-2">
                       Cintura:
                     </span>
-                    <v-text-field v-model="cita.cintura" :rules="numeroRules"  single-line solo suffix="cm"></v-text-field>
+                    <v-text-field v-model.number="cita.cintura" :rules="numeroRules"  single-line solo suffix="cm"></v-text-field>
                   </v-col>
 
                   <v-col cols="12" sm="4" class="py-0">
                     <span class="subtitle-2">
                       Umbilical:
                     </span>
-                    <v-text-field v-model="cita.umbilical" :rules="numeroRules"  single-line solo suffix="cm"></v-text-field>
+                    <v-text-field v-model.number="cita.umbilical" :rules="numeroRules"  single-line solo suffix="cm"></v-text-field>
                   </v-col>
 
                   <v-col cols="12" sm="4" class="py-0">
                     <span class="subtitle-2">
                       Cadera:
                     </span>
-                    <v-text-field v-model="cita.cadera" :rules="numeroRules" single-line solo suffix="cm"></v-text-field>
+                    <v-text-field v-model.number="cita.cadera" :rules="numeroRules" single-line solo suffix="cm"></v-text-field>
                   </v-col>
                 </v-row>
 

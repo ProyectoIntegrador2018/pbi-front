@@ -211,9 +211,58 @@ export default {
         umbilical:  0,
         cadera:  0,
         nota: ""
-      }
+      },
+      diet: {
+        fruit: 0,
+        vegetable: 0,
+        legume: 0,
+        cereal: 0,
+        sugar: 0,
+        fat: 0,
+        milkWhole: 0,
+        milkSemiSkimmed: 0,
+        milkSkimmed: 0,
+        meatWhole: 0,
+        meatSemiGreasy: 0,
+        meatGreasy: 0,
+      },
       
   }),
+  computed: {
+    gramsCarbs: function() {
+      return ((this.diet.fruit + this.diet.cereal) * 15) + (this.diet.vegetable * 4) + (this.diet.legume * 20) + 
+      ((this.diet.milkSkimmed + this.diet.milkSemiSkimmed + this.diet.milkWhole) * 12) + (this.diet.sugar * 10);
+    },
+    caloriesCarbs: function() {
+      return this.gramsCarbs * 4;
+    },
+    gramsFat: function() {
+      return this.diet.meatWhole + this.diet.meatSemiGreasy * 3 + this.diet.meatGreasy * 5 + this.diet.legume + 
+      this.diet.milkSkimmed * 2 + this.diet.milkSemiSkimmed * 4 + this.diet.milkWhole * 8 + this.diet.fat * 5;
+    },
+    caloriesFat: function() {
+      return this.gramsFat * 9;
+    },
+    gramsProtein: function() {
+      return (this.diet.cereal + this.diet.vegetable) * 2 + (this.diet.meatWhole + this.diet.meatSemiGreasy + 
+      this.diet.meatGreasy) * 7 + this.diet.legume * 8 + (this.diet.milkWhole + this.diet.milkSemiSkimmed + this.diet.milkSkimmed) * 9;
+    },
+    caloriesProtein: function() {
+      return this.gramsProtein * 4;
+    },
+    totalCalories: function() {
+      return this.caloriesCarbs + this.caloriesFat + this.caloriesProtein;
+    },
+    carbsProportion: function() {
+      return this.zeroIfNan(this.caloriesCarbs / this.totalCalories * 100);
+    },
+    proteinProportion: function() {
+      return this.zeroIfNan(this.caloriesProtein / this.totalCalories * 100);
+    },
+    fatProportion: function() {
+      return this.zeroIfNan(this.caloriesFat / this.totalCalories * 100);
+    },
+  },
   methods: {
       save(){
         this.calcularIMC()
@@ -223,6 +272,12 @@ export default {
           this.postNuevaCita()
         }
         
+      },
+      zeroIfNan(x){
+        if (isNaN(x)) {
+          return 0;
+        }
+        return x;
       },
       postNuevaCita(){
        if(this.$refs.form.validate()){

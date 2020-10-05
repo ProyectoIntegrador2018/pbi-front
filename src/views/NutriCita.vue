@@ -151,6 +151,169 @@
                     <v-text-field v-model="cita.nota" single-line solo></v-text-field>
                   </v-col>
 
+                <h2>Plan alimenticio</h2>
+                <v-row justify="center" class="py-0">
+                    <v-col cols="12" sm="4" class="py-0">
+                      <span class="subtitle-2">
+                        Frutas:
+                      </span>
+                      <v-text-field type="number" v-model.number="diet.fruit" :rules="numeroRules" single-line solo />
+                    </v-col>
+
+                    <v-col cols="12" sm="4" class="py-0">
+                      <span class="subtitle-2">
+                        Verduras:
+                      </span>
+                      <v-text-field type="number" v-model.number="diet.vegetable" :rules="numeroRules" single-line solo />
+                    </v-col>
+
+                    <v-col cols="12" sm="4" class="py-0">
+                      <span class="subtitle-2">
+                        Azúcar:
+                      </span>
+                      <v-text-field type="number" v-model.number="diet.sugar" :rules="numeroRules" single-line solo />
+                    </v-col>
+                </v-row>
+
+                <v-row justify="center" class="py-0">
+                    <v-col cols="12" sm="4" class="py-0">
+                      <span class="subtitle-2">
+                        Cereal:
+                      </span>
+                      <v-text-field type="number" v-model.number="diet.cereal" :rules="numeroRules" single-line solo />
+                    </v-col>
+
+                    <v-col cols="12" sm="4" class="py-0">
+                      <span class="subtitle-2">
+                        Leguminosas:
+                      </span>
+                      <v-text-field type="number" v-model.number="diet.legume" :rules="numeroRules" single-line solo />
+                    </v-col>
+
+                    <v-col cols="12" sm="4" class="py-0">
+                      <span class="subtitle-2">
+                        Grasas:
+                      </span>
+                      <v-text-field type="number" v-model.number="diet.fat" :rules="numeroRules" single-line solo />
+                    </v-col>
+                </v-row>
+              <h3>Leches</h3>
+              <v-row justify="center" class="py-0">
+                    <v-col cols="12" sm="4" class="py-0">
+                      <span class="subtitle-2">
+                        Entera:
+                      </span>
+                      <v-text-field type="number" v-model.number="diet.milkWhole" :rules="numeroRules" single-line solo />
+                    </v-col>
+
+                    <v-col cols="12" sm="4" class="py-0">
+                      <span class="subtitle-2">
+                        Semidescremada:
+                      </span>
+                      <v-text-field type="number" v-model.number="diet.milkSemiSkimmed" :rules="numeroRules" single-line solo />
+                    </v-col>
+
+                    <v-col cols="12" sm="4" class="py-0">
+                      <span class="subtitle-2">
+                        Descremada:
+                      </span>
+                      <v-text-field type="number" v-model.number="diet.milkSkimmed" :rules="numeroRules" single-line solo />
+                    </v-col>
+                </v-row>
+                <h3>Carnes</h3>
+                <v-row justify="center" class="py-0">
+                    <v-col cols="12" sm="4" class="py-0">
+                      <span class="subtitle-2">
+                        Magra:
+                      </span>
+                      <v-text-field type="number" v-model.number="diet.meatWhole" :rules="numeroRules" single-line solo />
+                    </v-col>
+
+                    <v-col cols="12" sm="4" class="py-0">
+                      <span class="subtitle-2">
+                        Semigrasosa:
+                      </span>
+                      <v-text-field type="number" v-model.number="diet.meatSemiGreasy" :rules="numeroRules" single-line solo />
+                    </v-col>
+
+                    <v-col cols="12" sm="4" class="py-0">
+                      <span class="subtitle-2">
+                        Grasosa:
+                      </span>
+                      <v-text-field type="number" v-model.number="diet.meatGreasy" :rules="numeroRules" single-line solo />
+                    </v-col>
+                </v-row>
+                <h3>Hidratos carbono</h3>
+                <v-row justify="center" class="py-0">
+                    <v-col cols="12" sm="4" class="py-0">
+                      <span class="subtitle-2">
+                        Gramos:
+                      </span>
+                      <v-text-field v-model="gramsCarbs" :rules="numeroRules" single-line solo disabled />
+                    </v-col>
+
+                    <v-col cols="12" sm="4" class="py-0">
+                      <span class="subtitle-2">
+                        Calorías:
+                      </span>
+                      <v-text-field v-model="caloriesCarbs" :rules="numeroRules" single-line solo disabled/>
+                    </v-col>
+
+                    <v-col cols="12" sm="4" class="py-0">
+                      <span class="subtitle-2">
+                        Porcentaje:
+                      </span>
+                      <v-text-field v-model="carbsProportion" :rules="numeroRules" single-line solo disabled/>
+                    </v-col>
+                </v-row>
+
+                <h3>Proteínas</h3>
+                <v-row justify="center" class="py-0">
+                    <v-col cols="12" sm="4" class="py-0">
+                      <span class="subtitle-2">
+                        Gramos:
+                      </span>
+                      <v-text-field v-model="gramsProtein" :rules="numeroRules" single-line solo disabled />
+                    </v-col>
+
+                    <v-col cols="12" sm="4" class="py-0">
+                      <span class="subtitle-2">
+                        Calorías:
+                      </span>
+                      <v-text-field v-model="caloriesProtein" :rules="numeroRules" single-line solo disabled/>
+                    </v-col>
+
+                    <v-col cols="12" sm="4" class="py-0">
+                      <span class="subtitle-2">
+                        Porcentaje:
+                      </span>
+                      <v-text-field v-model="proteinProportion" :rules="numeroRules" single-line solo disabled/>
+                    </v-col>
+                </v-row>
+
+                <h3>Grasa</h3>
+                <v-row justify="center" class="py-0">
+                    <v-col cols="12" sm="4" class="py-0">
+                      <span class="subtitle-2">
+                        Gramos:
+                      </span>
+                      <v-text-field v-model="gramsFat" :rules="numeroRules" single-line solo disabled />
+                    </v-col>
+
+                    <v-col cols="12" sm="4" class="py-0">
+                      <span class="subtitle-2">
+                        Calorías:
+                      </span>
+                      <v-text-field v-model="caloriesFat" :rules="numeroRules" single-line solo disabled/>
+                    </v-col>
+
+                    <v-col cols="12" sm="4" class="py-0">
+                      <span class="subtitle-2">
+                        Porcentaje:
+                      </span>
+                      <v-text-field v-model="fatProportion" :rules="numeroRules" single-line solo disabled/>
+                    </v-col>
+                </v-row>
               </v-container>
              </v-form>
           </v-card-text>

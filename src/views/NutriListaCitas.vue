@@ -15,6 +15,7 @@
               :headers="headers" 
               :items="appointments" 
               sort-by="date" 
+              sort-desc="true"
               class="elevation-1"
               :loading="isLoading"
               :search="search"

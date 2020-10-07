@@ -35,6 +35,7 @@ import NutriRecordatorio from './views/NutriRecordatorio.vue'
 import NutriCita from './views/NutriCita.vue'
 import NutriPacientes from './views/NutriPacientes.vue'
 import NutriListaCitas from './views/NutriListaCitas'
+import NutriPlan from './views/NutriPlan'
 
 import NutriReportesPacientes from './views/NutriReportesPacientes'
 import NutriIndicadores from './views/NutriIndicadores.vue'
@@ -300,6 +301,22 @@ const router = new Router({
             meta: {
                 isNutri: true
             }
+        },
+        {
+            path: '/nutricion/plan/:recordId',
+            name: 'NutriNewPlan',
+            component: NutriPlan,
+            meta: {
+                isNutri: true
+            },
+        },
+        {
+            path: '/nutricion/plan/:recordId/:dietId',
+            name: 'NutriPlan',
+            component: NutriPlan,
+            meta: {
+                isNutri: true
+            },
         },
         {
             path: '/nutricion/indicadores',

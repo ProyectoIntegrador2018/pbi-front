@@ -43,10 +43,10 @@ export default {
 
   methods: {
     goHome() {
-      window.open("/nutricion/home/", "_self");
+      this.$router.push("/nutricion/home/");
     },
     go() {
-      window.open(this.secondRoute, "_self");
+      this.$router.push(this.secondRoute);
     }
   }
 };

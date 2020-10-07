@@ -15,6 +15,7 @@
               :headers="headers" 
               :items="appointments" 
               sort-by="date" 
+              sort-desc="true"
               class="elevation-1"
               :loading="isLoading"
               :search="search"
@@ -81,6 +82,49 @@
           </div>
       </v-container>
 
+      <v-container fluid my-5 px-md-12>
+          <div>
+            <v-data-table
+              ref="diets"
+              :headers="dietHeaders"
+              :items="diets"
+              sort-by="date"
+              sort-desc="true"
+              class="elevation-1"
+              :loading="isLoading"
+              loading-text="Cargando... Favor de esperar"
+              >
+              <template #item.formatDate="{item}">{{momentDatetime(item.date,"LL")}}</template>
+              <template v-slot:top>
+                <v-toolbar flat color="white">
+                  <v-toolbar-title>Plan alimenticio</v-toolbar-title>
+                  <v-spacer></v-spacer>
+                  <v-spacer></v-spacer>
+                  <v-btn class="blue darken-3 white--text" @click="$router.push('/nutricion/plan/' + $route.params.id)">Nuevo plan</v-btn>
+                </v-toolbar>
+              </template>
+              <template v-slot:item.dietActions="{item}">
+                <v-tooltip top>
+                  <template v-slot:activator="{on}">
+                    <v-btn icon v-on="on">
+                      <v-icon small @click="openPlan(item)">search</v-icon>
+                    </v-btn>
+                  </template>
+                  <span>Ver/Editar Plan alimenticio</span>
+                </v-tooltip>
+                <v-tooltip top>
+                  <template v-slot:activator="{on}">
+                    <v-btn icon v-on="on">
+                      <v-icon small @click="deleteDiet(item)">delete</v-icon>
+                    </v-btn>
+                  </template>
+                  <span>Eliminar Plan alimenticio</span>
+                </v-tooltip>
+              </template>
+            </v-data-table>
+          </div>
+      </v-container>
+
       <v-container> 
         <v-col cols="12" class=" text-center caption px-0 py-0">
                 <v-btn
@@ -93,7 +137,7 @@
                       :filename="patient.name + ' ' +patient.surname"
                       :sheetname="'sheetname'"
                       >
-                      Download Excel
+                      Descargar Excel
                     </vue-excel-xlsx>
                 </v-btn>
           </v-col>
@@ -128,6 +172,7 @@ export default {
       periodID: "",
       show: true,
       appointments : [],
+      diets: [],
       nutritionistName : "",
       headers: [
         { text: "Fecha", value:"formatDate"},
@@ -140,6 +185,22 @@ export default {
         { text: "Agua corporal", value:"totalWater"},
         { text: "Atendió", value:"nutritionist.name"},
         { text: "Acciones", align: "center", value: "record"}
+      ],
+      dietHeaders: [ 
+        { text: "Fecha", value:"formatDate"},
+        { text: "Frutas", value:"fruit"},
+        { text: "Verduras", value:"vegetable"},
+        { text: "Leguminosas", value:"legume"},
+        { text: "Cereal", value: "cereal"},
+        { text: "Azúcar", value: "sugar"},
+        { text: "Grasas", value: "fat"},
+        { text: "Leche entera", value: "milkWhole"},
+        { text: "Leche semidescremada", value: "milkSemiSkimmed"},
+        { text: "Leche descremada", value: "milkSkimmed"},
+        { text: "Carne magra", value: "meatWhole"},
+        { text: "Carne semigrasosa", value: "meatSemiGreasy"},
+        { text: "Carne grasosa", value: "meatGreasy"},
+        { text: "Accciones", align: "center", value: "dietActions"},
       ],
       columns : [
         {
@@ -197,7 +258,7 @@ export default {
       return dateString
     },
     createAppoint(){
-      window.open("/nutricion/"+this.$route.params.id+"/cita","_self")
+      this.$router.push("/nutricion/"+this.$route.params.id+"/cita")
     },
     deleteItem(item){
       this.$swal({
@@ -224,6 +285,33 @@ export default {
           }
         })
     },
+    deleteDiet(diet) {
+      this.$swal({
+        title:"Eliminar plan",
+        text:"¿Seguro que desea eliminar este plan?",
+        type:"warning",
+        showCancelButton:true,
+        cancelButtonText:"No",
+        confirmButtonText:"Eliminar",
+        confirmButtonColor:"red",
+        cancelButtonColor:"blue",
+      }).then(result => {
+        if(result.value) {
+          axios.defaults.headers.common['Authorization'] = "Bearer " + localStorage.getItem("token");
+          const URL = helper.baseURL + "/nutricion/records/diet/"+this.$route.params.id+"/"+diet.id;
+          axios.delete(URL).then(response => {
+            console.log(response);
+            this.$swal("Plan eliminado", "", "success");
+            this.getPatient();
+          }).catch(error => {
+            this.$swal("Error", error.response.data.error, "error");
+          });
+        }
+      })
+    },
+    openPlan(diet) {
+      this.$router.push('/nutricion/plan/' + this.$route.params.id + '/'+diet.id);
+    },
     getPatient(){
       axios.defaults.headers.common['Authorization'] = "Bearer "+ localStorage.getItem("token");
       const URL = helper.baseURL + "/nutricion/records/"+this.$route.params.id;
@@ -231,6 +319,7 @@ export default {
       .get(URL)
       .then((response)=>{
         this.patient = response.data
+        this.diets = response.data.diets;
         this.getItems();
       }).catch((error)=>{
         this.$swal("Error",error.response.data.error,"error")

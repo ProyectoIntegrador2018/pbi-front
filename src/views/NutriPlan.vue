@@ -1,7 +1,7 @@
 <template>
   <div>
     <nutriheader
-      title="Cita de seguimiento"
+      title="Plan alimenticio"
       :secondRoute="`/nutricion/pacientes/citas/${this.$route.params.recordId}`"
     />
 

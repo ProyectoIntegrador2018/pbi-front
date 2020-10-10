@@ -20,9 +20,9 @@
                   v-on:keyup.enter="logIn(userLogin.email.toLowerCase(),userLogin.password)"
                 ></v-text-field>
                 <h6 align="center" class="mb-2">
-                  <a class="caption" href="/resetpassword">
+                  <router-link class="caption" to="/resetpassword">
                     <u>Olvidé mi contraseña</u>
-                  </a>
+                  </router-link>
                 </h6>
                 <v-btn
                   large
@@ -42,16 +42,16 @@
               <v-row>
                 <v-col cols="12" md="6">
                   <h6 align="center" class="mb-2">
-                    <a class="caption" href="/admin">
+                    <router-link class="caption" to="/admin">
                       <u>¿Eres Administrador?</u>
-                    </a>
+                    </router-link>
                   </h6>
                 </v-col>
                 <v-col cols="12" md="6">
                   <h6 align="center" class="mb-2">
-                    <a class="caption" href="/nutricion">
+                    <router-link class="caption" to="/nutricion">
                       <u>¿Eres Nutriologo?</u>
-                    </a>
+                    </router-link>
                   </h6>
                 </v-col>
               </v-row>

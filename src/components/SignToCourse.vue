@@ -155,7 +155,7 @@ export default {
       if(arrClases.length==0){
         this.getTerms()
         if(!this.isFailedInscription){
-          window.open("/uclases","_self")
+          this.$router.push("/uclases")
         }else{
           window.location.reload()
         }

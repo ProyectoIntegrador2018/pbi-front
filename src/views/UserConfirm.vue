@@ -104,7 +104,7 @@ export default {
     },
     goToLogin(){
       var route = "/login/";
-      window.open(route, "_self");
+      this.$router.push(route);
     }
   },
   created(){

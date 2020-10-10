@@ -277,7 +277,7 @@ export default {
       },
       redirect() {
         var route = "/home/";
-        window.open(route, "_self");
+        this.$router.push(route);
       },
       resendConfirm(){
         const URL = helper.baseURL + "/confirm/retry";

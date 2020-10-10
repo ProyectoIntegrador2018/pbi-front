@@ -113,7 +113,7 @@ export default {
         .then(response => {
             this.$swal("Contraseña restablecida","Se ha modificado tu contraseña","success")
             .then((_) => {
-                window.open("/login/","_self")
+                this.$router.push("/login/")
             })
         }).catch(error =>{
             this.$swal("Error",error.response.data.error,"error")

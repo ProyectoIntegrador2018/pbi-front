@@ -43,10 +43,10 @@ export default {
 
   methods: {
     goHome() {
-      window.open("/admin/home/", "_self");
+      this.$router.push("/admin/home/");
     },
     go() {
-      window.open(this.secondRoute, "_self");
+      this.$router.push(this.secondRoute);
     }
   }
 };

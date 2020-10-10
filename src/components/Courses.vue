@@ -521,7 +521,7 @@ export default {
     seeCourseDetail(item){
       var route = '/courseDetail/';
       route = route.concat(item._id)
-      window.open(route,"_self");
+      this.$router.push(route);
 
     },
     submitFile(){

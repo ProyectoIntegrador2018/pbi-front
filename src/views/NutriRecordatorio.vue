@@ -566,9 +566,9 @@ export default {
                     cancelButtonText: 'Regresar a lista de expedientes'
                  }).then((result)=>{                   
                    if(result.value){
-                     window.open("/nutricion/"+this.$route.params.id+"/cita","_self")
+                     this.$router.push("/nutricion/"+this.$route.params.id+"/cita")
                    }else{
-                     window.open("/nutricion/pacientes","_self")
+                     this.$router.push("/nutricion/pacientes")
                    }
                  })
                })

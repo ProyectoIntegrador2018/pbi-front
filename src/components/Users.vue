@@ -409,12 +409,12 @@ export default {
     historialMedico(item) {
       var route = "/admin/medicalrecord/";
       route = route.concat(item._id);
-      window.open(route, "_self");
+      this.$router.push(route);
     },
     clasesInscritas(item) {
       var route = "/userdetails/";
       route = route.concat(item._id);
-      window.open(route, "_self");
+      this.$router.push(route);
     },
     deleteUser(item) {
       this.$swal({

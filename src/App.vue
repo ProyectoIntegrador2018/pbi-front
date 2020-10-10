@@ -52,7 +52,7 @@ export default {
         this.$swal("Sesión cerrada","Has cerrado sesión","success")
         .then(()=>{
           window.localStorage.removeItem("token")
-          window.open("/login","_self") 
+          this.$router.push("/login") 
         })
       })
       .catch(()=>{

@@ -347,7 +347,7 @@ export default {
     },
     verCita(item){
       var route = '/nutricion/'+this.$route.params.id+'/cita?cid=' +item._id
-      window.open(route,"_self")
+      this.$router.push(route)
     }
   },
   created(){

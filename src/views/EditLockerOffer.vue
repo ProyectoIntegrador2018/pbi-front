@@ -274,7 +274,7 @@ export default {
         {
           this.$swal("Sin cambios", "No hay cambios que realizar", "success").then(()=>{
             var route = "/lockers/";
-            window.open(route, "_self");
+            this.$router.push(route);
           });  
         }else
           this.saveLockerInfoMale();

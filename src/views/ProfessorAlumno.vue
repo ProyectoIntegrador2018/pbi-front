@@ -223,7 +223,7 @@ export default {
     showStudentData(item){
       var idStudent = item._id
       var route = '/profesor/alumno/'+idStudent
-      window.open(route, "_self");
+      this.$router.push(route);
     }
     ,
     deleteItem(item) {

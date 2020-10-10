@@ -126,7 +126,7 @@ export default {
             this.getTerms();
           } else {
             var route = "/mymedicalrecord/";
-            window.open(route, "_self");
+            this.$router.push(route);
           }
 
           if (response.data.locker){

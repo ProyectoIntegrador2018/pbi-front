@@ -114,13 +114,13 @@ export default {
   },
   methods: {
     showAppoint(item){
-      window.open("/nutricion/pacientes/citas/"+item._id,"_self")
+      this.$router.push("/nutricion/pacientes/citas/"+item._id)
     },
     showReport(item){
-      window.open("/nutricion/informacionpersonal?id="+item._id,"_self")
+      this.$router.push("/nutricion/informacionpersonal?id="+item._id)
     },
     createAppoint(item){
-      window.open("/nutricion/"+item._id+"/cita","_self")
+      this.$router.push("/nutricion/"+item._id+"/cita")
     },
     redirect() {
       var route = "/clases/";
@@ -128,10 +128,10 @@ export default {
     },
     redirectToUserInfo() {
       var route = "/myinfo/";
-      window.open(route, "_self");
+      this.$router.push(route);
     },
     viewReports(){
-      window.open("/nutricion/pacientes/reportes", "_self");
+      this.$router.push("/nutricion/pacientes/reportes");
     },
     deleteItem(item){
       this.$swal({

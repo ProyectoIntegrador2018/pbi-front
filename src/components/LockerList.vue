@@ -233,7 +233,7 @@ export default {
   methods: {
     sendToLockerOffer(){
       var route = "/lockeroffer/";
-      window.open(route, "_self");
+      this.$router.push(route);
     },
     emptyAllLockers(){
       this.$swal({

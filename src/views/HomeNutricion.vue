@@ -86,15 +86,15 @@ export default {
   methods: {
     redirectToAgenda() {
       var route = "/error/";
-      window.open(route, "_self");
+      this.$router.push(route);
     },
     redirectToPacientes() {
       var route = "/nutricion/pacientes";
-      window.open(route, "_self");
+      this.$router.push(route);
     },
     redirectToReportes() {
       var route = "/nutricion/indicadores";
-      window.open(route, "_self");
+      this.$router.push(route);
     }
   }
 };

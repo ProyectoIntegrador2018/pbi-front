@@ -102,19 +102,19 @@ export default {
   methods: {
     redirect() {
       var route = "/clases/";
-      window.open(route, "_self");
+      this.$router.push(route);
     },
     redirectToTerm() {
       var route = "/periodo/";
-      window.open(route, "_self");
+      this.$router.push(route);
     },
     redirectUsers() {
       var route = "/users/";
-      window.open(route, "_self");
+      this.$router.push(route);
     },
     redirectLockers(){
       var route = "/lockers/";
-      window.open(route, "_self");
+      this.$router.push(route);
     }
   }
 };

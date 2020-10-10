@@ -110,7 +110,7 @@ export default {
         });
     },
     irCursos(){
-        window.open("/uclases","_self")
+        this.$router.push("/uclases")
     }
   }
 };

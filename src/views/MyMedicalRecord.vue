@@ -518,7 +518,7 @@ export default {
         .then(response => {
             this.$swal("Información Guardada","Se ha actualizado tu Historial Clínico","success")
             .then((_) => {
-                window.open("/home","_self")
+                this.$router.push("/home")
             })
         }).catch(error =>{
             this.$swal("Error",error.response.data.error,"error")

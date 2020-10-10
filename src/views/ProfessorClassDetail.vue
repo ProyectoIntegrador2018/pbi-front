@@ -237,7 +237,7 @@ export default {
     showStudentData(item){
       var idStudent = item._id
       var route = '/profesor/alumno/'+idStudent+'?idClase='+ this.$route.params.id
-      window.open(route, "_self");
+      this.$router.push(route);
     }
     ,
     deleteItem(item) {

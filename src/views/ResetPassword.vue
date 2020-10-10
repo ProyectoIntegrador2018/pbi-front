@@ -73,7 +73,7 @@ export default {
             this.$swal("Siguiente paso",
             "Revisa tu correo electrónico para actualizar tu contraseña. Remitente: 'pbi.mty.servicios@gmail.com' (En caso de no encontrar el correo, buscar en carpeta de 'Correo no deseado' o 'Junk')",
             "success")
-            .then(() => {window.open("/", "_self");})
+            .then(() => {this.$router.push("/");})
         }).catch(error=>{  
             this.$swal("Error",error.response.data.error,"error")
         })

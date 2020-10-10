@@ -671,7 +671,7 @@ export default {
           var userId = response.data._id
           this.$swal("Información Guardada","Se ha actualizado la Información del Paciente","success")
           .then((_) => {
-              window.open("./expedientemedico?id="+userId,"_self")
+              this.$router.push("./expedientemedico?id="+userId)
           })
       }).catch(error =>{
           this.$swal("Error",error.response.data.error,"error")
@@ -722,7 +722,7 @@ export default {
           var newUserId = response.data._id
           this.$swal("Información Guardada","Se ha registrado la Información del Paciente","success")
           .then((_) => {
-              window.open("./expedientemedico?id="+newUserId,"_self")
+              this.$router.push("./expedientemedico?id="+newUserId)
           })
       }).catch(error =>{
           this.$swal("Error",error.response.data.error,"error")

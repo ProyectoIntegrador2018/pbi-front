@@ -93,7 +93,7 @@ export default {
     },
     redirectToUserInfo() {
       var route = "/myinfo/";
-      window.open(route, "_self");
+      this.$router.push(route);
     },
     showClass(item){
       var idClase = item._id

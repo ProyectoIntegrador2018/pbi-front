@@ -99,7 +99,7 @@ export default {
     },
     redirectToUserInfo() {
       var route = "/myinfo/";
-      window.open(route, "_self");
+      this.$router.push(route);
     },
     deleteItem(item){
       this.$swal({

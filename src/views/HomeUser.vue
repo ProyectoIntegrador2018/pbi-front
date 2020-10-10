@@ -191,11 +191,11 @@ export default {
   methods: {
     redirectToEnrolledCourses() {
       var route = "/uclases/";
-      window.open(route, "_self");
+      this.$router.push(route);
     },
     redirectToUserInfo() {
       var route = "/myinfo/";
-      window.open(route, "_self");
+      this.$router.push(route);
     },
     redirectToCourseSignUp() {
       if(!this.userData){
@@ -216,7 +216,7 @@ export default {
         }
       else if (this.hasMedicalRecord()){
         var route = "/inscribirclase/";
-        window.open(route, "_self");
+        this.$router.push(route);
       }
       else {        
         this.$swal({
@@ -238,7 +238,7 @@ export default {
     },
     redirectToMedicalRecord() {
       var route = "/mymedicalrecord/";
-      window.open(route, "_self");
+      this.$router.push(route);
     },
     redirectToLockers() {
       if(!this.userData){
@@ -259,7 +259,7 @@ export default {
         }
       else if (this.hasMedicalRecord()){
         var route = "/selectlocker/";
-        window.open(route, "_self");
+        this.$router.push(route);
       }
       else {        
         this.$swal({

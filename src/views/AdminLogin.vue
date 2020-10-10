@@ -77,7 +77,7 @@ import axios from "axios";
       },
       redirect() {
         var route = "/admin/home/";
-        window.open(route, "_self");
+        this.$router.push(route);
       }
       
     }

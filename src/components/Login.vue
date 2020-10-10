@@ -80,7 +80,7 @@ import axios from "axios";
           })
       },
       redirect() {
-        window.open(this.redirectRoute, "_self");
+        this.$router.push(this.redirectRoute);
       }
       
     }

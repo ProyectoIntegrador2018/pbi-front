@@ -621,7 +621,7 @@ export default {
       .then(response => {
           this.$swal("Información Guardada","Se ha actualizado la Información del Paciente","success")
           .then((_) => {
-              window.open("./"+this.userId+"/recordatorio","_self")
+              this.$router.push("./"+this.userId+"/recordatorio")
           })
       }).catch(error =>{
           this.$swal("Error",error.response.data.error,"error")
@@ -635,7 +635,7 @@ export default {
       if(this.userId === null)
       {
         this.$swal("Error","El usuario no existe","error")
-        window.open("./informacionpersonal","_self")        
+        this.$router.push("./informacionpersonal")        
       }
 
       const token = this.$route.query.token

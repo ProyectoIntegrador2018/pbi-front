@@ -93,7 +93,7 @@ import axios from "axios";
       },
       redirect() {
         var route = "/nutricion/home/";
-        window.open(route, "_self");
+        this.$router.push(route);
       }
       
     }

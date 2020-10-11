@@ -384,6 +384,24 @@ export default {
         this.errorMsg.confirmNomina = "";
       }
     },
+  },
+  async beforeCreate() {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      return;
+    }
+    const URL = helper.baseURL + '/validate?token=' + token;
+    const response = await axios.get(URL);
+    if (!response || !response.data) {
+      return;
+    }
+    if(response.data.admin) {
+      this.$router.push('/admin/home');
+    } else if(response.data.nutritionist) {
+      this.$router.push('/nutricion/home');
+    } else {
+      this.$router.push('/home');
+    }
   }
 };
 </script>

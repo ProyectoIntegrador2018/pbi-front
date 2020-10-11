@@ -341,6 +341,7 @@ router.beforeEach((to, from, next) => {
 
     if (!autorizacionAdmin && !autorizacionUsr && !autorizacionNutri) {
         next()
+        return
     }
 
     if (autorizacionAdmin && !localStorage.getItem("token")) {
@@ -400,35 +401,9 @@ router.beforeEach((to, from, next) => {
                                 path: '/404'
                             })
                         }
-                    } /*
-                    else if(autorizacionProf) {
-                        if (response.data.professor) {
-                            next()
-                        } else {
-                            next({
-                                path: '/404'
-                            })
-                        }
-                    }*/
+                    }
                     else {
-                        
-                        if (!autorizacionUsr) {
-                            if(response.data.nutritionist){
-                                next({
-                                    path: '/nutricion/home'
-                                })
-                            }if(response.data.admin){
-                                next({
-                                    path: '/admin/home'
-                                })
-                            }else{
-                                next({
-                                    path: '/home'
-                                })
-                            }
-                        } else {
-                            next()
-                        }
+                        next();
                     }
                 }
             }).catch((error) => {

@@ -357,17 +357,16 @@ router.beforeEach((to, from, next) => {
 
     if (autorizacionNutri && !localStorage.getItem("token")) {
         next({
-            path: '/nutricion/login'
+            path: '/nutricion'
         })
     }
 
     if (localStorage.getItem("token")) {
-        var token = window.localStorage.getItem("token")
+        const token = window.localStorage.getItem("token")
         const URL = helper.baseURL + "/validate?token=" + token;
         axios
             .get(URL)
             .then(response => {
-                // Mandar a login correspondiente si el token es inválido
                 if (!response.data) {
                     window.localStorage.clear("token")
                     if (autorizacionAdmin) {
@@ -376,16 +375,13 @@ router.beforeEach((to, from, next) => {
                         })
                     } else if (autorizacionNutri) {
                         next({
-                            path: '/nutricion/login'
+                            path: '/nutricion'
                         })
-                        // }else if(autorizacionProf){
-                        //     next({ path: '/professor/login'})
                     } else {
                         next({
                             path: '/login'
                         })
                     }
-                    //Si el token es válido, checar que tipo de cuenta es
                 } else {
                     if (autorizacionAdmin) {
                         if (response.data.admin) {
@@ -443,10 +439,8 @@ router.beforeEach((to, from, next) => {
                     })
                 } else if (autorizacionNutri) {
                     next({
-                        path: '/nutricion/login'
+                        path: '/nutricion'
                     })
-                    // }else if(autorizacionProf){
-                    //     next({ path: '/professor/login'})
                 } else {
                     next({
                         path: '/login'

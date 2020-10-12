@@ -341,6 +341,7 @@ router.beforeEach((to, from, next) => {
 
     if (!autorizacionAdmin && !autorizacionUsr && !autorizacionNutri) {
         next()
+        return
     }
 
     if (autorizacionAdmin && !localStorage.getItem("token")) {
@@ -357,17 +358,16 @@ router.beforeEach((to, from, next) => {
 
     if (autorizacionNutri && !localStorage.getItem("token")) {
         next({
-            path: '/nutricion/login'
+            path: '/nutricion'
         })
     }
 
     if (localStorage.getItem("token")) {
-        var token = window.localStorage.getItem("token")
+        const token = window.localStorage.getItem("token")
         const URL = helper.baseURL + "/validate?token=" + token;
         axios
             .get(URL)
             .then(response => {
-                // Mandar a login correspondiente si el token es inválido
                 if (!response.data) {
                     window.localStorage.clear("token")
                     if (autorizacionAdmin) {
@@ -376,16 +376,13 @@ router.beforeEach((to, from, next) => {
                         })
                     } else if (autorizacionNutri) {
                         next({
-                            path: '/nutricion/login'
+                            path: '/nutricion'
                         })
-                        // }else if(autorizacionProf){
-                        //     next({ path: '/professor/login'})
                     } else {
                         next({
                             path: '/login'
                         })
                     }
-                    //Si el token es válido, checar que tipo de cuenta es
                 } else {
                     if (autorizacionAdmin) {
                         if (response.data.admin) {
@@ -404,35 +401,9 @@ router.beforeEach((to, from, next) => {
                                 path: '/404'
                             })
                         }
-                    } /*
-                    else if(autorizacionProf) {
-                        if (response.data.professor) {
-                            next()
-                        } else {
-                            next({
-                                path: '/404'
-                            })
-                        }
-                    }*/
+                    }
                     else {
-                        
-                        if (!autorizacionUsr) {
-                            if(response.data.nutritionist){
-                                next({
-                                    path: '/nutricion/home'
-                                })
-                            }if(response.data.admin){
-                                next({
-                                    path: '/admin/home'
-                                })
-                            }else{
-                                next({
-                                    path: '/home'
-                                })
-                            }
-                        } else {
-                            next()
-                        }
+                        next();
                     }
                 }
             }).catch((error) => {
@@ -443,10 +414,8 @@ router.beforeEach((to, from, next) => {
                     })
                 } else if (autorizacionNutri) {
                     next({
-                        path: '/nutricion/login'
+                        path: '/nutricion'
                     })
-                    // }else if(autorizacionProf){
-                    //     next({ path: '/professor/login'})
                 } else {
                     next({
                         path: '/login'

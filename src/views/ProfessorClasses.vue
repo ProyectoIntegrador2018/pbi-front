@@ -89,7 +89,7 @@ export default {
     },
     redirect() {
       var route = "/clases/";
-      window.open(route, "_blank");
+      this.$router.push(route)
     },
     redirectToUserInfo() {
       var route = "/myinfo/";

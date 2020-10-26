@@ -116,7 +116,7 @@ export default {
     seeCourseDetail(item){
       var route = '/courseDetail/';
       route = route.concat(item._id)
-      window.open(route,"_blank");
+      this.$router.push(route);
 
     },
     deleteItem(item) {

@@ -123,12 +123,10 @@ export default {
       this.$router.push("/nutricion/"+item._id+"/cita")
     },
     redirect() {
-      var route = "/clases/";
-      window.open(route, "_blank");
+      this.router.push("/clases/");
     },
     redirectToUserInfo() {
-      var route = "/myinfo/";
-      this.$router.push(route);
+      this.$router.push("/myinfo/");
     },
     viewReports(){
       this.$router.push("/nutricion/pacientes/reportes");

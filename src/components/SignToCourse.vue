@@ -157,7 +157,7 @@ export default {
         if(!this.isFailedInscription){
           this.$router.push("/uclases")
         }else{
-          window.location.reload()
+          this.$router.go();
         }
         return
       }else{

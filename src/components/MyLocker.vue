@@ -90,7 +90,7 @@ export default {
                     title:"Reservación Cancelada",
                     type:"success"
                 }).then(()=>{
-                    window.location.reload()
+                  this.$router.go()
                 })
               }) .catch(error => {
                 this.$swal("Error", error.response.data.error, "error");                 

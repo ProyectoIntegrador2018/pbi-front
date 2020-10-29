@@ -66,32 +66,14 @@ $ npm run build
 5. The project is ready for its deployment
 
 ### Deploying the project
-#### Firebase example:
-1. Open a terminal in the root project.
+#### Netlify example
 
-2. Initialize a session in firebase using:
-```bash
-firebase login
-```
-3. Initialize a project:
-```bash
-firabase init
-```
-4. For this front-ent the only service that need to be selected is Hosting:
-```bash
-() Hosting: Configure and deploy Firebase Hosting sites
-```
-5. Follow the instructions of the client. Select the project as a single-view app. And select 'dist' as the public folder.
+1. Hacer login en Netlify
+```netlify login```
 
-6. You can test your site usign:
-```bash
-firabase serve
-```
+2. Hacer deploy con Netlify
+```netlify deploy --open```
 
-7. To deploy the project to firebase use the next command:
-```bash
-firabase deploy
-```
 Now the site is running on the internet.
 
 Make sure to correctly conect the back-end.

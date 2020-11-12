@@ -202,6 +202,11 @@
             Descargar Indicadores Globales
           </v-btn>
         </v-col>
+        <v-col align="center" cols="12">
+          <v-btn color="secondary" @click="downloadMyIndicators()">
+            Descargar mis indicadores
+          </v-btn>
+        </v-col>
         </v-row>
       </v-container>
   </div>
@@ -356,6 +361,16 @@ export default {
         FileDownload(response.data, 'IndicadoresGlobales.xlsx');
       }
     },
+    async downloadMyIndicators() {
+      const URL = helper.baseURL + "/nutricion/excel/nutri";
+      axios.defaults.headers.common['Authorization'] = "Bearer "+ localStorage.getItem("token");
+      const response = await axios.get(URL, {
+        responseType: 'blob',
+      });
+      if (response.data) {
+        FileDownload(response.data, 'MisIndicadores.xlsx');
+      }
+    }
   }
 };
 </script>

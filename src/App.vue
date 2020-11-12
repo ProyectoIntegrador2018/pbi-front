@@ -17,7 +17,7 @@
       <v-content fluid fill-height>
         <router-view />
       </v-content>
-      <v-footer padless>        
+      <!-- <v-footer padless>        
         <v-col cols="12" class=" text-center caption px-0 py-0">
           Dudas y Apoyo:
           83 58 2000 ext. 3651 |
@@ -27,7 +27,7 @@
           &copy{{ new Date().getFullYear() }} —
           Tecnológico de Monterrey, Campus Monterrey
         </v-col>
-      </v-footer>
+      </v-footer> -->
     </v-app>
   </div>
 </template>
@@ -52,7 +52,7 @@ export default {
         this.$swal("Sesión cerrada","Has cerrado sesión","success")
         .then(()=>{
           window.localStorage.removeItem("token")
-          this.$router.push("/login") 
+          window.open("/login","_self") 
         })
       })
       .catch(()=>{

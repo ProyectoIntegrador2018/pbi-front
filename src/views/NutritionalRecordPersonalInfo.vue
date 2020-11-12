@@ -11,10 +11,10 @@
                         </v-col>
                         <v-col cols="5">
                             <v-row class="px-5">
-                                <v-col class="px-0 py-0" cols="12">                                           
+                                <v-col class="px-0 py-0" cols="12">
                                         <span class="subtitle-1"> Matrícula/Nómina: <span class="red--text">*</span></span>
                                         <v-text-field
-                                        v-model="patient.nomina"                        
+                                        v-model="patient.nomina"
                                         label="L0XXXXXXX / A0XXXXXXX"
                                         single-line
                                         solo
@@ -22,11 +22,11 @@
                                         @change="this.validateNomina"
                                         :errorMessages="this.errorPatient.nomina"
                                         ></v-text-field>
-                                </v-col> 
-                                <v-col v-if="!willUpdateInfo" class="px-0 py-0" cols="12">                                           
+                                </v-col>
+                                <v-col v-if="!willUpdateInfo" class="px-0 py-0" cols="12">
                                         <span class="subtitle-1"> Confirmar Matrícula/Nómina: <span class="red--text">*</span></span>
                                         <v-text-field
-                                        v-model="patient.confirmNomina"                        
+                                        v-model="patient.confirmNomina"
                                         label="L0XXXXXXX / A0XXXXXXX"
                                         single-line
                                         solo
@@ -34,19 +34,19 @@
                                         :errorMessages="this.errorPatient.confirmNomina"
                                         ></v-text-field>
                                 </v-col>
-                                <v-col class="px-0 py-0" cols="12">                                           
+                                <v-col class="px-0 py-0" cols="12">
                                         <span class="subtitle-1"> Nombre(s): <span class="red--text">*</span></span>
                                         <v-text-field
-                                        v-model="patient.name"                        
+                                        v-model="patient.name"
                                         label="Nombre(s)"
                                         single-line
                                         solo
                                         @change="this.validateName"
                                         :errorMessages="this.errorPatient.name"
                                         ></v-text-field>
-                                </v-col>    
-                                <v-col class="px-0 py-0" cols="12">    
-                                        <!-- {{this.patient.surname}}--->       
+                                </v-col>
+                                <v-col class="px-0 py-0" cols="12">
+                                        <!-- {{this.patient.surname}}--->
                                         <span class="subtitle-1"> Apellidos: <span class="red--text">*</span></span>
                                         <v-text-field
                                         v-model="patient.surname"
@@ -56,11 +56,11 @@
                                         @change="this.validateSurname"
                                         :errorMessages="this.errorPatient.surname"
                                         ></v-text-field>
-                                </v-col>      
+                                </v-col>
                                 <v-col class="px-0 py-0" cols="12">
-                                        <span class="subtitle-1"> Fecha de Nacimiento: <span class="red--text">*</span></span> 
+                                        <span class="subtitle-1"> Fecha de Nacimiento: <span class="red--text">*</span></span>
                                         <v-menu
-                                        ref="menu"                                                          
+                                        ref="menu"
                                         :close-on-content-click="false"
                                         :return-value.sync="patient.dateOfBirth"
                                         transition="scale-transition"
@@ -69,9 +69,9 @@
                                         >
                                         <template v-slot:activator="{ on }">
                                             <v-text-field
-                                            v-model="patient.dateOfBirth"                                            
+                                            v-model="patient.dateOfBirth"
                                             required
-                                            :rules="dobRules"         
+                                            :rules="dobRules"
                                             label="Fecha de Nacimiento"
                                             prepend-icon="event"
                                             readonly
@@ -82,7 +82,7 @@
                                             v-model="patient.dateOfBirth"
                                             :max="this.currentDate"
                                             no-subtitle-1
-                                            scrollable                                            
+                                            scrollable
                                             @change="this.validateDateOfBirth"
                                             locale="es"
                                         >
@@ -95,147 +95,139 @@
                                             >OK</v-btn>
                                         </v-date-picker>
                                         </v-menu>
-                                </v-col> 
-                                <v-col class="px-0 pt-0" cols="12">  
+                                </v-col>
+                                <v-col class="px-0 pt-0" cols="12">
                                   <span class="subtitle-1"> Edad: </span>
                                         <v-text-field
-                                        v-model="this.patient.age"                        
+                                        v-model="this.patient.age"
                                         label="-"
                                         single-line
                                         solo
                                         disabled
                                         :errorMessages="this.errorPatient.age"
-                                        ></v-text-field>                                              
+                                        ></v-text-field>
                                 </v-col>
-                                <v-col class="px-0 py-0" cols="12">                                           
+                                <v-col class="px-0 py-0" cols="12">
                                         <span class="subtitle-1"> Correo: <span class="red--text">*</span></span>
                                         <v-text-field
-                                        v-model="patient.email"                        
+                                        v-model="patient.email"
                                         label="ejemplo@ejemplo.com"
                                         single-line
                                         solo
                                         @change="this.validateEmail"
                                         :errorMessages="this.errorPatient.email"
                                         ></v-text-field>
-                                </v-col>                            
-                                <v-col class="px-0 py-0" cols="12">            
+                                </v-col>
+                                <v-col class="px-0 py-0" cols="12">
                                         <span class="subtitle-1"> Carrera / Departamento: <span class="red--text">*</span></span>
                                         <v-text-field
-                                        v-model="patient.department"       
+                                        v-model="patient.department"
                                         label="Carrera / Departamento"
                                         single-line
                                         solo
                                         @change="this.validateDepartment"
                                         :errorMessages="this.errorPatient.department"
                                         ></v-text-field>
-                                </v-col>     
-                                <v-col class="px-0 py-0" cols="12">            
+                                </v-col>
+                                <v-col class="px-0 py-0" cols="12">
                                         <span class="subtitle-1"> Género: <span class="red--text">*</span></span>
                                         <v-select
                                             :items="genderOptions"
                                             label="-Selecciona Género-"
-                                            v-model="patient.gender"     
+                                            v-model="patient.gender"
                                             solo
-                                            @change="this.validateGender" 
-                                            :errorMessages="this.errorPatient.gender"                                   
+                                            @change="this.validateGender"
+                                            :errorMessages="this.errorPatient.gender"
                                         ></v-select>
-                                </v-col>  
+                                </v-col>
                             </v-row>
                         </v-col>
                         <v-col cols="5">
-                            <v-row class="px-5">                                
-                                <v-col class="px-0 py-0" cols="12">            
+                            <v-row class="px-5">
+                                <v-col class="px-0 py-0" cols="12">
                                         <span class="subtitle-1"> Tipo de Paciente: <span class="red--text">*</span></span>
                                         <v-select
                                             :items="patientTypeOptions"
                                             label="-Selecciona Tipo-"
-                                            v-model="patient.patientType"     
+                                            v-model="patient.patientType"
                                             solo
-                                            @change="this.validatePatientType" 
-                                            :errorMessages="this.errorPatient.patientType"                                   
+                                            @change="this.validatePatientType"
+                                            :errorMessages="this.errorPatient.patientType"
                                         ></v-select>
-                                </v-col> 
-                                <v-col class="px-0 py-0" cols="12">            
-                                        <span class="subtitle-1"> Clase: <span class="red--text">*</span></span>
+                                </v-col>
+                                <v-col class="px-0 py-0" cols="12">
+                                        <span class="subtitle-1"> Clase: </span>
                                         <v-select
                                             :items="courseOptions"
                                             label="-Selecciona Clase-"
-                                            v-model="patient.course"     
+                                            v-model="patient.course"
                                             solo
-                                            @change="this.validateCourse" 
-                                            :errorMessages="this.errorPatient.course"                                   
                                         ></v-select>
-                                </v-col> 
-                                <v-col v-if="patient.course === 'Otro'" class="px-0 pl-10 py-0" cols="12">            
-                                        <span class="subtitle-1"> Otra Clase: <span class="red--text">*</span></span>
+                                </v-col>
+                                <v-col v-if="patient.course === 'Otro'" class="px-0 pl-10 py-0" cols="12">
+                                        <span class="subtitle-1"> Otra Clase: </span>
                                         <v-text-field
-                                        v-model="patient.otherCourse"                        
+                                        v-model="patient.otherCourse"
                                         label="Clase"
                                         single-line
                                         solo
-                                        @change="this.validateOtherCourse"
-                                        :errorMessages="this.errorPatient.otherCourse"
                                         ></v-text-field>
-                                </v-col>    
-                                <v-col class="px-0 py-0" cols="12">            
-                                        <span class="subtitle-1"> Objetivo: <span class="red--text">*</span></span>
+                                </v-col>
+                                <v-col class="px-0 py-0" cols="12">
+                                        <span class="subtitle-1"> Objetivo: </span>
                                         <v-select
                                             :items="goalsOptions"
                                             label="-Selecciona Objetivo-"
-                                            v-model="patient.goal"     
+                                            v-model="patient.goal"
                                             solo
-                                            @change="this.validateGoal" 
-                                            :errorMessages="this.errorPatient.goal"                                   
                                         ></v-select>
                                 </v-col>
-                                <v-col v-if="patient.goal === 'Otro'" class="px-0 pl-10 py-0" cols="12">            
-                                        <span class="subtitle-1"> Otro Objetivo: <span class="red--text">*</span></span>
+                                <v-col v-if="patient.goal === 'Otro'" class="px-0 pl-10 py-0" cols="12">
+                                        <span class="subtitle-1"> Otro Objetivo: </span>
                                         <v-text-field
-                                        v-model="patient.otherGoal"                        
+                                        v-model="patient.otherGoal"
                                         label="Objetivo"
                                         single-line
                                         solo
-                                        @change="this.validateOtherGoal"
-                                        :errorMessages="this.errorPatient.otherGoal"
                                         ></v-text-field>
-                                </v-col>                      
-                                <v-col class="px-0 py-0" cols="12">            
+                                </v-col>
+                                <v-col class="px-0 py-0" cols="12">
                                         <span class="subtitle-1"> Programa: <span class="red--text">*</span></span>
                                         <v-select
                                             :items="programOptions"
                                             label="-Selecciona Programa-"
-                                            v-model="patient.program"     
+                                            v-model="patient.program"
                                             solo
-                                            @change="this.validateProgram" 
-                                            :errorMessages="this.errorPatient.program"                                   
+                                            @change="this.validateProgram"
+                                            :errorMessages="this.errorPatient.program"
                                         ></v-select>
-                                </v-col>  
-                                <v-col v-if="patient.program === 'Otro'" class="px-0 pl-10 py-0" cols="12">            
+                                </v-col>
+                                <v-col v-if="patient.program === 'Otro'" class="px-0 pl-10 py-0" cols="12">
                                         <span class="subtitle-1"> Otro Programa: <span class="red--text">*</span></span>
                                         <v-text-field
-                                        v-model="patient.otherProgram"                        
+                                        v-model="patient.otherProgram"
                                         label="Programa"
                                         single-line
                                         solo
                                         @change="this.validateOtherProgram"
                                         :errorMessages="this.errorPatient.otherProgram"
                                         ></v-text-field>
-                                </v-col>  
-                                <v-col class="px-0 py-0" cols="12">            
+                                </v-col>
+                                <v-col class="px-0 py-0" cols="12">
                                         <span class="subtitle-1"> Talla: </span>
                                         <v-text-field
-                                        v-model="patient.size"       
+                                        v-model="patient.size"
                                         label="Talla"
                                         single-line
                                         solo
                                         :errorMessages="this.errorPatient.size"
                                         ></v-text-field>
-                                </v-col>   
+                                </v-col>
                             </v-row>
-                        </v-col>  
+                        </v-col>
                         <v-col cols="10" class="px-0 py-0" >
-                            <v-row class="d-flex flex-row-reverse mx-6 my-0">                                
-                                <v-col cols="7">                           
+                            <v-row class="d-flex flex-row-reverse mx-6 my-0">
+                                <v-col cols="7">
                                     <v-btn large block color="primary" @click="saveMyInfo">
                                     <v-icon align="center" medium color="white">mdi-content-save-outline</v-icon>
                                     Guardar e ir a Antecedentes Médicos
@@ -243,10 +235,10 @@
                                 </v-col>
                             </v-row>
                         </v-col>
-                            
-                    </v-row>     
+
+                    </v-row>
                 </v-card>
-                </v-col>          
+                </v-col>
         </v-row>
       </v-container>
   </div>
@@ -268,8 +260,8 @@ export default {
         menu: false,
         currentDate: "",
         dobRules: [v => !!v || "Fecha requerida"],
-        willUpdateInfo: false,   
-        userId: "",             
+        willUpdateInfo: false,
+        userId: "",
         patient: {
             nomina:"",
             confirmNomina:"",
@@ -291,7 +283,7 @@ export default {
             otherProgram:"",
             programToUpload:"",
             size:""
-        },        
+        },
         errorPatient:{
             nomina:"",
             confirmNomina:"",
@@ -313,7 +305,7 @@ export default {
             'Hombre',
             'Mujer',
             'Otro'
-        ],        
+        ],
         patientTypeOptions: [
             'Colaborador',
             'Alumnos'
@@ -337,25 +329,25 @@ export default {
             'Gimnasio libre acceso',
             'Voleibol mixto',
             'Yoga',
-            'Zumba', 
-            'Otro'            
+            'Zumba',
+            'Otro'
         ],
         goalsOptions: [
-            'Bajar de Peso', 
-            'Subir Masa Muscular', 
+            'Bajar de Peso',
+            'Subir Masa Muscular',
             'Cambio de hábitos',
-            'Control de Embarazo', 
+            'Control de Embarazo',
             'Bajar % grasa',
             'Subir de peso',
             'Otro'
         ],
         programOptions: [
             'PBI',
-            'CG', 
-            'Cortesía', 
-            'Clase deportiva', 
-            'Intramuros', 
-            'Representativos', 
+            'CG',
+            'Cortesía',
+            'Clase deportiva',
+            'Intramuros',
+            'Representativos',
             'Ev. Médica',
             'Líderes',
             'Otro'
@@ -370,10 +362,10 @@ export default {
     getCurrentDate(){
         var today = new Date();
         this.currentDate = this.dateToString(today)
-    },    
+    },
     dateStringToDate(date) {
         var parts =date.split('-');
-        var mydate = new Date(parts[0], parts[1] - 1, parts[2]); 
+        var mydate = new Date(parts[0], parts[1] - 1, parts[2]);
         return mydate;
     },
     validNomina(nomina) {
@@ -411,7 +403,7 @@ export default {
       }
     },
     validateName(){
-        if(!this.patient["name"]){  
+        if(!this.patient["name"]){
           this.isError = true
           this.errorPatient.name = "Campo requerido"
         }else{
@@ -428,7 +420,7 @@ export default {
     },
     calculateAge(birthday) { // birthday is a date
         var ageDifMs = Date.now() - birthday.getTime();
-        var ageDate = new Date(ageDifMs); 
+        var ageDate = new Date(ageDifMs);
         return Math.abs(ageDate.getUTCFullYear() - 1970);
     },
     validateDateOfBirth(){
@@ -467,7 +459,7 @@ export default {
         }else{
           this.errorPatient.gender = ""
         }
-    },    
+    },
     validatePatientType(){
         if(!this.patient["patientType"]){
           this.isError = true
@@ -477,49 +469,20 @@ export default {
         }
     },
     validateCourse(){
-        if(!this.patient["course"]){
-          this.isError = true
-          this.errorPatient.course = "Campo requerido"
-        }else{
-          this.errorPatient.course = ""
-          if(this.patient["course"] != "Otro"){
-            this.patient["courseToUpload"] = this.patient["course"] 
-          }          
-        }
-    },
-    validateOtherCourse(){
-        if(this.patient["course"] === "Otro" && !this.patient.otherCourse){
-          this.isError = true
-          this.errorPatient.otherCourse = "Campo requerido"
-        }else{
-          this.errorPatient.otherCourse = ""
-          if(this.patient["course"] === "Otro"){
-            this.patient["courseToUpload"] = this.patient["otherCourse"]  
+        if(this.patient["course"]){
+          this.patient["courseToUpload"] = this.patient["course"]
+          if(this.patient["course"] == "Otro"){
+            this.patient["courseToUpload"] = this.patient["otherCourse"]
           }
-        }        
+        }
     },
     validateGoal(){
-        if(!this.patient["goal"]){
-          this.isError = true
-          this.errorPatient.goal = "Campo requerido"
-        }else{
-          this.errorPatient.goal = ""
-          if(this.patient["goal"] != "Otro"){
-            this.patient["goalToUpload"] = this.patient["goal"] 
-          }          
-        }
-    },    
-    validateOtherGoal(){
-        if(this.patient["goal"] === "Otro" && !this.patient.otherGoal){
-          this.isError = true
-          this.errorPatient.otherGoal = "Campo requerido"
-        }else{
-          this.errorPatient.otherGoal = ""
-          if(this.patient["goal"] === "Otro"){
-            this.patient["goalToUpload"] = this.patient["otherGoal"]  
+        if(this.patient["goal"]){
+          this.patient["goalToUpload"] = this.patient["goal"]
+          if (this.patient["goal"] == "Otro"){
+            this.patient["goalToUpload"] = this.patient["otherGoal"]
           }
         }
-        
     },
     validateProgram(){
         if(!this.patient["program"]){
@@ -529,7 +492,7 @@ export default {
           this.errorPatient.program = ""
           if(this.patient["program"] != "Otro"){
             this.patient["programToUpload"] = this.patient["program"]
-          }          
+          }
         }
     },
     validateOtherProgram(){
@@ -555,11 +518,11 @@ export default {
     updateView(){
       if(this.getParameterByName("id", window.location)===null)
       {
-          this.willUpdateInfo = false;          
+          this.willUpdateInfo = false;
       }
       else{
-        this.willUpdateInfo = true; 
-        this.userId = this.getParameterByName("id", window.location);     
+        this.willUpdateInfo = true;
+        this.userId = this.getParameterByName("id", window.location);
         this.loadInfo()
       }
     },
@@ -575,12 +538,12 @@ export default {
             this.patient.name = history.name
             this.patient.surname = history.surname
             this.patient.dateOfBirth = history.birthdate.substr(0, 10)
-            this.patient.age = this.calculateAge(this.dateStringToDate(this.patient.dateOfBirth))            
+            this.patient.age = this.calculateAge(this.dateStringToDate(this.patient.dateOfBirth))
             this.patient.email = history.email
             this.patient.department = history.mayorArea
             this.patient.gender = history.gender
             this.patient.patientType = history.patientType
-            
+
             var courseExistsInList = this.courseOptions.includes(history.class);
             if(courseExistsInList == true)
             {
@@ -614,7 +577,7 @@ export default {
               this.patient.otherProgram = history.program
             }
             this.patient.size = history.size
-          
+
       }).catch(error =>{
             this.$swal("Error",error.response.data.error,"error")
         })
@@ -627,7 +590,7 @@ export default {
         this.saveMyInfoCreateNew()
       }
     },
-    saveMyInfoUpdate(){      
+    saveMyInfoUpdate(){
       this.isError = false
       this.validateNomina()
       this.validateName()
@@ -638,10 +601,8 @@ export default {
       this.validateGender()
       this.validatePatientType()
       this.validateCourse()
-      this.validateOtherCourse()
       this.validateGoal()
-      this.validateOtherGoal()
-      this.validateOtherProgram()      
+      this.validateOtherProgram()
       this.validateProgram()
       this.validateOtherProgram()
       if(this.isError){
@@ -674,11 +635,12 @@ export default {
               this.$router.push("./expedientemedico?id="+userId)
           })
       }).catch(error =>{
-          this.$swal("Error",error.response.data.error,"error")
+          console.error(error)
+          this.$swal("Error","Hubo un error guardando los datos","error")
       })
     },
     saveMyInfoCreateNew()
-    {      
+    {
       this.isError = false
       this.validateNomina()
       this.validateName()
@@ -689,10 +651,8 @@ export default {
       this.validateGender()
       this.validatePatientType()
       this.validateCourse()
-      this.validateOtherCourse()
       this.validateGoal()
-      this.validateOtherGoal()
-      this.validateOtherProgram()      
+      this.validateOtherProgram()
       this.validateProgram()
       this.validateOtherProgram()
       if(this.isError){
@@ -725,11 +685,12 @@ export default {
               this.$router.push("./expedientemedico?id="+newUserId)
           })
       }).catch(error =>{
-          this.$swal("Error",error.response.data.error,"error")
+          console.error(error)
+          this.$swal("Error","Hubo un error guardando los datos","error")
       })
     }
   },
-    created(){    
+    created(){
     this.updateView()
     this.getCurrentDate()
   }

@@ -197,6 +197,16 @@
           >Descargar Indicadore Pacientes</download-excel>
         </v-btn>
         </v-col>
+        <v-col align="center" cols="12">
+          <v-btn color="secondary" @click="downloadGlobal()">
+            Descargar Indicadores Globales
+          </v-btn>
+        </v-col>
+        <v-col align="center" cols="12">
+          <v-btn color="secondary" @click="downloadMyIndicators()">
+            Descargar mis indicadores
+          </v-btn>
+        </v-col>
         </v-row>
       </v-container>
   </div>
@@ -206,6 +216,7 @@
 import nutriheader from "../components/nutriheader.vue";
 const helper = require("../helper.js");
 import axios from "axios";
+import FileDownload from 'js-file-download';
 
 
 export default {
@@ -241,7 +252,7 @@ export default {
     ],    
     json_fields: {
       Programa: "program",
-      Muejeres: "womenNumber",
+      Mujeres: "womenNumber",
       Hombres: "menNumber",
       Otros:"otherNumber",
       Total: "totalNumber",
@@ -339,7 +350,27 @@ export default {
     getCurrentDate(){
         var today = new Date();
         this.rules.currentDate = this.dateToString(today)
-    }    
+    },
+    async downloadGlobal() {
+      const URL = helper.baseURL + "/nutricion/excel/global";
+      axios.defaults.headers.common['Authorization'] = "Bearer "+ localStorage.getItem("token");
+      const response = await axios.get(URL, {
+        responseType: 'blob',
+      });
+      if (response.data) {
+        FileDownload(response.data, 'IndicadoresGlobales.xlsx');
+      }
+    },
+    async downloadMyIndicators() {
+      const URL = helper.baseURL + "/nutricion/excel/nutri";
+      axios.defaults.headers.common['Authorization'] = "Bearer "+ localStorage.getItem("token");
+      const response = await axios.get(URL, {
+        responseType: 'blob',
+      });
+      if (response.data) {
+        FileDownload(response.data, 'MisIndicadores.xlsx');
+      }
+    }
   }
 };
 </script>

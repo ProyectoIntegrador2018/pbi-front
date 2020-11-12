@@ -241,7 +241,7 @@ export default {
     ],    
     json_fields: {
       Programa: "program",
-      Muejeres: "womenNumber",
+      Mujeres: "womenNumber",
       Hombres: "menNumber",
       Otros:"otherNumber",
       Total: "totalNumber",

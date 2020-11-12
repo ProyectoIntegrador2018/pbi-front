@@ -34,13 +34,13 @@ import HomeNutricion from './views/HomeNutricion.vue'
 import NutriRecordatorio from './views/NutriRecordatorio.vue'
 import NutriCita from './views/NutriCita.vue'
 import NutriPacientes from './views/NutriPacientes.vue'
+import NutriAgenda from './views/NutriAgenda.vue'
+import AgendaPublica from "./views/AgendaPublica.vue"
+
 import NutriListaCitas from './views/NutriListaCitas'
-import NutriPlan from './views/NutriPlan'
 
 import NutriReportesPacientes from './views/NutriReportesPacientes'
 import NutriIndicadores from './views/NutriIndicadores.vue'
-
-
 
 import axios from "axios";
 const helper = require("./helper.js");
@@ -271,6 +271,14 @@ const router = new Router({
             }
         },
         {
+            path: '/nutricion/agenda',
+            name: 'NutriAgenda',
+            component: NutriAgenda,
+            meta: {
+                isNutri: true
+            }
+        },
+        {
             path: '/nutricion/pacientes/reportes',
             name: 'NutriReportesPacientes',
             component: NutriReportesPacientes,
@@ -303,26 +311,50 @@ const router = new Router({
             }
         },
         {
-            path: '/nutricion/plan/:recordId',
-            name: 'NutriNewPlan',
-            component: NutriPlan,
-            meta: {
-                isNutri: true
-            },
-        },
-        {
-            path: '/nutricion/plan/:recordId/:dietId',
-            name: 'NutriPlan',
-            component: NutriPlan,
-            meta: {
-                isNutri: true
-            },
-        },
-        {
             path: '/nutricion/indicadores',
             name: 'NutriIndicadores',
             component: NutriIndicadores,
             meta:{isNutri: true}
+        },
+        {
+            path: '/nutricion/agendaPublica',
+            name: 'NutriAgendaPublica',
+            component: AgendaPublica,
+            meta:{isPublic: true}
+        },
+        {
+            path: '/oauthCallback',
+            name: "CalendarAuthCallback",
+            // component: calendarCallback,
+            meta: { isNutri: true },
+            beforeEnter: (to, from, next) => {
+                let code = to.query.code;
+                let error = to.query.error
+                if (to.query.code) {
+                    axios.post(`${helper.baseURL}/saveCalendarToken`, {
+                        calendarToken: code
+                    }, {
+                        headers: {
+                            Authorization: "Bearer "+ localStorage.getItem("token")
+                        }
+                    }).then(() => {
+                        console.log("done")
+                        next({ name: "HomeNutricion", query: { successCalendar: true } })
+                        return;
+                    }).catch(()=> {
+                            console.log("done"); 
+                            return next({ name: "HomeNutricion", query: { errorCalendar: true } })
+                            return;
+                        }
+                    )
+                // next({ path: "/nutricion/home" })
+                // TODO mostrar pantalla de que se puede cerrar tab.
+
+                } else {
+                    next({ name: "HomeNutricion", query: { errorCalendar: true } })
+                    return;
+                }
+            }
         }
     ]
 })
@@ -331,6 +363,11 @@ router.beforeEach((to, from, next) => {
     let autorizacionUsr = to.matched.some(record => record.meta.isUser)
     let autorizacionAdmin = to.matched.some(record => record.meta.isAdmin)
     let autorizacionNutri = to.matched.some(record => record.meta.isNutri)
+
+    if (to.meta.isPublic) {
+        next()
+        return;
+    }
 
     let notfound = to.matched.some(record => record.meta.notfound)
 
@@ -341,7 +378,6 @@ router.beforeEach((to, from, next) => {
 
     if (!autorizacionAdmin && !autorizacionUsr && !autorizacionNutri) {
         next()
-        return
     }
 
     if (autorizacionAdmin && !localStorage.getItem("token")) {
@@ -358,16 +394,17 @@ router.beforeEach((to, from, next) => {
 
     if (autorizacionNutri && !localStorage.getItem("token")) {
         next({
-            path: '/nutricion'
+            path: '/nutricion/login'
         })
     }
 
     if (localStorage.getItem("token")) {
-        const token = window.localStorage.getItem("token")
+        var token = window.localStorage.getItem("token")
         const URL = helper.baseURL + "/validate?token=" + token;
         axios
             .get(URL)
             .then(response => {
+                // Mandar a login correspondiente si el token es inválido
                 if (!response.data) {
                     window.localStorage.clear("token")
                     if (autorizacionAdmin) {
@@ -376,13 +413,16 @@ router.beforeEach((to, from, next) => {
                         })
                     } else if (autorizacionNutri) {
                         next({
-                            path: '/nutricion'
+                            path: '/nutricion/login'
                         })
+                        // }else if(autorizacionProf){
+                        //     next({ path: '/professor/login'})
                     } else {
                         next({
                             path: '/login'
                         })
                     }
+                    //Si el token es válido, checar que tipo de cuenta es
                 } else {
                     if (autorizacionAdmin) {
                         if (response.data.admin) {
@@ -401,9 +441,35 @@ router.beforeEach((to, from, next) => {
                                 path: '/404'
                             })
                         }
-                    }
+                    } /*
+                    else if(autorizacionProf) {
+                        if (response.data.professor) {
+                            next()
+                        } else {
+                            next({
+                                path: '/404'
+                            })
+                        }
+                    }*/
                     else {
-                        next();
+                        
+                        if (!autorizacionUsr) {
+                            if(response.data.nutritionist){
+                                next({
+                                    path: '/nutricion/home'
+                                })
+                            }if(response.data.admin){
+                                next({
+                                    path: '/admin/home'
+                                })
+                            }else{
+                                next({
+                                    path: '/home'
+                                })
+                            }
+                        } else {
+                            next()
+                        }
                     }
                 }
             }).catch((error) => {
@@ -414,8 +480,10 @@ router.beforeEach((to, from, next) => {
                     })
                 } else if (autorizacionNutri) {
                     next({
-                        path: '/nutricion'
+                        path: '/nutricion/login'
                     })
+                    // }else if(autorizacionProf){
+                    //     next({ path: '/professor/login'})
                 } else {
                     next({
                         path: '/login'

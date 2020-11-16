@@ -95,6 +95,22 @@
 							<!-- <v-text-field
                 label="Nombre"
             ></v-text-field> -->
+                            <p>¡Hola! ¿Como estas?</p>
+                            <p>Te explico lo que vamos a necesitar para la consulta:</p>
+
+                            <ul>
+                                <li>Bascula y/o cinta de medir.</li>
+                                <li>Cuaderno para anotaciones.</li>
+                                <li>Zoom: se envía el día de la consulta al correo.</li>
+                                <li>Ser muy puntual, ya que las consultas tiene una duración de 30 minutos.</li>
+                            </ul>
+                            <p>En caso de tener que cancelar la consulta, favor de avisar lo antes posible.</p>
+                            <br>
+
+                            <p>Por el momento, las consultas en linea no tienen un costo.</p>
+
+                            <br>
+                            <p>¡Muchas gracias por la confianza!</p>
 							<v-text-field
 								label="Correo"
 								v-model="patientMail"

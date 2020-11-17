@@ -7,15 +7,15 @@
         </v-row>
       </v-container>
       <nutriheader title="" secondRoute="/nutricion/pacientes"></nutriheader>
-      
+
       <v-container fluid my-5 px-md-12>
           <div>
-            <v-data-table 
-              ref="table" 
-              :headers="headers" 
-              :items="appointments" 
-              sort-by="date" 
-              sort-desc="true"
+            <v-data-table
+              ref="table"
+              :headers="headers"
+              :items="appointments"
+              sort-by="date"
+              :sort-desc="[true, false]"
               class="elevation-1"
               :loading="isLoading"
               :search="search"
@@ -63,7 +63,7 @@
               <template v-slot:item.record="{ item }">
                 <v-tooltip top>
                   <template v-slot:activator="{ on }">
-                    <v-btn icon v-on="on">  
+                    <v-btn icon v-on="on">
                       <v-icon small @click="verCita(item)">search</v-icon>
                     </v-btn>
                   </template>
@@ -89,7 +89,7 @@
               :headers="dietHeaders"
               :items="diets"
               sort-by="date"
-              sort-desc="true"
+              :sort-desc="[true, false]"
               class="elevation-1"
               :loading="isLoading"
               loading-text="Cargando... Favor de esperar"
@@ -125,7 +125,7 @@
           </div>
       </v-container>
 
-      <v-container> 
+      <v-container>
         <v-col cols="12" class=" text-center caption px-0 py-0">
                 <v-btn
                       elevation="2"
@@ -144,7 +144,7 @@
       </v-container>
 
 
- 
+
 
     </v-content>
   </div>
@@ -186,7 +186,7 @@ export default {
         { text: "Atendió", value:"nutritionist.name"},
         { text: "Acciones", align: "center", value: "record"}
       ],
-      dietHeaders: [ 
+      dietHeaders: [
         { text: "Fecha", value:"formatDate"},
         { text: "Frutas", value:"fruit"},
         { text: "Verduras", value:"vegetable"},
@@ -244,9 +244,6 @@ export default {
   },
   components: {
     nutriheader
-  },
-  updated: function() {
-    this.nutritionistName = this.appointments[0].nutritionist.name
   },
   methods: {
     momentDatetime(datetime, datetime_format) {
@@ -329,13 +326,13 @@ export default {
       this.clases = []
       axios.defaults.headers.common['Authorization'] = "Bearer "+ localStorage.getItem("token");
       const URL = helper.baseURL + "/nutricion/appointments/"+this.$route.params.id;
-      
+
       axios
       .get(URL)
-      .then((Response)=>{   
+      .then((Response)=>{
         this.appointments = Response.data
         this.isLoading = false
-        
+
         for (var i = 0; i < this.appointments.length; i++) {
             this.appointments[i].nutritionistName = this.appointments[i].nutritionist['name']
         }
@@ -343,7 +340,7 @@ export default {
       .catch((error)=>{
         this.$swal("Error",error.response.data.error,"error")
       })
-      
+
     },
     verCita(item){
       var route = '/nutricion/'+this.$route.params.id+'/cita?cid=' +item._id
@@ -352,8 +349,8 @@ export default {
   },
   created(){
     this.getPatient();
-    
+
   }
-  
+
 };
 </script>

@@ -227,7 +227,7 @@
                         </v-col>
                         <v-col cols="10" class="px-0 py-0" >
                             <v-row class="d-flex flex-row-reverse mx-6 my-0">
-                                <v-col cols="7">
+                                <v-col cols="12" lg="7">
                                     <v-btn large block color="primary" @click="saveMyInfo">
                                     <v-icon align="center" medium color="white">mdi-content-save-outline</v-icon>
                                     Guardar e ir a Antecedentes Médicos

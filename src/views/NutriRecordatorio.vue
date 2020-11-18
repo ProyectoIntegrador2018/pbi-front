@@ -4,7 +4,7 @@
     <v-row justify="center">
       <v-form ref="form" v-model="valid" lazy-validation>
       <!-- Desayuno -->
-      <v-col cols="11">
+      <v-col lg="11" cols="12">
         <v-card class="align-center" color="white">
           <v-card-title>
             <h1 class="headline">Desayuno</h1>
@@ -93,7 +93,7 @@
       </v-col>
 
       <!-- Comida -->
-      <v-col cols="11">
+      <v-col lg="11" cols="12">
         <v-card class="align-center" color="white">
           <v-card-title>
             <h1 class="headline">Comida</h1>
@@ -182,7 +182,7 @@
       </v-col>
 
       <!-- Cena -->
-      <v-col cols="11">
+      <v-col lg="11" cols="12">
         <v-card class="align-center" color="white">
           <v-card-title>
             <h1 class="headline">Cena</h1>
@@ -271,7 +271,7 @@
       </v-col>
 
       <!-- Totales -->
-      <v-col cols="11">
+      <v-col lg="11" cols="12">
         <v-card class="align-center" color="white">
           <v-card-title>
             <h1 class="headline">Totales</h1>

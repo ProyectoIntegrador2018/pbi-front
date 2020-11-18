@@ -38,6 +38,7 @@ import NutriAgenda from './views/NutriAgenda.vue'
 import AgendaPublica from "./views/AgendaPublica.vue"
 
 import NutriListaCitas from './views/NutriListaCitas'
+import NutriPlan from './views/NutriPlan'
 
 import NutriReportesPacientes from './views/NutriReportesPacientes'
 import NutriIndicadores from './views/NutriIndicadores.vue'
@@ -311,6 +312,22 @@ const router = new Router({
             }
         },
         {
+            path: '/nutricion/plan/:recordId',
+            name: 'NutriNewPlan',
+            component: NutriPlan,
+            meta: {
+                isNutri: true
+            },
+        },
+        {
+            path: '/nutricion/plan/:recordId/:dietId',
+            name: 'NutriPlan',
+            component: NutriPlan,
+            meta: {
+                isNutri: true
+            },
+        },
+        {
             path: '/nutricion/indicadores',
             name: 'NutriIndicadores',
             component: NutriIndicadores,
@@ -342,7 +359,7 @@ const router = new Router({
                         next({ name: "HomeNutricion", query: { successCalendar: true } })
                         return;
                     }).catch(()=> {
-                            console.log("done"); 
+                            console.log("done");
                             return next({ name: "HomeNutricion", query: { errorCalendar: true } })
                             return;
                         }
@@ -452,7 +469,7 @@ router.beforeEach((to, from, next) => {
                         }
                     }*/
                     else {
-                        
+
                         if (!autorizacionUsr) {
                             if(response.data.nutritionist){
                                 next({

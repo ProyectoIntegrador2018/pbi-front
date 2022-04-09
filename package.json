@@ -16,7 +16,7 @@
     "file-saver": "^2.0.2",
     "js-file-download": "^0.4.12",
     "materialize-css": "^1.0.0-rc.2",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "moment-timezone": "^0.5.27",
     "sweetalert2": "^9.3.13",
     "vee-validate": "^3.0.11",
